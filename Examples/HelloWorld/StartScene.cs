@@ -16,6 +16,9 @@ namespace Example
         {
             LoadTexture2d("awe", "awesomeface.png");
             AddBasicSprite("awe", "awe", 1);
+
+            SceneCanvas.SetColor(255, 255, 255);
+            SceneCanvas.SetFontSize(24);
         }
 
          public override void Update(double elapsed)
@@ -24,6 +27,9 @@ namespace Example
             {
                 Environment.Exit(0);
             }
+
+            SceneCanvas.DrawString( 10, 10, "Hello World MiCore2d!");
+
          }
     }
 }
