@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiCore2d", "MiCore2d\MiCore2d.csproj", "{D9210709-4FFB-4631-B24B-1F4C13F3845F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{D765753D-36CB-45A2-90E3-299DC3801239}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloWorld", "Examples\HelloWorld\HelloWorld.csproj", "{AD2C59D5-4915-4831-B7D8-F787B1673EDF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D9210709-4FFB-4631-B24B-1F4C13F3845F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9210709-4FFB-4631-B24B-1F4C13F3845F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9210709-4FFB-4631-B24B-1F4C13F3845F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9210709-4FFB-4631-B24B-1F4C13F3845F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD2C59D5-4915-4831-B7D8-F787B1673EDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD2C59D5-4915-4831-B7D8-F787B1673EDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD2C59D5-4915-4831-B7D8-F787B1673EDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD2C59D5-4915-4831-B7D8-F787B1673EDF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AD2C59D5-4915-4831-B7D8-F787B1673EDF} = {D765753D-36CB-45A2-90E3-299DC3801239}
+	EndGlobalSection
+EndGlobal
