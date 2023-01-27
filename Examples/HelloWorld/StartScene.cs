@@ -17,6 +17,8 @@ namespace Example
 
             SceneCanvas.SetColor(255, 255, 255);
             SceneCanvas.SetFontSize(24);
+            SceneCanvas.DrawString( 10, 10, "Hello World MiCore2d!");
+            SceneCanvas.Flush();
         }
 
          public override void Update(double elapsed)
@@ -25,8 +27,6 @@ namespace Example
             {
                 Environment.Exit(0);
             }
-
-            SceneCanvas.DrawString( 10, 10, "Hello World MiCore2d!");
          }
     }
 }

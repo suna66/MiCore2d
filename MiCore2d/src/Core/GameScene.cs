@@ -137,7 +137,7 @@ namespace MiCore2d
                         _rendererManager.Get(element.RendererName).Draw(_camera, element);
                 }
             }
-            _canvas.Flush();
+            _canvas.Update();
         }
 
         public Texture LoadTexture2d(string key, string filename)

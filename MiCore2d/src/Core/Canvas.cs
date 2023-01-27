@@ -146,6 +146,21 @@ namespace MiCore2d
             gfx.DrawPoint(x, y, paint);
         }
 
+        public void Update()
+        {
+            GL.BindVertexArray(_vertexArrayObject);
+            GL.BindTexture(TextureTarget.Texture2D, texture);
+
+            _shader.Use();
+            _shader.SetMatrix4("model", Matrix4.Identity);
+            _shader.SetMatrix4("view", _camera.GetViewMatrix());
+            _shader.SetMatrix4("projection", _camera.GetProjectionMatrix());
+            _shader.SetFloat("texAlpha", 0.0f);
+
+            GL.DrawElements(PrimitiveType.Triangles, _indices.Length, DrawElementsType.UnsignedInt, 0);
+            GL.BindVertexArray(0);
+        }
+
         public void Flush()
         {
             gfx.Flush();
@@ -159,13 +174,6 @@ namespace MiCore2d
               0, 0, bmp.Width, bmp.Height,
               PixelFormat.Rgba, PixelType.UnsignedByte, pixels);
 
-            _shader.Use();
-            _shader.SetMatrix4("model", Matrix4.Identity);
-            _shader.SetMatrix4("view", _camera.GetViewMatrix());
-            _shader.SetMatrix4("projection", _camera.GetProjectionMatrix());
-            _shader.SetFloat("texAlpha", 0.0f);
-
-            GL.DrawElements(PrimitiveType.Triangles, _indices.Length, DrawElementsType.UnsignedInt, 0);
             GL.BindVertexArray(0);
         }
 
