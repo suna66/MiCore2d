@@ -6,7 +6,7 @@ using SkiaSharp;
 namespace MiCore2d
 {
     public class Texture2dArray : Texture
-    {
+    {        
         public Texture2dArray(string[] files, int width, int height) : base(TextureTarget.Texture2DArray)
         {
             if (files == null || files.Length == 0)

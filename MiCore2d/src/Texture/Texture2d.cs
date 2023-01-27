@@ -13,26 +13,27 @@ namespace MiCore2d
             {
                 throw new ArgumentException("parameter is null");
             }
-            int width = 0, height = 0;
-            GenHandle();
-
             using(Stream stream = File.OpenRead(path))
             {
-                ImageResult image = ImageResult.FromStream(stream, ColorComponents.RedGreenBlueAlpha);
-                GL.TexImage2D(
-                    TextureTarget.Texture2D,
-                    0,
-                    PixelInternalFormat.Rgba,
-                    image.Width, image.Height,
-                    0,
-                    PixelFormat.Rgba, PixelType.UnsignedByte,
-                    image.Data
-                );
-                width = image.Width;
-                height = image.Height;
+                loadTexture(stream);
             }
-            Width = width;
-            Height = height;
+        }
+
+        private void loadTexture(Stream stream)
+        {
+            GenHandle();
+            ImageResult image = ImageResult.FromStream(stream, ColorComponents.RedGreenBlueAlpha);
+            GL.TexImage2D(
+                TextureTarget.Texture2D,
+                0,
+                PixelInternalFormat.Rgba,
+                image.Width, image.Height,
+                0,
+                PixelFormat.Rgba, PixelType.UnsignedByte,
+                image.Data
+            );
+            Width = image.Width;
+            Height = image.Height;
             SetTexParameter();
             UnBind();
             textureCount = 1;

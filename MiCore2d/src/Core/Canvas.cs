@@ -81,7 +81,10 @@ namespace MiCore2d
             //default setting for painting.
             font = SKTypeface.FromFamilyName("Serif");
             //font = SKTypeface.FromFile("font/ZenOldMincho-Medium.ttf");
-            font  = SKTypeface.FromStream(Resources.ReadStream("MiCore2d.resources.NotoSansJP-Regular.otf"));
+            using(Stream stream = Resources.ReadStream("MiCore2d.resources.NotoSansJP-Regular.otf"))
+            {
+                font  = SKTypeface.FromStream(stream);
+            }
             paint = new SKPaint();
             paint.Color = new SKColor(0, 0, 0);
             paint.Typeface = font;
