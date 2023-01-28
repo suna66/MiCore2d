@@ -42,6 +42,7 @@ namespace MiCore2d
             _rendererManager.Add("sepia", new SepiaTextureRenderer());
             _rendererManager.Add("array", new TextureArrayRenderer());
             _rendererManager.Add("line", new LineRenderer());
+            _rendererManager.Add("rect", new LineRenderer());
 
             _camera = new Camera(Vector3.UnitZ * _control.UnitCount, GW.Size.X / (float)GW.Size.Y);
             _camera.CameraType = CAMERA_TYPE.ORTHONGRAPHIC;
@@ -199,9 +200,9 @@ namespace MiCore2d
             return sprite;
         }
 
-        public Element  AddBlankObject(string key, float unit)
+        public Element  AddRectObject(string key, float unit)
         {
-            BlankSprite sprite = new BlankSprite(unit);
+            RectSprite sprite = new RectSprite(unit);
             sprite.SetParentGameScene(this);
             sprite.Name = key;
             _elemetDic.Add(key, sprite);
