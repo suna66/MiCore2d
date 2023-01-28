@@ -119,7 +119,17 @@ namespace MiCore2d
             _camera.AspectRatio = GW.Size.X / (float)GW.Size.Y;
         }
 
-        public virtual void OnMouseWheel(MouseWheelEventArgs e)
+        public virtual void OnMouseButton(MouseButton button, bool pressed)
+        {
+
+        }
+
+        public virtual void OnMouseMove(float x, float y, float deltaX, float deltaY)
+        {
+
+        }
+
+        public virtual void OnMouseWheel(float offsetX, float offsetY)
         {
 
         }

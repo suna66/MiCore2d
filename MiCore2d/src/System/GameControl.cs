@@ -83,10 +83,28 @@ namespace MiCore2d
             }
         }
 
+        public void OnMouseUp(MouseButtonEventArgs e)
+        {
+            if (GameSceneManager.Current != null)
+                GameSceneManager.Current.OnMouseButton(e.Button, e.IsPressed);
+        }
+
+        public void OnMouseDown(MouseButtonEventArgs e)
+        {
+            if (GameSceneManager.Current != null)
+                GameSceneManager.Current.OnMouseButton(e.Button, e.IsPressed);
+        }
+
+        public void OnMouseMove(MouseMoveEventArgs e)
+        {
+            if (GameSceneManager.Current != null)
+                GameSceneManager.Current.OnMouseMove(e.X, e.Y, e.DeltaX, e.DeltaY);
+        }
+
         public void OnMouseWheel(MouseWheelEventArgs e)
         {
             if (GameSceneManager.Current != null)
-                GameSceneManager.Current.OnMouseWheel(e);
+                GameSceneManager.Current.OnMouseWheel(e.OffsetX, e.OffsetY);
         }
     }
 }
