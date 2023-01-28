@@ -1,4 +1,5 @@
 using OpenTK.Windowing.GraphicsLibraryFramework;
+using OpenTK.Mathematics;
 using MiCore2d;
 
 namespace Example
@@ -14,6 +15,10 @@ namespace Example
         {
             LoadTexture2d("awe", "awesomeface.png");
             AddBasicSprite("awe", "awe", 3);
+
+            LineSprite lineSprite = (LineSprite)AddElement("line", new LineSprite());
+            lineSprite.SetColor(1.0f, 1.0f, 0.0f);
+            lineSprite.SetLine(new Vector3(-7.0f, 4.0f, 0.0f), new Vector3(7.0f, 4.0f, 0.0f));
 
             SceneCanvas.SetColor(255, 255, 255);
             SceneCanvas.SetFontSize(24);

@@ -63,7 +63,7 @@ namespace MiCore2d
 
         protected abstract void DrawElement(Camera camera, Element element);
 
-        public void Draw(Camera camera, Element element)
+        public virtual void Draw(Camera camera, Element element)
         {
             if (element.Visible)
             {
@@ -90,6 +90,11 @@ namespace MiCore2d
         protected void DrawInstanced(int instanceCount)
         {
             GL.DrawElementsInstanced(PrimitiveType.Triangles, indices.Length, DrawElementsType.UnsignedInt, 0, instanceCount);
+        }
+
+        protected void DrawLine()
+        {
+            GL.DrawElements(PrimitiveType.Lines, indices.Length, DrawElementsType.UnsignedInt, 0);
         }
 
         public void End()

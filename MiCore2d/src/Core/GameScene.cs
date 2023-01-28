@@ -41,6 +41,7 @@ namespace MiCore2d
             _rendererManager.Add("sprite", new TextureRenderer());
             _rendererManager.Add("sepia", new SepiaTextureRenderer());
             _rendererManager.Add("array", new TextureArrayRenderer());
+            _rendererManager.Add("line", new LineRenderer());
 
             _camera = new Camera(Vector3.UnitZ * _control.UnitCount, GW.Size.X / (float)GW.Size.Y);
             _camera.CameraType = CAMERA_TYPE.ORTHONGRAPHIC;
@@ -141,11 +142,13 @@ namespace MiCore2d
             while (enumerator.MoveNext())
             {
                 Element element = (Element)enumerator.Value;
-                if (element.Texture != null)
-                {
-                    if (element.Visible && !element.Destroyed)
-                        _rendererManager.Get(element.RendererName).Draw(_camera, element);
-                }
+                // if (element.Texture != null)
+                // {
+                //     if (element.Visible && !element.Destroyed)
+                //         _rendererManager.Get(element.RendererName).Draw(_camera, element);
+                // }
+                if (element.Visible && !element.Destroyed)
+                         _rendererManager.Get(element.RendererName).Draw(_camera, element);
             }
             _canvas.Update();
         }
