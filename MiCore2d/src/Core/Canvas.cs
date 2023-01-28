@@ -88,7 +88,9 @@ namespace MiCore2d
             paint = new SKPaint();
             paint.Color = new SKColor(0, 0, 0);
             paint.Typeface = font;
-            paint.TextSize = 16;
+            paint.TextSize = 12;
+            paint.Style = SKPaintStyle.Fill;
+            paint.StrokeWidth = 1;
 
             texture = GL.GenTexture();
             GL.BindTexture(TextureTarget.Texture2D, texture);
@@ -114,6 +116,18 @@ namespace MiCore2d
         public void SetFontSize(int size)
         {
             paint.TextSize = size;
+        }
+
+        //            paint.Style = SKPaintStyle.Stroke;
+        //    paint.StrokeWidth = 3;
+        public void SetPaintStyle(SKPaintStyle style)
+        {
+            paint.Style = style;
+        }
+
+        public void SetStrokeWidth(int width)
+        {
+            paint.StrokeWidth = width;
         }
 
         public void Clear()
