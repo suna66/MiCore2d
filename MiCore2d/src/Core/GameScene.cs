@@ -172,7 +172,7 @@ namespace MiCore2d
             return texture;
         }
 
-        public Element AddBasicSprite(string key, string textureName, float unit)
+        public Element AddBasicSprite(string key, string textureName, float unit, string layerName = "default")
         {
             Texture texture = _textureManager.GetTexture(textureName);
             if (texture is not Texture2d)
@@ -182,11 +182,12 @@ namespace MiCore2d
             BasicSprite sprite = new BasicSprite(texture, unit);
             sprite.SetParentGameScene(this);
             sprite.Name = key;
+            sprite.Layer = layerName;
             _elemetDic.Add(key, sprite);
             return sprite;
         }
 
-        public Element AddAnimationSprite(string key, string textureName, float unit)
+        public Element AddAnimationSprite(string key, string textureName, float unit, string layerName = "default")
         {
             Texture texture = _textureManager.GetTexture(textureName);
             if (texture is not Texture2dArray && texture is not Texture2dTile)
@@ -196,20 +197,22 @@ namespace MiCore2d
             AnimationSprite sprite = new AnimationSprite(texture, unit);
             sprite.SetParentGameScene(this);
             sprite.Name = key;
+            sprite.Layer = layerName;
             _elemetDic.Add(key, sprite);
             return sprite;
         }
 
-        public Element AddRectSprite(string key, float unit)
+        public Element AddRectSprite(string key, float unit, string layerName = "default")
         {
             RectSprite sprite = new RectSprite(unit);
             sprite.SetParentGameScene(this);
             sprite.Name = key;
+            sprite.Layer = layerName;
             _elemetDic.Add(key, sprite);
             return sprite;
         }
 
-        public Element AddMultiSprite(string key, string textureName, float unit, float[] mapdata, bool is_dynamic)
+        public Element AddMultiSprite(string key, string textureName, float unit, float[] mapdata, bool is_dynamic, string layerName = "default")
         {
             Texture texture = _textureManager.GetTexture(textureName);
             if (texture is not Texture2dTile)
@@ -221,15 +224,17 @@ namespace MiCore2d
             sprite.SetParentGameScene(this);
             sprite.Name = key;
             sprite.RendererName = key;
+            sprite.Layer = layerName;
             sprite.SetPositionMap(mapdata);
             _elemetDic.Add(key, sprite);
             return sprite;
         }
 
-        public Element AddElement(string key, Element element)
+        public Element AddElement(string key, Element element, string layerName = "default")
         {
             element.SetParentGameScene(this);
             element.Name = key;
+            element.Layer = layerName;
             _elemetDic.Add(key, element);
             return element;
         }
