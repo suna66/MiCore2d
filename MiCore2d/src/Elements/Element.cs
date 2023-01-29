@@ -30,6 +30,8 @@ namespace MiCore2d
 
         public string Name { get; set; }
 
+        public string Layer {get; set; } = "default";
+
         public bool Visible { get; set; }
 
         public bool Destroyed { get; set; }
@@ -134,6 +136,19 @@ namespace MiCore2d
             set
             {
                 position = value;
+            }
+        }
+
+        public Vector2 Position2d
+        {
+            get
+            {
+                return new Vector2(position.X, position.Y);
+            }
+            set
+            {
+                position.X = value.X;
+                position.Y = value.Y;
             }
         }
 

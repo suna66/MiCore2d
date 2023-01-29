@@ -19,11 +19,18 @@ namespace MiCore2d
             _point2 = new Vector2(x2, y2);  
         }
 
+        public Line(Vector2 value1, Vector2 value2)
+        {
+            _point1 = value1;
+            _point2 = value2;  
+        }
+
+
         public Vector2 Point1 { get => _point1; }
 
         public Vector2 Point2 { get => _point2; }
 
-        private bool LineCollision(Line other)
+        public bool LineCollision(Line other)
         {
             float uA = ((other.Point2.X - other.Point1.X) * (_point1.Y - other.Point1.Y) - (other.Point2.Y - other.Point1.Y) * (_point1.X - other.Point1.X)) 
                     / ((other.Point2.Y - other.Point1.Y) * (_point2.X - _point1.X) - (other.Point2.X - other.Point1.X) * (_point2.Y - _point1.Y));
