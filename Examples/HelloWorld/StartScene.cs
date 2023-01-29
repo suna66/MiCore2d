@@ -18,7 +18,14 @@ namespace Example
 
             LineSprite lineSprite = (LineSprite)AddElement("line", new LineSprite());
             lineSprite.SetColor(1.0f, 1.0f, 0.0f);
-            lineSprite.SetLine(new Vector3(-7.0f, 4.0f, 0.0f), new Vector3(7.0f, 4.0f, 0.0f));
+            lineSprite.SetLine(new Vector3(-4.0f, 4.0f, 0.0f), new Vector3(4.0f, 4.0f, 0.0f));
+
+            RectSprite rect = (RectSprite)AddRectSprite("rect", 1);
+            rect.Alpha = 0.4f;
+            rect.Position = new Vector3(0.0f, 4.0f, 0.0f);
+            rect.SetScaleX(14.0f);
+            rect.SetScaleY(2.0f);
+            rect.SetColor(0.1f, 0.5f, 0.0f);
 
             SceneCanvas.SetColor(255, 255, 255);
             SceneCanvas.SetFontSize(24);

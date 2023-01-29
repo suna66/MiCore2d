@@ -194,6 +194,16 @@ namespace MiCore2d
             scale.Z = 1.0f;
         }
 
+        public void SetScaleX(float value)
+        {
+            scale.X = unit * value;
+        }
+
+        public void SetScaleY(float value)
+        {
+            scale.Y = unit * value;
+        }
+
         public float Alpha
         {
             get => alpha;
