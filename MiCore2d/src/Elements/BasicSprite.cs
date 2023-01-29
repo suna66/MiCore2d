@@ -4,6 +4,8 @@ namespace MiCore2d
 {
     public class BasicSprite : Element
     {
+        private bool disposed = false;
+        
         public BasicSprite(Texture tex, float unitSize) : base()
         {
             texture = tex;
@@ -13,6 +15,15 @@ namespace MiCore2d
             scale.Y = unitSize;
             unit = unitSize;
             RendererName = "sprite";
+        }
+
+        public override void Dispose()
+        {
+            if (!disposed)
+            {
+                base.Dispose();
+                disposed = true;                
+            }
         }
     }
 }

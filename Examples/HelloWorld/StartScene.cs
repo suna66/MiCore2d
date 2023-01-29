@@ -2,7 +2,7 @@ using OpenTK.Windowing.GraphicsLibraryFramework;
 using OpenTK.Mathematics;
 using MiCore2d;
 
-namespace Example
+namespace Example.HelloWorld
 {
     public class StartScene : GameScene
     {
@@ -13,7 +13,7 @@ namespace Example
 
         public override void Load()
         {
-            LoadTexture2d("awe", "awesomeface.png");
+            LoadTexture2d("awe", "../resource/awesomeface.png");
             AddBasicSprite("awe", "awe", 3);
 
             LineSprite lineSprite = (LineSprite)AddElement("line", new LineSprite());
