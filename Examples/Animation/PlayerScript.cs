@@ -7,7 +7,6 @@ namespace Example.Animation
 {
     public class PlayerScript : ObjectScript
     {
-        private SolidBody body;
         private AnimationTile animation;
 
         public override void Start()
@@ -19,7 +18,7 @@ namespace Example.Animation
             animation.AddPattern("up", new int[] {9, 10, 11} );
             animation.SwitchPattern("down");
 
-            body = element.AddComponent<SolidBody>();
+            element.AddComponent<SolidBody>();
             element.AddComponent<BoxCollider>();
         }
 
