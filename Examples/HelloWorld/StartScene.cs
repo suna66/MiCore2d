@@ -31,6 +31,13 @@ namespace Example.HelloWorld
             SceneCanvas.SetFontSize(24);
             SceneCanvas.DrawString( 10, 10, "Hello World MiCore2d!");
             SceneCanvas.Flush();
+
+            TimeUtil.Delay(1000, debugMsg);
+        }
+
+        private void debugMsg()
+        {
+            Log.Info("output logs");
         }
 
          public override void Update(double elapsed)
