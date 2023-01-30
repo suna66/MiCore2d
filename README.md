@@ -38,3 +38,9 @@ $ dotnet build
   - Rectangle
   - Circle
   - String
+
+
+## Special Thanks
+
+- images
+  - [ぴぽや倉庫](https://pipoya.net/sozai/)
