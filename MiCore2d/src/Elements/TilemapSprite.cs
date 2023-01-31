@@ -7,7 +7,7 @@ namespace MiCore2d
     {
         private float[]? _positionMap = null;
 
-        public TilemapSprite(Texture tex, float unitSize, string rendererName) : base()
+        public TilemapSprite(Texture tex, float unitSize) : base()
         {
             texture = tex;
 
@@ -15,7 +15,6 @@ namespace MiCore2d
             scale.X = unitSize * aspectRatio;
             scale.Y = unitSize;
             unit = unitSize;
-            RendererName = rendererName;
         }
 
         public void SetPositionMap(float[] map)

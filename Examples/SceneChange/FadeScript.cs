@@ -5,7 +5,7 @@ using MiCore2d;
 
 namespace Example.SceneChange
 {
-    public class FadeScript : ObjectScript
+    public class FadeScript : Controller
     {
         public bool IsAnimation {get; set;} = false;
 

@@ -42,7 +42,7 @@ namespace MiCore2d
             _rendererManager.Add("sepia", new SepiaTextureRenderer());
             _rendererManager.Add("array", new TextureArrayRenderer());
             _rendererManager.Add("line", new LineRenderer());
-            _rendererManager.Add("rect", new PolygonRenderer());
+            _rendererManager.Add("plain", new PolygonRenderer());
 
             _camera = new Camera(Vector3.UnitZ * _control.UnitCount, GW.Size.X / (float)GW.Size.Y);
             _camera.CameraType = CAMERA_TYPE.ORTHONGRAPHIC;
@@ -143,13 +143,10 @@ namespace MiCore2d
             while (enumerator.MoveNext())
             {
                 Element element = (Element)enumerator.Value;
-                // if (element.Texture != null)
-                // {
-                //     if (element.Visible && !element.Destroyed)
-                //         _rendererManager.Get(element.RendererName).Draw(_camera, element);
-                // }
                 if (element.Visible && !element.Destroyed)
-                         _rendererManager.Get(element.RendererName).Draw(_camera, element);
+                {
+                    element.GetRenderer().Draw(_camera, element);
+                }
             }
             _canvas.Update();
         }
@@ -172,37 +169,7 @@ namespace MiCore2d
             return texture;
         }
 
-        // public Element AddBasicSprite(string key, string textureName, float unit, string layerName = "default")
-        // {
-        //     Texture texture = _textureManager.GetTexture(textureName);
-        //     if (texture is not Texture2d)
-        //     {
-        //         throw new InvalidCastException($"{textureName} texture is not Texture2d");
-        //     }
-        //     BasicSprite sprite = new BasicSprite(texture, unit);
-        //     sprite.SetParentGameScene(this);
-        //     sprite.Name = key;
-        //     sprite.Layer = layerName;
-        //     _elemetDic.Add(key, sprite);
-        //     return sprite;
-        // }
-
-        // public Element AddAnimationSprite(string key, string textureName, float unit, string layerName = "default")
-        // {
-        //     Texture texture = _textureManager.GetTexture(textureName);
-        //     if (texture is not Texture2dArray && texture is not Texture2dTile)
-        //     {
-        //         throw new InvalidCastException($"{textureName} texture is not Texture2d or Texture2dTile");
-        //     }
-        //     AnimationSprite sprite = new AnimationSprite(texture, unit);
-        //     sprite.SetParentGameScene(this);
-        //     sprite.Name = key;
-        //     sprite.Layer = layerName;
-        //     _elemetDic.Add(key, sprite);
-        //     return sprite;
-        // }
-
-        public Element AddImageSprite(string key, string textureName, float unit, string layerName = "default")
+        public ImageSprite AddImageSprite(string key, string textureName, float unit, string layerName = "default")
         {
             string rendererName = "sprite";
             Texture texture = _textureManager.GetTexture(textureName);
@@ -214,22 +181,34 @@ namespace MiCore2d
             sprite.SetParentGameScene(this);
             sprite.Name = key;
             sprite.Layer = layerName;
-            sprite.RendererName = rendererName;
+            sprite.SetRenderer(_rendererManager.Get(rendererName));
             _elemetDic.Add(key, sprite);
             return sprite;
         }
 
-        public Element AddPlainSprite(string key, float unit, string layerName = "default")
+        public PlainSprite AddPlainSprite(string key, float unit, string layerName = "default")
         {
             PlainSprite sprite = new PlainSprite(unit);
             sprite.SetParentGameScene(this);
             sprite.Name = key;
             sprite.Layer = layerName;
+            sprite.SetRenderer(_rendererManager.Get("plain"));
             _elemetDic.Add(key, sprite);
             return sprite;
         }
 
-        public Element AddTilemapSprite(string key, string textureName, float unit, float[] mapdata, bool is_dynamic, string layerName = "default")
+        public LineSprite AddLineSprite(string key, string layerName = "default")
+        {
+            LineSprite sprite = new LineSprite();
+            sprite.SetParentGameScene(this);
+            sprite.Name = key;
+            sprite.Layer = layerName;
+            sprite.SetRenderer(_rendererManager.Get("line"));
+            _elemetDic.Add(key, sprite);
+            return sprite;
+        }
+
+        public TilemapSprite AddTilemapSprite(string key, string textureName, float unit, float[] mapdata, bool is_dynamic, string layerName = "default")
         {
             Texture texture = _textureManager.GetTexture(textureName);
             if (texture is not Texture2dTile)
@@ -237,12 +216,12 @@ namespace MiCore2d
                 throw new InvalidCastException($"{textureName} texture is not  Texture2dTile");
             }
             _rendererManager.Add(key, new InstancedRenderer(mapdata, is_dynamic));
-            TilemapSprite sprite = new TilemapSprite(texture, unit, key);
+            TilemapSprite sprite = new TilemapSprite(texture, unit);
             sprite.SetParentGameScene(this);
             sprite.Name = key;
-            sprite.RendererName = key;
             sprite.Layer = layerName;
             sprite.SetPositionMap(mapdata);
+            sprite.SetRenderer(_rendererManager.Get(key));
             _elemetDic.Add(key, sprite);
             return sprite;
         }

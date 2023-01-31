@@ -5,23 +5,12 @@ namespace MiCore2d
 {
     public class RendererManager
     {
-        //private static RendererManager _instance = null!;
-
         private Dictionary<string, Renderer> _rendererDic;
 
         public RendererManager()
         {
             _rendererDic = new Dictionary<string, Renderer>();
         }
-
-        // public static RendererManager GetInstance()
-        // {
-        //     if (_instance == null)
-        //     {
-        //         _instance = new RendererManager();
-        //     }
-        //     return _instance;
-        // }
 
         public void Add(string key, Renderer renderer)
         {

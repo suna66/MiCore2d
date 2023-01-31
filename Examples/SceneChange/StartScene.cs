@@ -13,14 +13,14 @@ namespace Example.SceneChange
             LoadTexture2dTile("girl", "../resource/GirlTile001.png", 32, 32);
             LoadTexture2d("awe", "../resource/awesomeface.png");
 
-            Element sprite = AddImageSprite("girl", "girl", 1);
+            ImageSprite sprite = AddImageSprite("girl", "girl", 1);
             sprite.AddComponent<PlayerScript>();
 
-            Element awe = AddImageSprite("awe", "awe", 1);
+            ImageSprite awe = AddImageSprite("awe", "awe", 1);
             awe.SetPosition(0.0f, -3.0f, 0.0f);
             awe.AddComponent<BoxCollider>();
 
-            PlainSprite fade = (PlainSprite)AddPlainSprite("fade", 1);
+            PlainSprite fade = AddPlainSprite("fade", 1);
             fade.SetScaleX(14.0f);
             fade.SetScaleY(10.0f);
             fade.SetColor(0.0f, 0.0f, 0.0f);

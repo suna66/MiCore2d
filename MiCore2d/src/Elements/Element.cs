@@ -17,11 +17,12 @@ namespace MiCore2d
 
         private List<Component>? _componentList = null;
 
+        private Renderer? _renderer = null!;
+
         public Element()
         {
             Visible = true;
             Destroyed = false;
-            RendererName = "sprite";
         }
 
         ~Element()
@@ -36,7 +37,17 @@ namespace MiCore2d
 
         public bool Destroyed { get; set; }
 
-        public string RendererName { get; set; }
+        //public string RendererName { get; set; }
+
+        public void SetRenderer(Renderer renderer)
+        {
+            _renderer = renderer;
+        }
+
+        public Renderer GetRenderer()
+        {
+            return _renderer;
+        }
 
         public T AddComponent<T>() where T : new()
         {

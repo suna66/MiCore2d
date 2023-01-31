@@ -45,7 +45,7 @@ namespace MiCore2d
                 return;
             }
 
-            ObjectScript objScript = element.GetComponent<ObjectScript>();
+            Controller objScript = element.GetComponent<Controller>();
             IDictionaryEnumerator enumerator = gameScene.GetElementEnumerator();
 
             while (enumerator.MoveNext())
@@ -163,19 +163,19 @@ namespace MiCore2d
             }
         }
 
-        public virtual void OnEnterCollision(ObjectScript objScript, Element target)
+        public virtual void OnEnterCollision(Controller objScript, Element target)
         {
             if (objScript != null)
                 objScript.OnEnterCollision(target);
         }
 
-        public virtual void OnStayCollision(ObjectScript objScript, Element target)
+        public virtual void OnStayCollision(Controller objScript, Element target)
         {
             if (objScript != null)
                 objScript.OnStayCollision(target);
         }
 
-        public virtual void OnLeaveCollision(ObjectScript objScript, Element target)
+        public virtual void OnLeaveCollision(Controller objScript, Element target)
         {
             if (objScript != null)
                 objScript.OnLeaveCollision(target);

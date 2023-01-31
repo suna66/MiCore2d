@@ -14,7 +14,6 @@ namespace MiCore2d
             scale.X = unitSize * aspectRatio;
             scale.Y = unitSize;
             unit = unitSize;
-            RendererName = "sprite";
         }
 
         public override void Dispose()

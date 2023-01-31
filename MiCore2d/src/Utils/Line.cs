@@ -1,3 +1,4 @@
+#pragma warning disable CS8765
 using OpenTK.Mathematics;
 
 namespace MiCore2d

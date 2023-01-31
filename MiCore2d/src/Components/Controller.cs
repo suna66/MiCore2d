@@ -3,11 +3,11 @@ using OpenTK.Mathematics;
 
 namespace MiCore2d
 {
-    public abstract class ObjectScript : Component
+    public abstract class Controller : Component
     {
         private bool _start = false;
 
-        public ObjectScript()
+        public Controller()
         {
         }
 

@@ -13,7 +13,6 @@ namespace MiCore2d
             scale.X = unitSize;
             scale.Y = unitSize;
             unit = unitSize;
-            RendererName = "rect";
         }
 
         public void SetColor(float r, float g, float b)

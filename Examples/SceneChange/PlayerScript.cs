@@ -5,7 +5,7 @@ using MiCore2d;
 
 namespace Example.SceneChange
 {
-    public class PlayerScript : ObjectScript
+    public class PlayerScript : Controller
     {
         private AnimationTile animation;
         private FadeScript? fadeScript = null;

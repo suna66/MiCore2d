@@ -12,7 +12,6 @@ namespace MiCore2d
         {
             texture = null;
             unit = 1.0f;
-            RendererName = "line";
         }
 
         public Vector3 StartPosition
