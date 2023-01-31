@@ -2,11 +2,11 @@ using OpenTK.Mathematics;
 
 namespace MiCore2d
 {
-    public class RectSprite : Element
+    public class PlainSprite : Element
     {
         private Vector3 _color = Vector3.One;
 
-        public RectSprite(float unitSize) : base()
+        public PlainSprite(float unitSize) : base()
         {
             texture = null;
 

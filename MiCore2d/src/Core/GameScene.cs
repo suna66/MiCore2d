@@ -202,9 +202,9 @@ namespace MiCore2d
             return sprite;
         }
 
-        public Element AddRectSprite(string key, float unit, string layerName = "default")
+        public Element AddPlainSprite(string key, float unit, string layerName = "default")
         {
-            RectSprite sprite = new RectSprite(unit);
+            PlainSprite sprite = new PlainSprite(unit);
             sprite.SetParentGameScene(this);
             sprite.Name = key;
             sprite.Layer = layerName;

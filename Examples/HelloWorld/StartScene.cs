@@ -20,7 +20,7 @@ namespace Example.HelloWorld
             lineSprite.SetColor(1.0f, 1.0f, 0.0f);
             lineSprite.SetLine(new Vector3(-4.0f, 4.0f, 0.0f), new Vector3(4.0f, 4.0f, 0.0f));
 
-            RectSprite rect = (RectSprite)AddRectSprite("rect", 1);
+            PlainSprite rect = (PlainSprite)AddPlainSprite("rect", 1);
             rect.Alpha = 0.4f;
             rect.Position = new Vector3(0.0f, 4.0f, 0.0f);
             rect.SetScaleX(14.0f);

@@ -24,10 +24,10 @@ namespace MiCore2d
         {
             Matrix4 model = (element.Rotation * Matrix4.CreateScale(element.Scale)) * Matrix4.CreateTranslation(element.Position);
 
-            if (element is not RectSprite)
+            if (element is not PlainSprite)
                 return;
 
-            RectSprite sprite = (RectSprite)element;
+            PlainSprite sprite = (PlainSprite)element;
 
             GL.BindVertexArray(vertexArrayObject);
             shader.Use();

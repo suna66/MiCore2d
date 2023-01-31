@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloWorld", "Examples\Hell
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Animation", "Examples\Animation\Animation.csproj", "{B6429710-F84F-4A09-B196-B7C06E0A067E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SceneChange", "Examples\SceneChange\SceneChange.csproj", "{C7BBA65F-7E9E-4B92-9B6E-85D809ED1805}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,9 +34,14 @@ Global
 		{B6429710-F84F-4A09-B196-B7C06E0A067E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6429710-F84F-4A09-B196-B7C06E0A067E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6429710-F84F-4A09-B196-B7C06E0A067E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7BBA65F-7E9E-4B92-9B6E-85D809ED1805}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7BBA65F-7E9E-4B92-9B6E-85D809ED1805}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7BBA65F-7E9E-4B92-9B6E-85D809ED1805}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7BBA65F-7E9E-4B92-9B6E-85D809ED1805}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{AD2C59D5-4915-4831-B7D8-F787B1673EDF} = {D765753D-36CB-45A2-90E3-299DC3801239}
 		{B6429710-F84F-4A09-B196-B7C06E0A067E} = {D765753D-36CB-45A2-90E3-299DC3801239}
+		{C7BBA65F-7E9E-4B92-9B6E-85D809ED1805} = {D765753D-36CB-45A2-90E3-299DC3801239}
 	EndGlobalSection
 EndGlobal
