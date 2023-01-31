@@ -14,7 +14,7 @@ namespace Example.HelloWorld
         public override void Load()
         {
             LoadTexture2d("awe", "../resource/awesomeface.png");
-            AddBasicSprite("awe", "awe", 3);
+            AddImageSprite("awe", "awe", 3);
 
             LineSprite lineSprite = (LineSprite)AddElement("line", new LineSprite());
             lineSprite.SetColor(1.0f, 1.0f, 0.0f);

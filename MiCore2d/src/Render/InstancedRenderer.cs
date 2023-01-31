@@ -65,9 +65,9 @@ namespace MiCore2d
 
             if (_isDynamic)
             {
-                if (element is MultiSprite)
+                if (element is TilemapSprite)
                 {
-                    float[] map = ((MultiSprite)element).GetPosisionMap();
+                    float[] map = ((TilemapSprite)element).GetPosisionMap();
                     UpdateTilemap(map);
                 }
             }

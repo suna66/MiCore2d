@@ -2,11 +2,11 @@ using OpenTK.Mathematics;
 
 namespace MiCore2d
 {
-    public class BasicSprite : Element
+    public class ImageSprite : Element
     {
         private bool disposed = false;
         
-        public BasicSprite(Texture tex, float unitSize) : base()
+        public ImageSprite(Texture tex, float unitSize) : base()
         {
             texture = tex;
 

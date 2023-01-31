@@ -22,8 +22,7 @@ namespace Example.SceneChange
             element.AddComponent<SolidBody>();
             element.AddComponent<BoxCollider>();
 
-            Element fadeElement = gameScene.GetElement("fade");
-            fadeScript = fadeElement.GetComponent<FadeScript>();
+            fadeScript = gameScene.GetElement("fade").GetComponent<FadeScript>();
         }
 
         public override void Update(double elapsed)

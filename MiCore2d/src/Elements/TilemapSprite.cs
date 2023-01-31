@@ -3,11 +3,11 @@ using OpenTK.Mathematics;
 
 namespace MiCore2d
 {
-    public class MultiSprite : Element
+    public class TilemapSprite : Element
     {
         private float[]? _positionMap = null;
 
-        public MultiSprite(Texture tex, float unitSize, string rendererName) : base()
+        public TilemapSprite(Texture tex, float unitSize, string rendererName) : base()
         {
             texture = tex;
 

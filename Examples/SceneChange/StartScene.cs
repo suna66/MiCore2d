@@ -13,10 +13,10 @@ namespace Example.SceneChange
             LoadTexture2dTile("girl", "../resource/GirlTile001.png", 32, 32);
             LoadTexture2d("awe", "../resource/awesomeface.png");
 
-            Element sprite = AddAnimationSprite("girl", "girl", 1);
+            Element sprite = AddImageSprite("girl", "girl", 1);
             sprite.AddComponent<PlayerScript>();
 
-            Element awe = AddBasicSprite("awe", "awe", 1);
+            Element awe = AddImageSprite("awe", "awe", 1);
             awe.SetPosition(0.0f, -3.0f, 0.0f);
             awe.AddComponent<BoxCollider>();
 
@@ -25,6 +25,11 @@ namespace Example.SceneChange
             fade.SetScaleY(10.0f);
             fade.SetColor(0.0f, 0.0f, 0.0f);
             fadeScript = fade.AddComponent<FadeScript>();
+
+            SceneCanvas.SetColor(255, 255, 0);
+            SceneCanvas.SetFontSize(24);
+            SceneCanvas.DrawString( 10, 10, "Press Space Key to change scene");
+            SceneCanvas.Flush();
         }
 
          public override void Update(double elapsed)

@@ -17,18 +17,18 @@ namespace MiCore2d
 
         public float[] GetTilemapData()
         {
-            MultiSprite sprite = (MultiSprite)element;
+            TilemapSprite sprite = (TilemapSprite)element;
             return sprite.GetPosisionMap();
         }
 
         public bool CheckCollidedMap(Collider target, out Vector3 collidedPos)
         {
             collidedPos = Vector3.Zero;
-            if (element is not MultiSprite)
+            if (element is not TilemapSprite)
             {
                 return false;
             }
-            MultiSprite sprite = (MultiSprite)element;
+            TilemapSprite sprite = (TilemapSprite)element;
             float[] map = sprite.GetPosisionMap();
             int num = map.Length;
             bool isCollision = false;

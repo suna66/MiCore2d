@@ -172,32 +172,49 @@ namespace MiCore2d
             return texture;
         }
 
-        public Element AddBasicSprite(string key, string textureName, float unit, string layerName = "default")
-        {
-            Texture texture = _textureManager.GetTexture(textureName);
-            if (texture is not Texture2d)
-            {
-                throw new InvalidCastException($"{textureName} texture is not Texture2d");
-            }
-            BasicSprite sprite = new BasicSprite(texture, unit);
-            sprite.SetParentGameScene(this);
-            sprite.Name = key;
-            sprite.Layer = layerName;
-            _elemetDic.Add(key, sprite);
-            return sprite;
-        }
+        // public Element AddBasicSprite(string key, string textureName, float unit, string layerName = "default")
+        // {
+        //     Texture texture = _textureManager.GetTexture(textureName);
+        //     if (texture is not Texture2d)
+        //     {
+        //         throw new InvalidCastException($"{textureName} texture is not Texture2d");
+        //     }
+        //     BasicSprite sprite = new BasicSprite(texture, unit);
+        //     sprite.SetParentGameScene(this);
+        //     sprite.Name = key;
+        //     sprite.Layer = layerName;
+        //     _elemetDic.Add(key, sprite);
+        //     return sprite;
+        // }
 
-        public Element AddAnimationSprite(string key, string textureName, float unit, string layerName = "default")
+        // public Element AddAnimationSprite(string key, string textureName, float unit, string layerName = "default")
+        // {
+        //     Texture texture = _textureManager.GetTexture(textureName);
+        //     if (texture is not Texture2dArray && texture is not Texture2dTile)
+        //     {
+        //         throw new InvalidCastException($"{textureName} texture is not Texture2d or Texture2dTile");
+        //     }
+        //     AnimationSprite sprite = new AnimationSprite(texture, unit);
+        //     sprite.SetParentGameScene(this);
+        //     sprite.Name = key;
+        //     sprite.Layer = layerName;
+        //     _elemetDic.Add(key, sprite);
+        //     return sprite;
+        // }
+
+        public Element AddImageSprite(string key, string textureName, float unit, string layerName = "default")
         {
+            string rendererName = "sprite";
             Texture texture = _textureManager.GetTexture(textureName);
-            if (texture is not Texture2dArray && texture is not Texture2dTile)
+            if (texture is Texture2dArray || texture is Texture2dTile)
             {
-                throw new InvalidCastException($"{textureName} texture is not Texture2d or Texture2dTile");
+                rendererName = "array";
             }
-            AnimationSprite sprite = new AnimationSprite(texture, unit);
+            ImageSprite sprite = new ImageSprite(texture, unit);
             sprite.SetParentGameScene(this);
             sprite.Name = key;
             sprite.Layer = layerName;
+            sprite.RendererName = rendererName;
             _elemetDic.Add(key, sprite);
             return sprite;
         }
@@ -212,7 +229,7 @@ namespace MiCore2d
             return sprite;
         }
 
-        public Element AddMultiSprite(string key, string textureName, float unit, float[] mapdata, bool is_dynamic, string layerName = "default")
+        public Element AddTilemapSprite(string key, string textureName, float unit, float[] mapdata, bool is_dynamic, string layerName = "default")
         {
             Texture texture = _textureManager.GetTexture(textureName);
             if (texture is not Texture2dTile)
@@ -220,7 +237,7 @@ namespace MiCore2d
                 throw new InvalidCastException($"{textureName} texture is not  Texture2dTile");
             }
             _rendererManager.Add(key, new InstancedRenderer(mapdata, is_dynamic));
-            MultiSprite sprite = new MultiSprite(texture, unit, key);
+            TilemapSprite sprite = new TilemapSprite(texture, unit, key);
             sprite.SetParentGameScene(this);
             sprite.Name = key;
             sprite.RendererName = key;
