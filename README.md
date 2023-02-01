@@ -21,14 +21,15 @@ $ dotnet build
 
 - Scene Management
 - 2D Graphics System
-  - BasicSprite - normal texture renderring
-  - Amination - Using texture array or tilemap texture
+  - ImageSprite - normal texture sprite
+  - PlainSprite - rectangle sharp sprite
+  - LineSprite - line sharp sprite
   - MultiSprite - instanced renderring sprite
 - Components
   - Animation
   - Collider
   - SolidBoy
-  - ObjectScript
+  - Controller
 - Audio
   - WAV
   - MP3
