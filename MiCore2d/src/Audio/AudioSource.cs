@@ -110,6 +110,15 @@ namespace MiCore2d.Audio
             addAudioClipDic(key, data, sampleRate, channel, isLoop);
         }
 
+        public bool IsLoaded(string key)
+        {
+            if (clipDic.ContainsKey(key))
+            {
+                return true;
+            }
+            return false;
+        }
+
         public void Play(string key)
         {
             if (disposed)
@@ -120,6 +129,19 @@ namespace MiCore2d.Audio
             {
                 AL.SourcePlay(clipDic[key].source);
             }
+        }
+
+        public bool IsPlay(string key)
+        {
+            if (clipDic.ContainsKey(key))
+            {
+                ALSourceState state = getSourceState(key);
+                if (state == ALSourceState.Playing)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public void Stop(string key)

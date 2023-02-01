@@ -65,7 +65,7 @@ namespace MiCore2d
             if (renew)
                 _rendererList = new List<Renderer>();
             else
-                _rendererList = null;
+                _rendererList = null!;
         }
 
         public void Dispose()

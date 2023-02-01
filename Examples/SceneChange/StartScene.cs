@@ -2,6 +2,7 @@
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using OpenTK.Mathematics;
 using MiCore2d;
+using MiCore2d.Audio;
 
 namespace Example.SceneChange
 {
@@ -10,19 +11,21 @@ namespace Example.SceneChange
         private FadeScript? fadeScript = null;
         public override void Load()
         {
-            // LoadTexture2dTile("girl", "../resource/GirlTile001.png", 32, 32);
-            // LoadTexture2d("awe", "../resource/awesomeface.png");
-
-            //ImageSprite sprite = AddImageSprite("girl", "girl", 1);
+            if (!Audio.IsPlay("sound1"))
+            {
+                if (!Audio.IsLoaded("sound1"))
+                {
+                    Audio.LoadMP3File("sound1", "../resource/sanjinooyatsu.mp3", true);
+                }
+                Audio.Play("sound1");
+            }
             ImageSprite sprite = new ImageSprite(LoadTexture2dTile("girl", "../resource/GirlTile001.png", 32, 32), 1);
             sprite.AddComponent<PlayerScript>();
 
-            //ImageSprite awe = AddImageSprite("awe", "awe", 1);
             ImageSprite awe = new ImageSprite(LoadTexture2d("awe", "../resource/awesomeface.png"), 1);
             awe.SetPosition(0.0f, -3.0f, 0.0f);
             awe.AddComponent<BoxCollider>();
 
-            //PlainSprite fade = AddPlainSprite("fade", 1);
             PlainSprite fade = new PlainSprite(1);
             fade.SetScaleX(14.0f);
             fade.SetScaleY(10.0f);
