@@ -69,8 +69,16 @@ namespace MiCore2d
             {
                 return false;
             }
-            Box2 box = new Box2(localPos.X - WidthUnit, localPos.Y - HeightUnit, localPos.X + WidthUnit, localPos.Y + HeightUnit);
-            return box.Contains(target.GetBox2());
+            if (
+                (localPos.X + WidthUnit >= targetPos.X - target.WidthUnit)
+                && (localPos.X - WidthUnit <= targetPos.X + target.WidthUnit)
+                && (localPos.Y + HeightUnit >= targetPos.Y - target.HeightUnit)
+                && (localPos.Y - HeightUnit <= targetPos.Y + target.HeightUnit)
+            )
+            {
+                return true;
+            }
+            return false;
         }
 
         private bool checkCollision(Vector3 localPos, CircleCollider target)

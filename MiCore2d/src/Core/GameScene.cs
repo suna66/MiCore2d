@@ -133,8 +133,7 @@ namespace MiCore2d
                 Element element = (Element)enumerator.Value;
                 if (element.Visible && !element.Destroyed)
                 {
-                    if (element.DrawRenderer != null)
-                        element.DrawRenderer.Draw(_camera, element);
+                    element.DrawRenderer?.Draw(_camera, element);
                 }
             }
             _canvas.Update();

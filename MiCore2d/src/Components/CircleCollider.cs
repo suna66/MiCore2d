@@ -27,16 +27,6 @@ namespace MiCore2d
             }
             return is_collision;
         }
-
-        private void doSolidCollision(BoxCollider target)
-        {
-
-        }
-
-        private void doSolidCollision(CircleCollider target)
-        {
-
-        }
         
         private bool checkCollision(CircleCollider target)
         {

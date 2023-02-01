@@ -15,11 +15,6 @@ namespace MiCore2d
             HeightUnit = element.Scale.Y / 2;
         }
 
-        public virtual Box2 GetBox2()
-        {
-            return new Box2(element.Position.X - WidthUnit, element.Position.Y - HeightUnit, element.Position.X + WidthUnit, element.Position.Y + HeightUnit);
-        }
-
         public override bool Collision(Collider target)
         {
             bool is_collision = false;
@@ -34,17 +29,6 @@ namespace MiCore2d
             return is_collision;
         }
 
-        private void doSolidCollision(BoxCollider target)
-        {
-            Vector3 thisPos = GetPosition();
-            Vector3 targetPos = target.GetPosition();
-        }
-
-        private void doSolidCollision(CircleCollider target)
-        {
-            
-        }
-
         private bool checkCollision(BoxCollider target)
         {
             Vector3 thisPos = GetPosition();
@@ -53,7 +37,17 @@ namespace MiCore2d
             {
                 return false;
             }
-            return GetBox2().Contains(target.GetBox2());
+            
+            if (
+                (thisPos.X + WidthUnit >= targetPos.X - target.WidthUnit)
+                && (thisPos.X - WidthUnit <= targetPos.X + target.WidthUnit)
+                && (thisPos.Y + HeightUnit >= targetPos.Y - target.HeightUnit)
+                && (thisPos.Y - HeightUnit <= targetPos.Y + target.HeightUnit)
+            )
+            {
+                return true;
+            }
+            return false;
         }
 
         private bool checkCollision(CircleCollider target)
