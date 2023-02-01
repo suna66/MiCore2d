@@ -43,6 +43,6 @@ $ dotnet build
 ## Special Thanks
 
 - images
-  - GirlTile001.png [](https://pipoya.net/sozai/)
+  - GirlTile001.png -  [https://pipoya.net/sozai/](https://pipoya.net/sozai/)
 - sounds
-  - sanjinooyatsu.mp3 [](https://amachamusic.chagasi.com/)
+  - sanjinooyatsu.mp3 -  [https://amachamusic.chagasi.com/](https://amachamusic.chagasi.com/)
