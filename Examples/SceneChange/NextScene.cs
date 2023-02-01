@@ -10,8 +10,6 @@ namespace Example.SceneChange
         private FadeScript? fadeScript = null;
         public override void Load()
         {
-            // LoadTexture2dTile("girl", "../resource/GirlTile001.png", 32, 32);
-            // LoadTexture2d("awe", "../resource/awesomeface.png");
             ImageSprite sprite = new ImageSprite(LoadTexture2dTile("girl", "../resource/GirlTile001.png", 32, 32), 1);
             sprite.AddComponent<PlayerScript>();
 
