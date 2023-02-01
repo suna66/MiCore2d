@@ -13,6 +13,7 @@ namespace MiCore2d
             scale.X = unitSize;
             scale.Y = unitSize;
             unit = unitSize;
+            DrawRenderer = RendererManager.GetInstance().GetRenderer<PolygonRenderer>();
         }
 
         public void SetColor(float r, float g, float b)

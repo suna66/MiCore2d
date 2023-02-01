@@ -5,55 +5,72 @@ namespace MiCore2d
 {
     public class RendererManager
     {
-        private Dictionary<string, Renderer> _rendererDic;
+        private static RendererManager? _instance = null;
+        private List<Renderer> _rendererList;
 
-        public RendererManager()
+        public static RendererManager GetInstance()
         {
-            _rendererDic = new Dictionary<string, Renderer>();
-        }
-
-        public void Add(string key, Renderer renderer)
-        {
-            _rendererDic.Add(key, renderer);
-        }
-
-        public Renderer Get(string key)
-        {
-            return _rendererDic[key];
-        }
-
-        public bool HasKey(string key)
-        {
-            return _rendererDic.ContainsKey(key);
-        }
-
-        public int GetTextureCount()
-        {
-            return _rendererDic.Count;
-        }
-
-        public void Remove(string key)
-        {
-            if (HasKey(key))
+            if (_instance == null)
             {
-                _rendererDic[key].Dispose();
-                _rendererDic.Remove(key);
+                _instance = new RendererManager();
+                _instance.AddRenderer<TextureRenderer>();
+                _instance.AddRenderer<SepiaTextureRenderer>();
+                _instance.AddRenderer<TextureArrayRenderer>();
+                _instance.AddRenderer<LineRenderer>();
+                _instance.AddRenderer<PolygonRenderer>();
             }
+            return _instance;
         }
 
-        public void Clear()
+        private RendererManager()
         {
-            foreach (KeyValuePair<string, Renderer> kvp in _rendererDic)
+            _rendererList = new List<Renderer>();
+        }
+
+        public T AddRenderer<T>() where T : new()
+        {
+            T obj = new T();
+            if (obj is Renderer)
             {
-                Renderer renderer = kvp.Value;
+                Renderer renderer = (Renderer)(object)obj;
+                _rendererList.Add(renderer);
+                return obj;
+            }
+            throw new InvalidCastException("cannot convert to Renderer Object");
+        }
+
+        public T GetRenderer<T>()
+        {
+            foreach(Renderer c in _rendererList)
+            {
+                if (c is T)
+                {
+                    return (T)(object)c;
+                }
+            }
+            return (T)(object)null!;
+        }
+
+        public int GetCount()
+        {
+            return _rendererList.Count;
+        }
+
+        public void Clear(bool renew)
+        {
+            foreach (Renderer renderer in _rendererList)
+            {
                 renderer.Dispose();
             }
-            _rendererDic.Clear();
+            if (renew)
+                _rendererList = new List<Renderer>();
+            else
+                _rendererList = null;
         }
 
         public void Dispose()
         {
-            Clear();
+            Clear(false);
             GC.SuppressFinalize(this);
         }
     }

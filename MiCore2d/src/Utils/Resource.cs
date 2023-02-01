@@ -4,13 +4,16 @@ using System.IO;
 
 namespace MiCore2d
 {
+    /// <summary>
+    ///   Resources. resource accesser class
+    /// </summary>
     public class Resources
     {
-        private Resources()
-        {
-
-        }
-
+        /// <summary>
+        /// ReadStream
+        /// </summary>
+        /// <param name="path">resource path</param>
+        /// <returns>data stream</returns>
         public static Stream ReadStream(string path)
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
@@ -18,6 +21,11 @@ namespace MiCore2d
             return stream ?? throw new FileNotFoundException($"Not Found Resource {path}");
         }
 
+        /// <summary>
+        /// ReadText
+        /// </summary>
+        /// <param name="path">resource path</param>
+        /// <returns>string data</returns>
         public static string ReadText(string path)
         {
             using(Stream stream = ReadStream(path))

@@ -3,9 +3,9 @@ using OpenTK.Mathematics;
 
 namespace MiCore2d
 {
-    public class InstancedRenderer : Renderer
+    public abstract class InstancedRenderer : Renderer
     {
-        private float[] _tilemap;
+        private float[]? _tilemap = null;
 
         protected int tilemapBufferObject;
 
@@ -13,24 +13,27 @@ namespace MiCore2d
 
         private bool _isDynamic = false;
 
-        public InstancedRenderer(float [] tilemap, bool is_dynamic)
+        public InstancedRenderer()
         {
-            //LoadShader("resources/instanced.vert", "resources/instanced.frag");
             LoadShader(Resources.ReadText("MiCore2d.resources.instanced.vert"), Resources.ReadText("MiCore2d.resources.instanced.frag"));
-
-            _tilemap = tilemap;
-            BufferUsageHint hint = BufferUsageHint.StaticDraw;
-            if (is_dynamic)
-            {
-                hint = BufferUsageHint.DynamicDraw;
-                _isDynamic = true;
-            }
             Init();
-            InitTilemap(hint);
         }
 
-        protected void InitTilemap(BufferUsageHint hint)
+        protected abstract float[] CreateMapData();
+
+        protected abstract bool GetDynamic();
+
+        protected virtual void InitTilemap()
         {
+            _tilemap = CreateMapData();
+            _isDynamic = GetDynamic();
+
+            BufferUsageHint hint = BufferUsageHint.StaticDraw;
+            if (_isDynamic)
+            {
+                hint = BufferUsageHint.DynamicDraw;
+            }
+
             GL.BindVertexArray(vertexArrayObject);
 
             tilemapBufferObject = GL.GenBuffer();
@@ -61,6 +64,10 @@ namespace MiCore2d
 
         protected override void DrawElement(Camera camera, Element element)
         {
+            if (_tilemap == null)
+            {
+                return;
+            }
             Matrix4 model = (element.Rotation * Matrix4.CreateScale(element.Scale)) * Matrix4.CreateTranslation(element.Position);
 
             if (_isDynamic)

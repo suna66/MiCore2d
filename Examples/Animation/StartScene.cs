@@ -9,14 +9,15 @@ namespace Example.Animation
     {
         public override void Load()
         {
-            LoadTexture2dTile("girl", "../resource/GirlTile001.png", 32, 32);
-            LoadTexture2d("awe", "../resource/awesomeface.png");
-            ImageSprite sprite = AddImageSprite("girl", "girl", 1);
+            ImageSprite sprite = new ImageSprite(LoadTexture2dTile("girl", "../resource/GirlTile001.png", 32, 32), 1);
             sprite.AddComponent<PlayerScript>();
 
-            ImageSprite awe = AddImageSprite("awe", "awe", 3);
+            ImageSprite awe = new ImageSprite(LoadTexture2d("awe", "../resource/awesomeface.png"), 3);
             awe.SetPosition(0.0f, -3.0f, 0.0f);
             awe.AddComponent<BoxCollider>();
+
+            AddElement("girl", sprite);
+            AddElement("awe", awe);
         }
 
          public override void Update(double elapsed)

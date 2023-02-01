@@ -17,8 +17,6 @@ namespace MiCore2d
 
         private Camera? _camera = null;
 
-        private RendererManager _rendererManager;
-
         private GameControl? _control = null;
 
         private Canvas? _canvas = null;
@@ -29,20 +27,12 @@ namespace MiCore2d
 
             _textureManager = new TextureManager();
 
-            _rendererManager = new RendererManager();
-
             CurrentTime = 0;
         }
 
         public void Init(GameControl control)
         {
             _control = control;
-            
-            _rendererManager.Add("sprite", new TextureRenderer());
-            _rendererManager.Add("sepia", new SepiaTextureRenderer());
-            _rendererManager.Add("array", new TextureArrayRenderer());
-            _rendererManager.Add("line", new LineRenderer());
-            _rendererManager.Add("plain", new PolygonRenderer());
 
             _camera = new Camera(Vector3.UnitZ * _control.UnitCount, GW.Size.X / (float)GW.Size.Y);
             _camera.CameraType = CAMERA_TYPE.ORTHONGRAPHIC;
@@ -83,7 +73,6 @@ namespace MiCore2d
         {
             _elemetDic.Clear();
             _textureManager.Clear();
-            _rendererManager.Dispose();
             if (_canvas != null)
             {
                 _canvas.Dispose();
@@ -95,7 +84,6 @@ namespace MiCore2d
             bool hasDestory = false;
             string deleteKey = string.Empty;
             IDictionaryEnumerator enumerator = _elemetDic.GetEnumerator();
-            //foreach (KeyValuePair<string, Element> kvp in _elemetDic)
             while (enumerator.MoveNext())
             {
                 Element element = (Element)enumerator.Value;
@@ -145,7 +133,8 @@ namespace MiCore2d
                 Element element = (Element)enumerator.Value;
                 if (element.Visible && !element.Destroyed)
                 {
-                    element.GetRenderer().Draw(_camera, element);
+                    if (element.DrawRenderer != null)
+                        element.DrawRenderer.Draw(_camera, element);
                 }
             }
             _canvas.Update();
@@ -167,63 +156,6 @@ namespace MiCore2d
         {
             Texture texture = _textureManager.LoadTexture2dTile(key, filename, tileW, tileH);
             return texture;
-        }
-
-        public ImageSprite AddImageSprite(string key, string textureName, float unit, string layerName = "default")
-        {
-            string rendererName = "sprite";
-            Texture texture = _textureManager.GetTexture(textureName);
-            if (texture is Texture2dArray || texture is Texture2dTile)
-            {
-                rendererName = "array";
-            }
-            ImageSprite sprite = new ImageSprite(texture, unit);
-            sprite.SetParentGameScene(this);
-            sprite.Name = key;
-            sprite.Layer = layerName;
-            sprite.SetRenderer(_rendererManager.Get(rendererName));
-            _elemetDic.Add(key, sprite);
-            return sprite;
-        }
-
-        public PlainSprite AddPlainSprite(string key, float unit, string layerName = "default")
-        {
-            PlainSprite sprite = new PlainSprite(unit);
-            sprite.SetParentGameScene(this);
-            sprite.Name = key;
-            sprite.Layer = layerName;
-            sprite.SetRenderer(_rendererManager.Get("plain"));
-            _elemetDic.Add(key, sprite);
-            return sprite;
-        }
-
-        public LineSprite AddLineSprite(string key, string layerName = "default")
-        {
-            LineSprite sprite = new LineSprite();
-            sprite.SetParentGameScene(this);
-            sprite.Name = key;
-            sprite.Layer = layerName;
-            sprite.SetRenderer(_rendererManager.Get("line"));
-            _elemetDic.Add(key, sprite);
-            return sprite;
-        }
-
-        public TilemapSprite AddTilemapSprite(string key, string textureName, float unit, float[] mapdata, bool is_dynamic, string layerName = "default")
-        {
-            Texture texture = _textureManager.GetTexture(textureName);
-            if (texture is not Texture2dTile)
-            {
-                throw new InvalidCastException($"{textureName} texture is not  Texture2dTile");
-            }
-            _rendererManager.Add(key, new InstancedRenderer(mapdata, is_dynamic));
-            TilemapSprite sprite = new TilemapSprite(texture, unit);
-            sprite.SetParentGameScene(this);
-            sprite.Name = key;
-            sprite.Layer = layerName;
-            sprite.SetPositionMap(mapdata);
-            sprite.SetRenderer(_rendererManager.Get(key));
-            _elemetDic.Add(key, sprite);
-            return sprite;
         }
 
         public Element AddElement(string key, Element element, string layerName = "default")

@@ -13,20 +13,22 @@ namespace Example.HelloWorld
 
         public override void Load()
         {
-            LoadTexture2d("awe", "../resource/awesomeface.png");
-            AddImageSprite("awe", "awe", 3);
-
-            //LineSprite lineSprite = (LineSprite)AddElement("line", new LineSprite());
-            LineSprite lineSprite = AddLineSprite("line");
+            ImageSprite awe = new ImageSprite(LoadTexture2d("awe", "../resource/awesomeface.png"), 3);
+            
+            LineSprite lineSprite = new LineSprite();
             lineSprite.SetColor(1.0f, 1.0f, 0.0f);
             lineSprite.SetLine(new Vector3(-4.0f, 4.0f, 0.0f), new Vector3(4.0f, 4.0f, 0.0f));
 
-            PlainSprite rect = AddPlainSprite("rect", 1);
+            PlainSprite rect = new PlainSprite(1);
             rect.Alpha = 0.4f;
             rect.Position = new Vector3(0.0f, 4.0f, 0.0f);
             rect.SetScaleX(14.0f);
             rect.SetScaleY(2.0f);
             rect.SetColor(0.1f, 0.5f, 0.0f);
+
+            AddElement("aws", awe);
+            AddElement("line", lineSprite);
+            AddElement("rect", rect);
 
             SceneCanvas.SetColor(255, 255, 255);
             SceneCanvas.SetFontSize(24);

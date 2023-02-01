@@ -10,21 +10,28 @@ namespace Example.SceneChange
         private FadeScript? fadeScript = null;
         public override void Load()
         {
-            LoadTexture2dTile("girl", "../resource/GirlTile001.png", 32, 32);
-            LoadTexture2d("awe", "../resource/awesomeface.png");
+            // LoadTexture2dTile("girl", "../resource/GirlTile001.png", 32, 32);
+            // LoadTexture2d("awe", "../resource/awesomeface.png");
 
-            ImageSprite sprite = AddImageSprite("girl", "girl", 1);
+            //ImageSprite sprite = AddImageSprite("girl", "girl", 1);
+            ImageSprite sprite = new ImageSprite(LoadTexture2dTile("girl", "../resource/GirlTile001.png", 32, 32), 1);
             sprite.AddComponent<PlayerScript>();
 
-            ImageSprite awe = AddImageSprite("awe", "awe", 1);
+            //ImageSprite awe = AddImageSprite("awe", "awe", 1);
+            ImageSprite awe = new ImageSprite(LoadTexture2d("awe", "../resource/awesomeface.png"), 1);
             awe.SetPosition(0.0f, -3.0f, 0.0f);
             awe.AddComponent<BoxCollider>();
 
-            PlainSprite fade = AddPlainSprite("fade", 1);
+            //PlainSprite fade = AddPlainSprite("fade", 1);
+            PlainSprite fade = new PlainSprite(1);
             fade.SetScaleX(14.0f);
             fade.SetScaleY(10.0f);
             fade.SetColor(0.0f, 0.0f, 0.0f);
             fadeScript = fade.AddComponent<FadeScript>();
+
+            AddElement("girl", sprite);
+            AddElement("awe", awe);
+            AddElement("fade", fade);
 
             SceneCanvas.SetColor(255, 255, 0);
             SceneCanvas.SetFontSize(24);

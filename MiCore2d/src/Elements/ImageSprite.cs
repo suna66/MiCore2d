@@ -14,6 +14,14 @@ namespace MiCore2d
             scale.X = unitSize * aspectRatio;
             scale.Y = unitSize;
             unit = unitSize;
+            if (tex is Texture2dArray || tex is Texture2dTile)
+            {
+                DrawRenderer = RendererManager.GetInstance().GetRenderer<TextureArrayRenderer>();
+            }
+            else
+            {
+                DrawRenderer = RendererManager.GetInstance().GetRenderer<TextureRenderer>();
+            }
         }
 
         public override void Dispose()
