@@ -24,7 +24,8 @@ namespace Example.SceneChange
 
             ImageSprite awe = new ImageSprite(LoadTexture2d("awe", "../resource/awesomeface.png"), 1);
             awe.SetPosition(0.0f, -3.0f, 0.0f);
-            awe.AddComponent<BoxCollider>();
+            Collider awe_collider = awe.AddComponent<BoxCollider>();
+            awe_collider.IsTrigger = true;
 
             PlainSprite fade = new PlainSprite(1);
             fade.SetScaleX(14.0f);
@@ -36,9 +37,9 @@ namespace Example.SceneChange
             AddElement("awe", awe);
             AddElement("fade", fade);
 
-            SceneCanvas.SetColor(255, 255, 0);
+            SceneCanvas.SetColor(255, 255, 255);
             SceneCanvas.SetFontSize(24);
-            SceneCanvas.DrawString( 10, 10, "Press Space Key to change scene");
+            SceneCanvas.DrawString( 10, 10, "Hit to Awesomeface image!");
             SceneCanvas.Flush();
         }
 
@@ -50,11 +51,6 @@ namespace Example.SceneChange
             if (KeyState.IsKeyDown(Keys.Escape))
             {
                 Environment.Exit(0);
-            }
-
-            if (KeyState.IsKeyDown(Keys.Space))
-            {
-                fadeScript.SwitchScene(new NextScene());
             }
          }
 

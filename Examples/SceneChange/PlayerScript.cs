@@ -72,5 +72,14 @@ namespace Example.SceneChange
             }
         }
 
+        public override void OnEnterCollision(Element target)
+        {
+            if (target.Name == "awe")
+            {
+                animation.StopAnimation = true;
+                fadeScript.SwitchScene(new NextScene());
+            }
+        }
+
     }
 }
