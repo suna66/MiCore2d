@@ -20,7 +20,7 @@ namespace Example.SceneChange
             animation.SwitchPattern("down");
             animation.StopAnimation = true;
 
-            element.AddComponent<SolidBody>();
+            element.AddComponent<HardBody>();
             element.AddComponent<BoxCollider>();
 
             fadeScript = gameScene.GetElement("fade").GetComponent<FadeScript>();

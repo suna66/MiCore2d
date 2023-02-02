@@ -18,7 +18,7 @@ namespace Example.Animation
             animation.AddPattern("up", new int[] {9, 10, 11} );
             animation.SwitchPattern("down");
 
-            element.AddComponent<SolidBody>();
+            element.AddComponent<HardBody>();
             element.AddComponent<BoxCollider>();
         }
 

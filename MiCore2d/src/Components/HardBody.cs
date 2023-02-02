@@ -5,9 +5,9 @@ using System.Collections.Specialized;
 
 namespace MiCore2d
 {
-    public class SolidBody : Component
+    public class HardBody : Component
     {
-        public SolidBody()
+        public HardBody()
         {
             Timeout = 0;
             Power = Vector3.Zero;
