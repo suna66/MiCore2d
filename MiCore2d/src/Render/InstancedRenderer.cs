@@ -17,6 +17,7 @@ namespace MiCore2d
         {
             LoadShader(Resources.ReadText("MiCore2d.resources.instanced.vert"), Resources.ReadText("MiCore2d.resources.instanced.frag"));
             Init();
+            InitTilemap();
         }
 
         protected abstract float[] CreateMapData();

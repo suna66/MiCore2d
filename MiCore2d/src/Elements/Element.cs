@@ -238,6 +238,14 @@ namespace MiCore2d
             }
         }
 
+        public int TextureCount
+        {
+            get
+            {
+                return Texture.TextureCount;
+            }
+        }
+
         public void IncrementTextureIndex()
         {
             if (texture == null)

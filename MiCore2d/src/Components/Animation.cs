@@ -22,7 +22,9 @@ namespace MiCore2d
 
         public bool StopAnimation {get; set;} = false;
 
-        public void SwitchTexture(string? key)
+        public bool IsOneShort { get; set; } = false;
+
+        public void SwitchTexture(string? key, bool oneShot = false)
         {
             if (key == null)
             {
@@ -45,6 +47,7 @@ namespace MiCore2d
                     animationName = key;
                 }
             }
+            IsOneShort = oneShot;
         }
 
         public void AddTexture(string key, Texture tex)
@@ -65,6 +68,13 @@ namespace MiCore2d
                 if (!StopAnimation)
                 {
                     element.IncrementTextureIndex();
+                    if (IsOneShort)
+                    {
+                        if (element.TextureIndex == element.TextureCount - 1)
+                        {
+                            StopAnimation = true;
+                        }
+                    }
                 }
             }
         }

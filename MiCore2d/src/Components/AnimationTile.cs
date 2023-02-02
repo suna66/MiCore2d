@@ -24,18 +24,21 @@ namespace MiCore2d
 
         public bool StopAnimation {get; set;} = false;
 
+        public bool IsOneShort { get; set; } = false;
+
         public void AddPattern(string key, int[] pattern)
         {
             animationPattern.Add(key, pattern);
         }
 
-        public void SwitchPattern(string key)
+        public void SwitchPattern(string key, bool oneShot = false)
         {
             if (pattern != animationPattern[key])
             {
                 pattern = animationPattern[key];
                 patternIndex = 0;
                 animationName = key;
+                IsOneShort = oneShot;
             }
         }
 
@@ -54,7 +57,15 @@ namespace MiCore2d
                     patternIndex++;
                     if (patternIndex >= pattern.Length)
                     {
-                        patternIndex = 0;
+                        if (IsOneShort)
+                        {
+                            patternIndex = pattern.Length - 1;
+                            StopAnimation = true;
+                        }
+                        else
+                        {
+                            patternIndex = 0;
+                        }
                     }
                     element.TextureIndex = pattern[patternIndex];
                 }
