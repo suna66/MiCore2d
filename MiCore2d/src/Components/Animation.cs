@@ -20,6 +20,8 @@ namespace MiCore2d
 
         public string AnimationName { get => animationName; }
 
+        public bool StopAnimation {get; set;} = false;
+
         public void SwitchTexture(string? key)
         {
             if (key == null)
@@ -60,7 +62,10 @@ namespace MiCore2d
             if (animationCurrentTime > Interval)
             {
                 animationCurrentTime = 0;
-                element.IncrementTextureIndex();
+                if (!StopAnimation)
+                {
+                    element.IncrementTextureIndex();
+                }
             }
         }
 

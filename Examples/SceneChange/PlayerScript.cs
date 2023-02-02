@@ -18,6 +18,7 @@ namespace Example.SceneChange
             animation.AddPattern("right", new int[] {6, 7, 8} );
             animation.AddPattern("up", new int[] {9, 10, 11} );
             animation.SwitchPattern("down");
+            animation.StopAnimation = true;
 
             element.AddComponent<SolidBody>();
             element.AddComponent<BoxCollider>();
@@ -30,27 +31,44 @@ namespace Example.SceneChange
             if (fadeScript.IsAnimation)
                 return;
             
+            bool isKeyDown = false;
+            
             var input = gameScene.KeyState;
 
             if (input.IsKeyDown(Keys.Up))
             {
                 animation.SwitchPattern("up");
                 element.AddPositionY(5 * (float)elapsed);
+                isKeyDown = true;
             }
             if (input.IsKeyDown(Keys.Down))
             {
                 animation.SwitchPattern("down");
                 element.AddPositionY(-5 * (float)elapsed);
+                isKeyDown = true;
             }
             if (input.IsKeyDown(Keys.Left))
             {
                 animation.SwitchPattern("left");
                 element.AddPositionX(-5 * (float)elapsed);
+                isKeyDown = true;
             }
             if (input.IsKeyDown(Keys.Right))
             {
                 animation.SwitchPattern("right");
                 element.AddPositionX(5 * (float)elapsed);
+                isKeyDown = true;
+            }
+            if (isKeyDown)
+            {
+                if (animation.StopAnimation)
+                {
+                    animation.StopAnimation = false;
+                }
+            }
+            else
+            {
+                animation.StopAnimation = true;
             }
         }
 

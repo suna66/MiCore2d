@@ -22,6 +22,8 @@ namespace MiCore2d
 
         public string AnimationName { get => animationName; }
 
+        public bool StopAnimation {get; set;} = false;
+
         public void AddPattern(string key, int[] pattern)
         {
             animationPattern.Add(key, pattern);
@@ -47,12 +49,15 @@ namespace MiCore2d
             if (animationCurrentTime > Interval)
             {
                 animationCurrentTime = 0;
-                patternIndex++;
-                if (patternIndex >= pattern.Length)
+                if (!StopAnimation)
                 {
-                    patternIndex = 0;
+                    patternIndex++;
+                    if (patternIndex >= pattern.Length)
+                    {
+                        patternIndex = 0;
+                    }
+                    element.TextureIndex = pattern[patternIndex];
                 }
-                element.TextureIndex = pattern[patternIndex];
             }
         }
 
