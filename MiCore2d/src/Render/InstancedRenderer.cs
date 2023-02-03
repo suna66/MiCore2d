@@ -52,6 +52,11 @@ namespace MiCore2d
             GL.BindVertexArray(0);
         }
 
+        public float[] GetTilemap()
+        {
+            return _tilemap!;
+        }
+
         public void UpdateTilemap(float[] tilemap)
         {
             _tilemap = tilemap;

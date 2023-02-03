@@ -70,10 +70,10 @@ namespace MiCore2d
                 return false;
             }
             if (
-                (localPos.X + WidthUnit >= targetPos.X - target.WidthUnit)
-                && (localPos.X - WidthUnit <= targetPos.X + target.WidthUnit)
-                && (localPos.Y + HeightUnit >= targetPos.Y - target.HeightUnit)
-                && (localPos.Y - HeightUnit <= targetPos.Y + target.HeightUnit)
+                (localPos.X + WidthUnit > targetPos.X - target.WidthUnit)
+                && (localPos.X - WidthUnit < targetPos.X + target.WidthUnit)
+                && (localPos.Y + HeightUnit > targetPos.Y - target.HeightUnit)
+                && (localPos.Y - HeightUnit < targetPos.Y + target.HeightUnit)
             )
             {
                 return true;
