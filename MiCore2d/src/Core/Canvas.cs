@@ -81,7 +81,7 @@ namespace MiCore2d
             //default setting for painting.
             font = SKTypeface.FromFamilyName("Serif");
             //font = SKTypeface.FromFile("font/ZenOldMincho-Medium.ttf");
-            using(Stream stream = Resources.ReadStream("MiCore2d.resources.NotoSansJP-Regular.otf"))
+            using(Stream stream = Resources.ReadStream("MiCore2d.resources.NotoSansJP-Thin.otf"))
             {
                 font  = SKTypeface.FromStream(stream);
             }
@@ -160,6 +160,8 @@ namespace MiCore2d
             gfx.DrawPoint(x, y, paint);
         }
 
+        public float Alpha { get; set; } = 0.0f;
+
         public void Update()
         {
             GL.BindVertexArray(_vertexArrayObject);
@@ -169,7 +171,7 @@ namespace MiCore2d
             _shader.SetMatrix4("model", Matrix4.Identity);
             _shader.SetMatrix4("view", _camera.GetViewMatrix());
             _shader.SetMatrix4("projection", _camera.GetProjectionMatrix());
-            _shader.SetFloat("texAlpha", 0.0f);
+            _shader.SetFloat("texAlpha", Alpha);
 
             GL.DrawElements(PrimitiveType.Triangles, _indices.Length, DrawElementsType.UnsignedInt, 0);
             GL.BindVertexArray(0);
