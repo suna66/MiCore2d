@@ -51,6 +51,10 @@ namespace MiCore2d
             while (enumerator.MoveNext())
             {
                 Element target = (Element)enumerator.Value;
+                if (target.Disabled || target.Destroyed)
+                {
+                    continue;
+                }
                 if (element.Name != target.Name)
                 {
                     Collider target_collider = getCollider(target);

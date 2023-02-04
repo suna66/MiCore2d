@@ -19,8 +19,6 @@ namespace MiCore2d
 
         public Element()
         {
-            Visible = true;
-            Destroyed = false;
         }
 
         ~Element()
@@ -31,9 +29,9 @@ namespace MiCore2d
 
         public string Layer {get; set; } = "default";
 
-        public bool Visible { get; set; }
+        public bool Disabled { get; set; } = false;
 
-        public bool Destroyed { get; set; }
+        public bool Destroyed { get; set; } = false;
 
         public Renderer? DrawRenderer { get; set; } = null;
 
@@ -98,6 +96,9 @@ namespace MiCore2d
 
         public virtual void UpdateComponents(double elapsed)
         {
+            if (Disabled)
+                return;
+            
             bool hasDestoryed = false;
             if (_componentList != null)
             {
@@ -242,7 +243,7 @@ namespace MiCore2d
         {
             get
             {
-                return Texture.TextureCount;
+                return texture.TextureCount;
             }
         }
 

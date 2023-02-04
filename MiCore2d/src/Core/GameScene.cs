@@ -131,7 +131,7 @@ namespace MiCore2d
             while (enumerator.MoveNext())
             {
                 Element element = (Element)enumerator.Value;
-                if (element.Visible && !element.Destroyed)
+                if (!element.Disabled && !element.Destroyed)
                 {
                     element.DrawRenderer?.Draw(_camera, element);
                 }

@@ -16,6 +16,16 @@ namespace Example.TileMap
             Audio.LoadMP3File("sound1", "../resource/sanjinooyatsu.mp3", true);
             Audio.Play("sound1");
 
+            LoadTexture2dTile("explosion", "../resource/explosion.png", 120, 120);
+            LoadTexture2d("awe", "../resource/awesomeface.png");
+            ImageSprite explosionSprite = new ImageSprite(GetTexture("explosion"), 1);
+            explosionSprite.AddComponent<AnimationTile>();
+            explosionSprite.Disabled = true;
+
+            ImageSprite awe = new ImageSprite(GetTexture("awe"), 1);
+            awe.AddComponent<BoxCollider>();
+            awe.Disabled = true;
+
             ImageSprite sprite = new ImageSprite(LoadTexture2dTile("girl", "../resource/GirlTile001.png", 32, 32), 1);
             sprite.AddComponent<PlayerScript>();
 
@@ -29,6 +39,8 @@ namespace Example.TileMap
             AddElement("map", map);
             AddElement("obstacle", obstacle);
             AddElement("girl", sprite);
+            AddElement("explosion", explosionSprite);
+            AddElement("awe", awe);
         }
 
 

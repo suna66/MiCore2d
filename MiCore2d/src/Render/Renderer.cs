@@ -65,7 +65,7 @@ namespace MiCore2d
 
         public virtual void Draw(Camera camera, Element element)
         {
-            if (element.Visible)
+            if (!element.Disabled)
             {
                 Begin(element.Texture);
 

@@ -18,6 +18,18 @@ namespace MiCore2d
             animationPattern = new Dictionary<string, int[]>();
         }
 
+        public override void OnLoad()
+        {
+            base.OnLoad();
+            int indexCount = element.TextureCount;
+            pattern = new int[indexCount];
+            for (int i = 0; i < indexCount; i++)
+            {
+                pattern[i] = i;
+            }
+            AddPattern("default", pattern);
+        }
+
         public double Interval { get; set; }
 
         public string AnimationName { get => animationName; }
@@ -40,6 +52,13 @@ namespace MiCore2d
                 animationName = key;
                 IsOneShort = oneShot;
             }
+        }
+
+        public void RestartAnimation(bool oneShot = false)
+        {
+            StopAnimation = false;
+            patternIndex = 0;
+            IsOneShort = oneShot;
         }
 
         public override void UpdateComponent(double elapsed)

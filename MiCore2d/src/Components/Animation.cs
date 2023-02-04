@@ -50,6 +50,13 @@ namespace MiCore2d
             IsOneShort = oneShot;
         }
 
+        public void RestartAnimation(bool oneShot = false)
+        {
+            StopAnimation = false;
+            element.TextureIndex = 0;
+            IsOneShort = oneShot;
+        }
+
         public void AddTexture(string key, Texture tex)
         {
             if (textureDic == null)
