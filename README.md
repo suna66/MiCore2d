@@ -17,6 +17,13 @@ $ cd MiCore2d
 $ dotnet build
 ```
 
+## Play examples
+
+```
+$ cd MiCore2d/Examples/${each example folder}
+$ dotnet run
+```
+
 ## Features
 
 - Scene Management
@@ -28,7 +35,7 @@ $ dotnet build
 - Components
   - Animation
   - Collider
-  - SolidBoy
+  - HardBoy
   - Controller
 - Audio
   - WAV
@@ -45,8 +52,8 @@ $ dotnet build
 
 - images
   - GirlTile001.png -  [https://pipoya.net/sozai/](https://pipoya.net/sozai/)
-  - explosion.png - [https://pipoya.net/sozai/](https://pipoya.net/sozai/)
+  - explosion.png -  [https://pipoya.net/sozai/](https://pipoya.net/sozai/)
   - BrightForest.png -  [http://yms.main.jp/](http://yms.main.jp/)
 - sounds
   - sanjinooyatsu.mp3 -  [https://amachamusic.chagasi.com/](https://amachamusic.chagasi.com/)
-  - explosion.mp3 - [https://soundeffect-lab.info/](https://soundeffect-lab.info/)
+  - explosion.mp3 -  [https://soundeffect-lab.info/](https://soundeffect-lab.info/)
