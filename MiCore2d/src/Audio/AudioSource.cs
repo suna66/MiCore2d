@@ -17,6 +17,9 @@ namespace MiCore2d.Audio
         public bool isLoop;
     }
 
+    /// <summary>
+    /// AudioSource. Management audio data
+    /// </summaray>
     public class AudioSource : IDisposable
     {
         private ALDevice device;
@@ -25,6 +28,9 @@ namespace MiCore2d.Audio
 
         private bool disposed = false;
 
+        /// <summary>
+        /// constractor.
+        /// </summary>
         public AudioSource()
         {
             int[] attr = { 0 };
@@ -39,6 +45,14 @@ namespace MiCore2d.Audio
             clipDic = new Dictionary<string, AudioClip>();
         }
 
+        /// <summary>
+        /// addAudioClipDic
+        /// <summary>
+        /// <param name="key">alias name</param>
+        /// <param name="data">array data of audio data</param>
+        /// <param name="sampleRate">sample rate</param>
+        /// <param name="channel">number of channels</param>
+        /// <param name="isLoop">playback looping or not</param>
         private void addAudioClipDic(string key, float[] data, int sampleRate, int channel, bool isLoop)
         {
             AudioClip clip = new AudioClip();
@@ -73,6 +87,12 @@ namespace MiCore2d.Audio
             clipDic.Add(key, clip);
         }
 
+        /// <summary>
+        /// LoadMP3File
+        /// <summary>
+        /// <param name="key">alias name</param>
+        /// <param name="fname">audio file name</param>
+        /// <param name="isLoop">playback looping or not</param>
         public void LoadMP3File(string key, string fname, bool isLoop)
         {
             if (disposed)
@@ -85,6 +105,12 @@ namespace MiCore2d.Audio
             addAudioClipDic(key, data, sampleRate, channel, isLoop);
         }
 
+        /// <summary>
+        /// LoadOggFile
+        /// <summary>
+        /// <param name="key">alias name</param>
+        /// <param name="fname">audio file name</param>
+        /// <param name="isLoop">playback looping or not</param>
         public void LoadOggFile(string key, string fname, bool isLoop)
         {
             if (disposed)
@@ -97,6 +123,12 @@ namespace MiCore2d.Audio
             addAudioClipDic(key, data, sampleRate, channel, isLoop);
         }
 
+        /// <summary>
+        /// LoadWavFile
+        /// <summary>
+        /// <param name="key">alias name</param>
+        /// <param name="fname">audio file name</param>
+        /// <param name="isLoop">playback looping or not</param>
         public void LoadWavFile(string key, string fname, bool isLoop)
         {
             if (disposed)
@@ -110,6 +142,11 @@ namespace MiCore2d.Audio
             addAudioClipDic(key, data, sampleRate, channel, isLoop);
         }
 
+        /// <summary>
+        /// IsLoaded. 
+        /// <summary>
+        /// <param name="key">alias name</param>
+        /// <return>ture is already loaded the audio specified the key. false is not.</return>
         public bool IsLoaded(string key)
         {
             if (clipDic.ContainsKey(key))
@@ -119,6 +156,10 @@ namespace MiCore2d.Audio
             return false;
         }
 
+        /// <summary>
+        /// Play. 
+        /// <summary>
+        /// <param name="key">alias name</param>
         public void Play(string key)
         {
             if (disposed)
@@ -127,10 +168,19 @@ namespace MiCore2d.Audio
             }
             if (clipDic.ContainsKey(key))
             {
+                if (IsPlay(key))
+                {
+                    Stop(key);
+                }
                 AL.SourcePlay(clipDic[key].source);
             }
         }
 
+        /// <summary>
+        /// IsPlay. 
+        /// <summary>
+        /// <param name="key">alias name</param>
+        /// <return>ture is already playing the audio specified the key. false is not.</return>
         public bool IsPlay(string key)
         {
             if (clipDic.ContainsKey(key))
@@ -144,6 +194,10 @@ namespace MiCore2d.Audio
             return false;
         }
 
+        /// <summary>
+        /// Stop. 
+        /// <summary>
+        /// <param name="key">alias name</param>
         public void Stop(string key)
         {
             if (disposed)
@@ -156,6 +210,10 @@ namespace MiCore2d.Audio
             }
         }
 
+        /// <summary>
+        /// Stop.  All audios are stopped.
+        /// <summary>
+        /// <param name="key">alias name</param>
         public void Stop()
         {
             if (disposed)
@@ -180,6 +238,10 @@ namespace MiCore2d.Audio
             }
         }
 
+        /// <summary>
+        /// Pause. 
+        /// <summary>
+        /// <param name="key">alias name</param>
         public void Pause(string key)
         {
             if (disposed)
@@ -193,6 +255,10 @@ namespace MiCore2d.Audio
             }
         }
 
+        /// <summary>
+        /// Pause.  All audio are paused.
+        /// <summary>
+        /// <param name="key">alias name</param>
         public void Pause()
         {
             if (disposed)
@@ -209,6 +275,11 @@ namespace MiCore2d.Audio
             }
         }
 
+        /// <summary>
+        /// SetSourceVolume.
+        /// <summary>
+        /// <param name="key">alias name</param>
+        /// <param name="vol">volume</param>
         public void SetSourceVolume(string key, float vol)
         {
             if (disposed)
@@ -222,6 +293,11 @@ namespace MiCore2d.Audio
             //AL.Source(clipList[idx].source, ALSourcef.Gain, vol);
         }
 
+        /// <summary>
+        /// GetSourceVolume.
+        /// <summary>
+        /// <param name="key">alias name</param>
+        /// <return>volume value</return>
         public float GetSourceVolume(string key)
         {
             if (disposed)
@@ -238,6 +314,10 @@ namespace MiCore2d.Audio
             return vol;
         }
 
+        /// <summary>
+        /// SetMasterVolume.
+        /// <summary>
+        /// <param name="vol">volume</param>
         public void SetMasterVolume(float vol)
         {
             if (disposed)
@@ -247,6 +327,10 @@ namespace MiCore2d.Audio
             AL.Listener(ALListenerf.Gain, vol);
         }
 
+        /// <summary>
+        /// GetMasterVolume.
+        /// <summary>
+        /// <return>volume value</return>
         public float GetMasterVolume()
         {
             if (disposed)
@@ -258,11 +342,19 @@ namespace MiCore2d.Audio
             return vol;
         }
 
+        /// <summary>
+        /// GetClipCount.
+        /// <summary>
+        /// <return>managed audio count</return>
         public int GetClipCount()
         {
             return clipDic.Count;
         }
 
+        /// <summary>
+        /// RemoveAudioClip.
+        /// <summary>
+        /// <param name="key">alias name</param>
         public void RemoveAudioClip(string key)
         {
             if (disposed)
@@ -282,6 +374,9 @@ namespace MiCore2d.Audio
             }
         }
 
+        /// <summary>
+        /// RemoveAudioClip. delete all audios.
+        /// <summary>
         public void RemoveAudioClip()
         {
             if (disposed)
@@ -301,6 +396,11 @@ namespace MiCore2d.Audio
             clipDic.Clear();
         }
 
+        /// <summary>
+        /// getSourceState.
+        /// <summary>
+        /// <param name="key">alias name</param>
+        /// <return>audio status</return>
         private ALSourceState getSourceState(string key)
         {
             if (disposed)
