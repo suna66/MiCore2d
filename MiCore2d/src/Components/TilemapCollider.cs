@@ -18,7 +18,7 @@ namespace MiCore2d
         public float[] GetTilemapData()
         {
             TilemapSprite sprite = (TilemapSprite)element;
-            return sprite.GetPosisionMap();
+            return sprite.GetPositionMap();
         }
 
         public bool CheckCollidedMap(Collider target, out Vector3 collidedPos)
@@ -29,7 +29,7 @@ namespace MiCore2d
                 return false;
             }
             TilemapSprite sprite = (TilemapSprite)element;
-            float[] map = sprite.GetPosisionMap();
+            float[] map = sprite.GetPositionMap();
             int num = map.Length;
             bool isCollision = false;
 

@@ -174,6 +174,11 @@ namespace MiCore2d
             position.Z += z;
         }
 
+        public void AddPosition(Vector3 pos)
+        {
+            position += pos;
+        }
+
         public Vector3 Scale
         {
             get => scale;

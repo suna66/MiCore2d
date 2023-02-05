@@ -23,10 +23,15 @@ namespace Example.TileMap
             Audio.Play("sound1");
 
             LoadTexture2dTile("explosion", "../resource/explosion.png", 120, 120);
+            LoadTexture2dTile("magic", "../resource/magic.png", 120, 120);
             LoadTexture2d("awe", "../resource/awesomeface.png");
             explosionSprite = new ImageSprite(GetTexture("explosion"), 1);
             explosionSprite.AddComponent<AnimationTile>();
             explosionSprite.Disabled = true;
+
+            ImageSprite magic = new ImageSprite(GetTexture("magic"), 1);
+            magic.AddComponent<AnimationTile>();
+            magic.AddComponent<MagicScript>();        
 
             awe = new ImageSprite(GetTexture("awe"), 1);
             BoxCollider collider = awe.AddComponent<BoxCollider>();
@@ -48,6 +53,7 @@ namespace Example.TileMap
             AddElement("girl", sprite);
             AddElement("explosion", explosionSprite);
             AddElement("awe", awe);
+            AddElement("magic", magic);
 
             TimeUtil.Delay(5000, DisplayAweface);
         }

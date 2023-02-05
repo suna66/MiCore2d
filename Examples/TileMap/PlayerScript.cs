@@ -46,6 +46,28 @@ namespace Example.TileMap
                 animation.SwitchPattern("right");
                 element.AddPositionX(5 * (float)elapsed);
             }
+            if (input.IsKeyDown(Keys.Space))
+            {
+                MagicScript magic = gameScene.GetElement("magic").GetComponent<MagicScript>();
+                Vector3 direct = Vector3.Zero;
+                if (animation.AnimationName == "up")
+                {
+                    direct = Vector3.UnitY;
+                }
+                else if (animation.AnimationName == "down")
+                {
+                    direct = -1 * Vector3.UnitY;
+                }
+                else if (animation.AnimationName == "left")
+                {
+                    direct = -1 * Vector3.UnitX;
+                }
+                else if (animation.AnimationName == "right")
+                {
+                    direct = Vector3.UnitX;
+                }
+                magic.StartAnimation(element.Position, direct, 2.0f);
+            }
         }
 
         public override void OnEnterCollision(Element target)

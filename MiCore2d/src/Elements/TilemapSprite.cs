@@ -24,7 +24,7 @@ namespace MiCore2d
             _positionMap = map;
         }
 
-        public float[] GetPosisionMap()
+        public float[] GetPositionMap()
         {
             return _positionMap;
         }

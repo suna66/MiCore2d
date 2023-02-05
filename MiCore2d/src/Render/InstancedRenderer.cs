@@ -80,7 +80,7 @@ namespace MiCore2d
             {
                 if (element is TilemapSprite)
                 {
-                    float[] map = ((TilemapSprite)element).GetPosisionMap();
+                    float[] map = ((TilemapSprite)element).GetPositionMap();
                     UpdateTilemap(map);
                 }
             }
