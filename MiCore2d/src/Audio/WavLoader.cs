@@ -4,8 +4,19 @@ using System.Runtime.InteropServices;
 
 namespace MiCore2d.Audio
 {
+    /// <summary>
+    /// WaveLoader. WAV audio loader.
+    /// </summary>
     public class WavLoader
     {
+        /// <summary>
+        /// LoadWavFile. Load WAV audio from file.
+        /// </summary>
+        /// <param name="filename">audio file name</param>
+        /// <param name="_channels">out parameter. number of channels</param>
+        /// <param name="_bitsPerSample">out parameter. bits par sample</param>
+        /// <param name="_sampleRate">out parameter. sample rate</param>
+        /// <returns>audio array buffer</returns>
         public static float[] LoadWavFile(string filename, out int _channels, out int _bitsPerSample, out int _sampleRate)
         {
             using (BinaryReader reader = new BinaryReader(File.Open(filename, FileMode.Open)))
@@ -74,6 +85,11 @@ namespace MiCore2d.Audio
             }
         }
 
+        /// <summary>
+        /// convertFloat32. Convert byte array data to float array data.
+        /// </summary>
+        /// <param name="data">byte array data</param>
+        /// <returns>float audio array buffer</returns>
         private static float[] convertFloat32(byte[] data)
         {
             int data_index = 0;
@@ -97,6 +113,11 @@ namespace MiCore2d.Audio
             return result_data;
         }
 
+        /// <summary>
+        /// convert16ToFloat32. Convert 16bit audio array buffer to float array buffer.
+        /// </summary>
+        /// <param name="data">16bit audio array buffer</param>
+        /// <returns>float audio array buffer</returns>
         private static float[] convert16ToFloat32(byte[] data)
         {
             int data_index = 0;
@@ -119,6 +140,11 @@ namespace MiCore2d.Audio
             return result_data;
         }
 
+        /// <summary>
+        /// convert8ToFloat32. Convert 8bit audio array data to float array buffer.
+        /// </summary>
+        /// <param name="data">8bit audio array buffer</param>
+        /// <returns>float audio array buffer</returns>
         private static float[] convert8ToFloat32(byte[] data)
         {
             int data_index = 0;

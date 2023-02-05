@@ -3,24 +3,43 @@ using OpenTK.Mathematics;
 
 namespace MiCore2d
 {
+    /// <summary>
+    /// TilemapCollider.
+    /// </summary>
     public class TilemapCollider : Collider
     {
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public TilemapCollider()
         {
         }
 
+        /// <summary>
+        /// OnLoad. Initialize Component.
+        /// </summary>
         public override void OnLoad()
         {
             WidthUnit = element.Scale.X / 2;
             HeightUnit = element.Scale.Y / 2;
         }
 
+        /// <summary>
+        /// GetTilemapData. getting tilemap data.
+        /// </summary>
+        /// <returns>tilemap array list</returns>
         public float[] GetTilemapData()
         {
             TilemapSprite sprite = (TilemapSprite)element;
             return sprite.GetPositionMap();
         }
 
+        /// <summary>
+        /// CheckCollidedMap. checking collition of each map data.
+        /// </summary>
+        /// <param name="target">target element collider</param>
+        /// <param name="collidedPos">out parameter. collided map position</param>
+        /// <returns>true: collided, false: not</returns>
         public bool CheckCollidedMap(Collider target, out Vector3 collidedPos)
         {
             collidedPos = Vector3.Zero;
@@ -56,12 +75,23 @@ namespace MiCore2d
             return false;
         }
 
+        /// <summary>
+        /// Collision. checking collision.
+        /// </summary>
+        /// <param name="target">target element collider</param>
+        /// <returns>true: collided, false: not</returns>
         public override bool Collision(Collider target)
         {
             Vector3 pos;
             return CheckCollidedMap(target, out pos);
         }
 
+        /// <summary>
+        /// checkCollision. checking collision of box collider.
+        /// </summary>
+        /// <param name="localPos">map position</param>
+        /// <param name="target">target element box collider.</param>
+        /// <returns>true: collided, false: not</returns>
         private bool checkCollision(Vector3 localPos, BoxCollider target)
         {
             Vector3 targetPos = target.GetPosition();
@@ -81,6 +111,12 @@ namespace MiCore2d
             return false;
         }
 
+        /// <summary>
+        /// checkCollision. checking collision of circle collider.
+        /// </summary>
+        /// <param name="localPos">map position</param>
+        /// <param name="target">target element circle collider.</param>
+        ///  <returns>true: collided, false: not</returns>
         private bool checkCollision(Vector3 localPos, CircleCollider target)
         {
             Vector3 thisPos = localPos;
@@ -113,7 +149,10 @@ namespace MiCore2d
             return (dist_sq <= (target.RadiusUnit * target.RadiusUnit));
         }
 
-
+        /// <summary>
+        /// UpdateComponent. called by game engine.
+        /// </summary>
+        /// <param name="elapsed">elpased time of frame.</param>
         public override void UpdateComponent(double elapsed)
         {
             if (IsDynamic)
@@ -123,6 +162,9 @@ namespace MiCore2d
             }
         }
 
+        /// <summary>
+        /// Dispose.
+        /// </summary>
         public override void Dispose()
         {
             base.Dispose();

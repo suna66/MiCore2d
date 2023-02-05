@@ -5,23 +5,47 @@ using System.Collections.Specialized;
 
 namespace MiCore2d
 {
+    /// <summary>
+    /// HardBody. Thie component make element solided object.
+    /// </summary>
     public class HardBody : Component
     {
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public HardBody()
         {
             Timeout = 0;
             Power = Vector3.Zero;
         }
 
+        /// <summary>
+        /// Timeout. timeout of action.
+        /// </summary>
+        /// <value></value>
         public float Timeout {get; set;}
+
+        /// <summary>
+        /// Power. direction and power value.
+        /// </summary>
+        /// <value>power</value>
         public Vector3 Power {get; set;}
 
+        /// <summary>
+        /// AddForce. Add force of moving this element.
+        /// </summary>
+        /// <param name="directPower">direction of power</param>
+        /// <param name="msec">time of keeping power</param>
         public void AddForce(Vector3 directPower, float msec)
         {
             Timeout = msec/1000.0f;
             Power = directPower;
         }
 
+        /// <summary>
+        /// UpdateComponent. called by game engine.
+        /// </summary>
+        /// <param name="elapsed">elpased time of frame.</param>
         public override void UpdateComponent(double elapsed)
         {
             if (Timeout > 0.0)
@@ -32,11 +56,19 @@ namespace MiCore2d
             CheckCollision();
         }
 
+        /// <summary>
+        /// getCollider. getting collider component specified element.
+        /// </summary>
+        /// <param name="e">target element</param>
+        /// <returns>collider component</returns>
         private Collider getCollider(Element e)
         {
             return e.GetComponent<Collider>();
         }
 
+        /// <summary>
+        /// CheckCollsion. checking collision.
+        /// </summary>
         protected void CheckCollision()
         {
             Collider collider = getCollider(element);
@@ -96,6 +128,13 @@ namespace MiCore2d
             }
         }
 
+        /// <summary>
+        /// CalcObjectPosition. Calecration of position of collistion.
+        /// </summary>
+        /// <param name="thisPos">this element position</param>
+        /// <param name="targetPos">target collided postition</param>
+        /// <param name="src">collision component this element</param>
+        /// <param name="target">collision component target element</param>
         protected virtual void CalcObjectPosition(Vector3 thisPos, Vector3 targetPos, Collider src, Collider target)
         {
             float distanceY = MathF.Max(thisPos.Y, targetPos.Y) - MathF.Min(thisPos.Y, targetPos.Y);
@@ -146,6 +185,11 @@ namespace MiCore2d
             element.Position = thisPos;
         }
 
+        /// <summary>
+        /// OnSolidCollision. collided solid object.
+        /// </summary>
+        /// <param name="src">thie element collider</param>
+        /// <param name="target">target element collider</param>
         protected virtual void OnSolidCollision(Collider src, Collider target)
         {
             if (target is TilemapCollider)
@@ -167,24 +211,42 @@ namespace MiCore2d
             }
         }
 
+        /// <summary>
+        /// OnEnterCollision. called this function when collided target.
+        /// </summary>
+        /// <param name="objScript">controller component this element</param>
+        /// <param name="target">collided element</param>
         public virtual void OnEnterCollision(Controller objScript, Element target)
         {
             if (objScript != null)
                 objScript.OnEnterCollision(target);
         }
 
+        /// <summary>
+        /// OnEnterCollision. called this function while  colliding target.
+        /// </summary>
+        /// <param name="objScript">controller component this element</param>
+        /// <param name="target">collided element</param>
         public virtual void OnStayCollision(Controller objScript, Element target)
         {
             if (objScript != null)
                 objScript.OnStayCollision(target);
         }
 
+        /// <summary>
+        /// OnEnterCollision. called this function while  leaving target.
+        /// </summary>
+        /// <param name="objScript">controller component this element</param>
+        /// <param name="target">collided element</param>
         public virtual void OnLeaveCollision(Controller objScript, Element target)
         {
             if (objScript != null)
                 objScript.OnLeaveCollision(target);
         }
 
+        /// <summary>
+        /// Dispose.
+        /// </summary>
         public override void Dispose()
         {
             base.Dispose();

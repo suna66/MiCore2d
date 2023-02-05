@@ -3,17 +3,31 @@ using OpenTK.Mathematics;
 
 namespace MiCore2d
 {
+    /// <summary>
+    /// CircleCollider. Circle Collision detector.
+    /// </summary>
     public class CircleCollider : Collider
     {
+        /// <summary>
+        /// constructor.
+        /// </summary>
         public CircleCollider()
         {
         }
 
+        /// <summary>
+        /// OnLoad. Initialize this component.
+        /// </summary>
         public override void OnLoad()
         {
             RadiusUnit = element.Scale.Y / 2;
         }
 
+        /// <summary>
+        /// Collision. Check collision of targets.
+        /// </summary>
+        /// <param name="target">target element</param>
+        /// <returns>true: collided. false: not collided</returns>
         public override bool Collision(Collider target)
         {
             bool is_collision = false;
@@ -28,6 +42,11 @@ namespace MiCore2d
             return is_collision;
         }
         
+        /// <summary>
+        /// checkCollision for CircleCollider.
+        /// </summary>
+        /// <param name="target">target element</param>
+        /// <returns>true: collided. false: not collided</returns>
         private bool checkCollision(CircleCollider target)
         {
             Vector3 thisPos = GetPosition();
@@ -50,6 +69,11 @@ namespace MiCore2d
 
         }
 
+        /// <summary>
+        /// checkCollision for BoxCollider.
+        /// </summary>
+        /// <param name="target">target element</param>
+        /// <returns>true: collided. false: not collided</returns>
         private bool checkCollision(BoxCollider target)
         {
             Vector3 thisPos = GetPosition();
@@ -82,6 +106,10 @@ namespace MiCore2d
             return (dist_sq <= (RadiusUnit * RadiusUnit));
         }
 
+        /// <summary>
+        /// UpdateComponent. called by game engine.
+        /// </summary>
+        /// <param name="elapsed">elpased time of frame.</param>
         public override void UpdateComponent(double elapsed)
         {
             if (IsDynamic)
@@ -90,6 +118,9 @@ namespace MiCore2d
             }
         }
 
+        /// <summary>
+        /// Dispose.
+        /// </summary>
         public override void Dispose()
         {
             base.Dispose();
