@@ -2,6 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
+    <PackageId>MiCore2d.23.02.05.001</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>suna66</Authors>
+    <Company>suna66</Company>
+    <Product>MiCore2d</Product>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <RootNamespace>MiCore2d</RootNamespace>
