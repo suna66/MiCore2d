@@ -20,6 +20,7 @@ namespace Example.TileMap
         {
             Audio.LoadMP3File("sound1", "../resource/sanjinooyatsu.mp3", true);
             Audio.LoadMP3File("explosion", "../resource/explosion.mp3", false);
+            Audio.LoadMP3File("magic", "../resource/magic.mp3", false);
             Audio.Play("sound1");
 
             LoadTexture2dTile("explosion", "../resource/explosion.png", 120, 120);
@@ -50,10 +51,10 @@ namespace Example.TileMap
 
             AddElement("map", map);
             AddElement("obstacle", obstacle);
+            AddElement("magic", magic);
             AddElement("girl", sprite);
             AddElement("explosion", explosionSprite);
             AddElement("awe", awe);
-            AddElement("magic", magic);
 
             TimeUtil.Delay(5000, DisplayAweface);
         }

@@ -53,7 +53,10 @@ $ dotnet run
 - images
   - GirlTile001.png -  [https://pipoya.net/sozai/](https://pipoya.net/sozai/)
   - explosion.png -  [https://pipoya.net/sozai/](https://pipoya.net/sozai/)
+  - magic.png -  [https://pipoya.net/sozai/](https://pipoya.net/sozai/)
   - BrightForest.png -  [http://yms.main.jp/](http://yms.main.jp/)
+
 - sounds
   - sanjinooyatsu.mp3 -  [https://amachamusic.chagasi.com/](https://amachamusic.chagasi.com/)
   - explosion.mp3 -  [https://soundeffect-lab.info/](https://soundeffect-lab.info/)
+  - magic.mp3 -  [https://soundeffect-lab.info/](https://soundeffect-lab.info/)

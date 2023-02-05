@@ -67,6 +67,7 @@ namespace Example.TileMap
                     direct = Vector3.UnitX;
                 }
                 magic.StartAnimation(element.Position, direct, 2.0f);
+                gameScene.Audio.Play("magic");
             }
         }
 

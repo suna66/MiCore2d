@@ -31,6 +31,8 @@ namespace MiCore2d
 
         public bool Disabled { get; set; } = false;
 
+        public bool Visibled { get; set; } = true;
+
         public bool Destroyed { get; set; } = false;
 
         public Renderer? DrawRenderer { get; set; } = null;

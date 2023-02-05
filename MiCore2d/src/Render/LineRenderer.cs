@@ -44,7 +44,7 @@ namespace MiCore2d
 
         public override void Draw(Camera camera, Element element)
         {
-            if (!element.Disabled)
+            if (!element.Disabled && element.Visibled)
             {
                 DrawElement(camera, element);
             }
