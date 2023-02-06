@@ -19,9 +19,15 @@ $ dotnet build
 
 ## Play examples
 
-```
+```sh
 $ cd MiCore2d/Examples/${each example folder}
 $ dotnet run
+```
+
+## Create Nuget package
+
+```sh
+$ dotnet pack
 ```
 
 ## Features
