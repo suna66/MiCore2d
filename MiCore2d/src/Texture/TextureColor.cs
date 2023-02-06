@@ -5,8 +5,18 @@ using SkiaSharp;
 
 namespace MiCore2d
 {
+    /// <summary>
+    /// TextureColor.
+    /// </summary>
     public class TextureColor : Texture
     {
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="r">red</param>
+        /// <param name="g">green</param>
+        /// <param name="b">blue</param>
+        /// <returns>instance</returns>
         public TextureColor(byte r, byte g, byte b) : base(TextureTarget.Texture2D)
         {
             GenHandle();

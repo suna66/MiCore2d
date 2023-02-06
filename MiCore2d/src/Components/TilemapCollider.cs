@@ -54,6 +54,10 @@ namespace MiCore2d
 
             for (int i = 0; i < num; i += 4)
             {
+                if (map[i + 3] < 0.0f)
+                {
+                    continue;
+                }
                 Vector3 tilePos = new Vector3(map[i], map[i + 1], map[i + 2]);
                 Vector3 localPos = sprite.Position + tilePos;
                 

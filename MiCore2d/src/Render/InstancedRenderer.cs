@@ -3,6 +3,9 @@ using OpenTK.Mathematics;
 
 namespace MiCore2d
 {
+    /// <summary>
+    /// InstanceRenderer.
+    /// </summary>
     public abstract class InstancedRenderer : Renderer
     {
         private float[]? _tilemap = null;
@@ -13,6 +16,9 @@ namespace MiCore2d
 
         private bool _isDynamic = false;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public InstancedRenderer()
         {
             LoadShader(Resources.ReadText("MiCore2d.resources.instanced.vert"), Resources.ReadText("MiCore2d.resources.instanced.frag"));
@@ -20,10 +26,21 @@ namespace MiCore2d
             InitTilemap();
         }
 
+        /// <summary>
+        /// CreateMapData. Abstract method.
+        /// </summary>
+        /// <returns>map array data</returns>
         protected abstract float[] CreateMapData();
 
+        /// <summary>
+        /// GetDynamic. Abstract method.
+        /// </summary>
+        /// <returns>true: update map data dyamicaly, false: not</returns>
         protected abstract bool GetDynamic();
 
+        /// <summary>
+        /// InitTilemap.
+        /// </summary>
         protected virtual void InitTilemap()
         {
             _tilemap = CreateMapData();
@@ -52,11 +69,19 @@ namespace MiCore2d
             GL.BindVertexArray(0);
         }
 
+        /// <summary>
+        /// GetTilemap.
+        /// </summary>
+        /// <returns>map array data</returns>
         public float[] GetTilemap()
         {
             return _tilemap!;
         }
 
+        /// <summary>
+        /// UpdateTilemap.
+        /// </summary>
+        /// <param name="tilemap">map array data</param>
         public void UpdateTilemap(float[] tilemap)
         {
             _tilemap = tilemap;
@@ -68,6 +93,11 @@ namespace MiCore2d
             GL.BindVertexArray(0);
         }
 
+        /// <summary>
+        /// DrawElement.
+        /// </summary>
+        /// <param name="camera">camera</param>
+        /// <param name="element">element</param>
         protected override void DrawElement(Camera camera, Element element)
         {
             if (_tilemap == null)
@@ -93,12 +123,19 @@ namespace MiCore2d
             DrawInstanced(_tilemap.Length/4);
         }
 
+        /// <summary>
+        /// Dispose.
+        /// </summary>
         public override void Dispose()
         {
             Dispose(true);
             base.Dispose(true);
         }
 
+        /// <summary>
+        /// Dispose.
+        /// </summary>
+        /// <param name="disposing">disposing.</param>
         protected override void Dispose(bool disposing)
         {
             if (!_disposed)

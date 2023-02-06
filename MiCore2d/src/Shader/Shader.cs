@@ -7,15 +7,25 @@ using OpenTK.Mathematics;
 
 namespace MiCore2d
 {
+    /// <summary>
+    /// Shader.
+    /// </summary>
     public class Shader : IDisposable
     {
+        /// <summary>
+        /// Handle.
+        /// </summary>
         public readonly int Handle;
 
         private readonly Dictionary<string, int> _uniformLocations;
 
         private bool _disposed = false;
 
-        //public Shader(string vertPath, string fragPath)
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="vertString">glsl string for vertics</param>
+        /// <param name="fragString">glsl string for fragment</param>
         public Shader(string vertString, string fragString)
         {
             string shaderSource = vertString; //File.ReadAllText(vertPath);
@@ -55,12 +65,19 @@ namespace MiCore2d
             }
         }
 
+        /// <summary>
+        /// Dispose.
+        /// </summary>
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Dispose.
+        /// </summary>
+        /// <param name="disposing">disposing</param>
         protected virtual void Dispose(bool disposing)
         {
             if (!_disposed)
@@ -73,11 +90,18 @@ namespace MiCore2d
             }
         }
 
+        /// <summary>
+        ///  Destructor.
+        /// </summary>
         ~Shader()
         {
             Dispose(false);
         }
 
+        /// <summary>
+        /// CompileShader.
+        /// </summary>
+        /// <param name="shader">shader id</param>
         private static void CompileShader(int shader)
         {
             GL.CompileShader(shader);
@@ -91,6 +115,10 @@ namespace MiCore2d
             }
         }
 
+        /// <summary>
+        /// LinkProgram.
+        /// </summary>
+        /// <param name="program">program id</param>
         private static void LinkProgram(int program)
         {
             GL.LinkProgram(program);
@@ -102,34 +130,62 @@ namespace MiCore2d
             }
         }
 
+        /// <summary>
+        /// Use.
+        /// </summary>
         public void Use()
         {
             GL.UseProgram(Handle);
         }
 
+        /// <summary>
+        /// GetAttribLocation.
+        /// </summary>
+        /// <param name="attribName">attribute name</param>
+        /// <returns>location no</returns>
         public int GetAttribLocation(string attribName)
         {
             return GL.GetAttribLocation(Handle, attribName);
         }
 
+        /// <summary>
+        /// SetInt
+        /// </summary>
+        /// <param name="name">attribute name</param>
+        /// <param name="data">value</param>
         public void SetInt(string name, int data)
         {
             GL.UseProgram(Handle);
             GL.Uniform1(_uniformLocations[name], data);
         }
 
+        /// <summary>
+        /// SetFloat
+        /// </summary>
+        /// <param name="name">attribute name</param>
+        /// <param name="data">value</param>
         public void SetFloat(string name, float data)
         {
             GL.UseProgram(Handle);
             GL.Uniform1(_uniformLocations[name], data);
         }
 
+        /// <summary>
+        /// SetMatrix4
+        /// </summary>
+        /// <param name="name">attribute name</param>
+        /// <param name="data">value</param>
         public void SetMatrix4(string name, Matrix4 data)
         {
             GL.UseProgram(Handle);
             GL.UniformMatrix4(_uniformLocations[name], true, ref data);
         }
 
+        /// <summary>
+        /// SetVector3
+        /// </summary>
+        /// <param name="name">attribute name</param>
+        /// <param name="data">value</param>
         public void SetVector3(string name, Vector3 data)
         {
             GL.UseProgram(Handle);

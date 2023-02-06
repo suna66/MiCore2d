@@ -6,14 +6,30 @@ using System.Collections.Specialized;
 
 namespace MiCore2d
 {
+    /// <summary>
+    /// Physics.
+    /// </summary>
     public class Physics
     {
         private static GameScene? _gameScene = null;
+
+        /// <summary>
+        /// SetGameScene. Setting game scene install using this class.
+        /// </summary>
+        /// <param name="scene">game scene</param>
         public static void SetGameScene(GameScene scene)
         {
             _gameScene = scene;
         }
 
+        /// <summary>
+        /// Raycast.
+        /// </summary>
+        /// <param name="position">paycast start position</param>
+        /// <param name="direction">direction</param>
+        /// <param name="distance">distance</param>
+        /// <param name="layerMask">target layer</param>
+        /// <returns>hidded element</returns>
         public static Element Raycast(Vector2 position, Vector2 direction, float distance, string layerMask)
         {
             if (_gameScene == null)

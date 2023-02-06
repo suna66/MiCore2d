@@ -3,8 +3,14 @@ using OpenTK.Mathematics;
 
 namespace MiCore2d
 {
+    /// <summary>
+    /// PolygonRenderer.
+    /// </summary>
     public class PolygonRenderer : Renderer
     {
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public PolygonRenderer()
         {
             //LoadShader("resources/basic.vert", "resources/basic.frag");
@@ -12,6 +18,11 @@ namespace MiCore2d
             Init();
         }
 
+        /// <summary>
+        /// Draw.
+        /// </summary>
+        /// <param name="camera">camera</param>
+        /// <param name="element">element</param>
         public override void Draw(Camera camera, Element element)
         {
             if (!element.Disabled && element.Visibled)
@@ -20,6 +31,11 @@ namespace MiCore2d
             }
         }
 
+        /// <summary>
+        /// DrawElement.
+        /// </summary>
+        /// <param name="camera">camera</param>
+        /// <param name="element">element</param>
         protected override void DrawElement(Camera camera, Element element)
         {
             Matrix4 model = (element.Rotation * Matrix4.CreateScale(element.Scale)) * Matrix4.CreateTranslation(element.Position);

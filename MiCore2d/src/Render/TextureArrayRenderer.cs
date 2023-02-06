@@ -3,8 +3,14 @@ using OpenTK.Mathematics;
 
 namespace MiCore2d
 {
+    /// <summary>
+    /// TextureArrayRenderer
+    /// </summary>
     public class TextureArrayRenderer : Renderer
     {
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public TextureArrayRenderer()
         {
             //LoadShader("resources/arraytex.vert", "resources/arraytex.frag");
@@ -12,6 +18,11 @@ namespace MiCore2d
             Init();
         }
 
+        /// <summary>
+        /// DrawElement.
+        /// </summary>
+        /// <param name="camera">camera</param>
+        /// <param name="element">element</param>
         protected override void DrawElement(Camera camera, Element element)
         {
             Matrix4 model = (element.Rotation * Matrix4.CreateScale(element.Scale)) * Matrix4.CreateTranslation(element.Position);

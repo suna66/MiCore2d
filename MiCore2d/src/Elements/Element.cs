@@ -3,40 +3,111 @@ using OpenTK.Mathematics;
 
 namespace MiCore2d
 {   
+    /// <summary>
+    /// Element. Base class of element.
+    /// </summary>
     public abstract class Element
     {
+        /// <summary>
+        /// texture. texture instance this element.
+        /// </summary>
         protected Texture? texture = null;
+
+        /// <summary>
+        /// position.
+        /// </summary>
         protected Vector3 position = Vector3.Zero;
+
+        /// <summary>
+        /// rotation.
+        /// </summary>
         protected Matrix4 rotation = Matrix4.Identity;
+
+        /// <summary>
+        /// alpha.
+        /// </summary>
         protected float alpha = 1.0f;
+
+        /// <summary>
+        /// scale.
+        /// </summary>
         protected Vector3 scale = Vector3.One;
+
+        /// <summary>
+        /// unit size.
+        /// </summary>
         protected float unit = 1.0f;
+
+        /// <summary>
+        /// texture index.
+        /// </summary>
         protected int textureIndex = 0;
 
+        /// <summary>
+        /// game scene instance.
+        /// </summary>
         protected GameScene? parentGameScene = null;
 
+        /// <summary>
+        /// attached component list.
+        /// </summary>
         private List<Component>? _componentList = null;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public Element()
         {
         }
 
+        /// <summary>
+        /// Destructor.
+        /// </summary> 
         ~Element()
         {
         }
 
+        /// <summary>
+        /// Name. element name.
+        /// </summary>
+        /// <value>name</value>
         public string Name { get; set; }
 
+        /// <summary>
+        /// Layer. layer name.
+        /// </summary>
+        /// <value>name</value>
         public string Layer {get; set; } = "default";
 
+        /// <summary>
+        /// Disabled. disable this element or not.
+        /// </summary>
+        /// <value>true: disable, false: eneble</value>
         public bool Disabled { get; set; } = false;
 
+        /// <summary>
+        /// Visibled. visible this element or not.
+        /// </summary>
+        /// <value>true: visible, false: unvisible</value>
         public bool Visibled { get; set; } = true;
 
+        /// <summary>
+        /// Destroyed. destroyed this element.
+        /// </summary>
+        /// <value>true: destroyed. false: not</value>
         public bool Destroyed { get; set; } = false;
 
+        /// <summary>
+        /// DrawRenderer.
+        /// </summary>
+        /// <value>renderer instance</value>
         public Renderer? DrawRenderer { get; set; } = null;
 
+        /// <summary>
+        /// AddComponent.
+        /// </summary>
+        /// <typeparam name="T">component type</typeparam>
+        /// <returns>Component</returns>
         public T AddComponent<T>() where T : new()
         {
             T obj = new T();
@@ -55,6 +126,10 @@ namespace MiCore2d
             throw new InvalidCastException("cannot convert to Component Object");
         }
 
+        /// <summary>
+        /// RemoveComponent.
+        /// </summary>
+        /// <typeparam name="T">component type</typeparam>
         public void RemoveComponent<T>()
         {
             if (_componentList == null)
@@ -70,6 +145,11 @@ namespace MiCore2d
             }
         }
 
+        /// <summary>
+        /// GetComponent.
+        /// </summary>
+        /// <typeparam name="T">component type</typeparam>
+        /// <returns>component</returns>
         public T GetComponent<T>()
         {
             if (_componentList == null)
@@ -86,16 +166,28 @@ namespace MiCore2d
             return (T)(object)null!;
         }
 
+        /// <summary>
+        /// SetParentGameScene.
+        /// </summary>
+        /// <param name="scene">game scene</param>
         public void SetParentGameScene(GameScene scene)
         {
             parentGameScene = scene;
         }
 
+        /// <summary>
+        /// GetParentGameScene
+        /// </summary>
+        /// <returns>game scene</returns>
         public GameScene GetParentGameScene()
         {
             return parentGameScene;
         }
 
+        /// <summary>
+        /// UpdateComponents. called this function from Scene.
+        /// </summary>
+        /// <param name="elapsed">elapsed time</param>
         public virtual void UpdateComponents(double elapsed)
         {
             if (Disabled)
@@ -124,6 +216,10 @@ namespace MiCore2d
             }
         }
 
+        /// <summary>
+        /// CopyPosition.
+        /// </summary>
+        /// <param name="e">target element</param>
         public void CopyPositions(Element e)
         {
             position = e.Position;
@@ -132,6 +228,10 @@ namespace MiCore2d
             SetScale(e.Scale.Y/e.Unit);
         }
 
+        /// <summary>
+        /// Position.
+        /// </summary>
+        /// <value>position</value>
         public Vector3 Position
         {
             get => position;
@@ -141,6 +241,10 @@ namespace MiCore2d
             }
         }
 
+        /// <summary>
+        /// Position. 2D position.
+        /// </summary>
+        /// <value>position</value>
         public Vector2 Position2d
         {
             get
@@ -154,6 +258,12 @@ namespace MiCore2d
             }
         }
 
+        /// <summary>
+        /// SetPosition.
+        /// </summary>
+        /// <param name="x">position x</param>
+        /// <param name="y">position y</param>
+        /// <param name="z">position z</param>
         public void SetPosition(float x, float y, float z)
         {
             position.X = x;
@@ -161,31 +271,55 @@ namespace MiCore2d
             position.Z = z;
         }
 
+        /// <summary>
+        /// AddPositionX.
+        /// </summary>
+        /// <param name="x">add position x</param>
         public void AddPositionX(float x)
         {
             position.X += x;
         }
     
+        /// <summary>
+        /// AddPositionY.
+        /// </summary>
+        /// <param name="y">add position y</param>
         public void AddPositionY(float y)
         {
             position.Y += y;
         }
 
+        /// <summary>
+        /// AddPositionZ.
+        /// </summary>
+        /// <param name="z">add position z</param>
         public void AddPositionZ(float z)
         {
             position.Z += z;
         }
 
+        /// <summary>
+        /// AddPosition
+        /// </summary>
+        /// <param name="pos">position</param>
         public void AddPosition(Vector3 pos)
         {
             position += pos;
         }
 
+        /// <summary>
+        /// Scale.
+        /// </summary>
+        /// <value>scale value</value>
         public Vector3 Scale
         {
             get => scale;
         }
 
+        /// <summary>
+        /// SetScale.
+        /// </summary>
+        /// <param name="value">scale value</param>
         public void SetScale(float value)
         {
             if (value < 0.0f)
@@ -201,16 +335,28 @@ namespace MiCore2d
             scale.Z = 1.0f;
         }
 
+        /// <summary>
+        /// SetScaleX
+        /// </summary>
+        /// <param name="value">scale value</param>
         public void SetScaleX(float value)
         {
             scale.X = unit * value;
         }
 
+        /// <summary>
+        /// SetScaleY
+        /// </summary>
+        /// <param name="value">scale value</param>
         public void SetScaleY(float value)
         {
             scale.Y = unit * value;
         }
 
+        /// <summary>
+        /// Alpha.
+        /// </summary>
+        /// <value>alpha value</value>
         public float Alpha
         {
             get => alpha;
@@ -220,6 +366,10 @@ namespace MiCore2d
             }
         }
 
+        /// <summary>
+        /// Unit.
+        /// </summary>
+        /// <value>unit size</value>
         public float Unit
         {
             get => unit;
@@ -229,6 +379,10 @@ namespace MiCore2d
             }
         }
 
+        /// <summary>
+        /// Texture.
+        /// </summary>
+        /// <value>texture</value>
         public Texture Texture
         {
           get => texture;
@@ -237,6 +391,10 @@ namespace MiCore2d
           }
         }
 
+        /// <summary>
+        /// TextureIndex.
+        /// </summary>
+        /// <value>index of texture</value>
         public int TextureIndex
         {
             get => textureIndex;
@@ -246,6 +404,10 @@ namespace MiCore2d
             }
         }
 
+        /// <summary>
+        /// TextureCount.
+        /// </summary>
+        /// <value>index number of texture</value>
         public int TextureCount
         {
             get
@@ -254,6 +416,9 @@ namespace MiCore2d
             }
         }
 
+        /// <summary>
+        /// IncrementTextureIndex.
+        /// </summary>
         public void IncrementTextureIndex()
         {
             if (texture == null)
@@ -266,6 +431,10 @@ namespace MiCore2d
             }
         }
 
+        /// <summary>
+        /// Rotation.
+        /// </summary>
+        /// <value>rotated matrix</value>
         public Matrix4 Rotation
         {
             get => rotation;
@@ -275,6 +444,12 @@ namespace MiCore2d
             }
         }
 
+        /// <summary>
+        /// SetRotation
+        /// </summary>
+        /// <param name="x">rotation x</param>
+        /// <param name="y">rotation y</param>
+        /// <param name="z">rotation z</param>
         public void SetRotation(float x, float y, float z)
         {
             rotation = Matrix4.Identity;
@@ -292,6 +467,9 @@ namespace MiCore2d
             }
         }
 
+        /// <summary>
+        /// Dispose.
+        /// </summary>
         public virtual void Dispose()
         {
             texture = null;

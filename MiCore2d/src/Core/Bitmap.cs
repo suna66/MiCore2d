@@ -2,12 +2,25 @@ using SkiaSharp;
 
 namespace MiCore2d
 {
+    /// <summary>
+    /// Bitmap.
+    /// </summary>
     public class Bitmap
     {
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         private Bitmap()
         {
         }
 
+        /// <summary>
+        /// CreateArrayBitmap. Create one bitmpa data from multiple data.
+        /// </summary>
+        /// <param name="files">image file list</param>
+        /// <param name="width">widht of an image file</param>
+        /// <param name="height">height of an image file</param>
+        /// <returns>concated image data</returns>
         public static SKBitmap CreateArrayBitmap(string[] files, out int width, out int height)
         {
             SKBitmap bmp;
@@ -36,6 +49,13 @@ namespace MiCore2d
             return bmp;
         }
 
+        /// <summary>
+        /// drawArrayBitmap. draw image data to SKCanvos.
+        /// </summary>
+        /// <param name="canvas">SKCanvas</param>
+        /// <param name="files">image files</param>
+        /// <param name="width">width of an image file</param>
+        /// <param name="height">height of an image file</param>
         private static void drawArrayBitmap(SKCanvas canvas, string[] files, int width, int height)
         {
             for (int i = 0; i < files.Length; i++)
@@ -47,6 +67,15 @@ namespace MiCore2d
             canvas.Flush();
         }
 
+        /// <summary>
+        /// CreateBitmap. create bitmap data.
+        /// </summary>
+        /// <param name="width">image width</param>
+        /// <param name="height">image height</param>
+        /// <param name="r">red</param>
+        /// <param name="g">blue</param>
+        /// <param name="b">green</param>
+        /// <returns>image data</returns>
         public static SKBitmap CreateBitmap(int width, int height, byte r, byte g, byte b)
         {
             SKBitmap bmp;

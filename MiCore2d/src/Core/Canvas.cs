@@ -5,6 +5,9 @@ using OpenTK.Mathematics;
 
 namespace MiCore2d
 {
+    /// <summary>
+    /// Canvas.
+    /// </summary>
     public class Canvas : IDisposable
     {
         private SKBitmap bmp;
@@ -32,6 +35,11 @@ namespace MiCore2d
 
         private bool _disposed = false;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="width">canvas width</param>
+        /// <param name="height">canvas height</param>
         public Canvas(int width, int height)
         {
             if (width <= 0)
@@ -108,59 +116,114 @@ namespace MiCore2d
               IntPtr.Zero);
         }
 
+        /// <summary>
+        /// SetColor. Setting paing color.
+        /// </summary>
+        /// <param name="r">red</param>
+        /// <param name="g">green</param>
+        /// <param name="b">blue</param>
         public void SetColor(byte r, byte g, byte b)
         {
             paint.Color = new SKColor(r, g, b);
         }
 
+        /// <summary>
+        /// SetFontSize. Setting font size.
+        /// </summary>
+        /// <param name="size">size</param>
         public void SetFontSize(int size)
         {
             paint.TextSize = size;
         }
 
-        //            paint.Style = SKPaintStyle.Stroke;
-        //    paint.StrokeWidth = 3;
+        /// <summary>
+        /// SetPaintStyle. Setting paint style.
+        /// </summary>
+        /// <param name="style">style</param>
         public void SetPaintStyle(SKPaintStyle style)
         {
             paint.Style = style;
         }
 
+        /// <summary>
+        /// SetStrokeWidth.
+        /// </summary>
+        /// <param name="width">width</param>
         public void SetStrokeWidth(int width)
         {
             paint.StrokeWidth = width;
         }
 
+        /// <summary>
+        /// Clear. Clear canvas.
+        /// </summary>
         public void Clear()
         {
             gfx.Clear(new SKColor(0, 0, 0, 0));
         }
 
+        /// <summary>
+        /// DrawString. Drawing specified string.
+        /// </summary>
+        /// <param name="x">position x</param>
+        /// <param name="y">position y</param>
+        /// <param name="text">string</param>
         public void DrawString(int x, int y, string text)
         {
             gfx.DrawText(text, x, y + paint.TextSize, paint);
         }
 
+        /// <summary>
+        /// DrawRect. Drawing rectangle
+        /// </summary>
+        /// <param name="x">position x</param>
+        /// <param name="y">position y</param>
+        /// <param name="w">width</param>
+        /// <param name="h">height</param>
         public void DrawRect(float x, float y, float w, float h)
         {
             gfx.DrawRect(x, y, w, h, paint);
         }
 
+        /// <summary>
+        /// DrawLine. Drawing line.
+        /// </summary>
+        /// <param name="x0">start x</param>
+        /// <param name="y0">start y</param>
+        /// <param name="x1">end x</param>
+        /// <param name="y1">end y</param>
         public void DrawLine(float x0, float y0, float x1, float y1)
         {
             gfx.DrawLine(x0, y0, x1, y1, paint);
         }
 
+        /// <summary>
+        /// DraawOval.
+        /// </summary>
+        /// <param name="cx">centor x</param>
+        /// <param name="cy">centor y</param>
+        /// <param name="rx">radius x</param>
+        /// <param name="ry">radius y</param>
         public void DrawOval(float cx, float cy, float rx, float ry)
         {
             gfx.DrawOval(cx, cy, rx, ry, paint);
         }
 
+        /// <summary>
+        /// DrawPoint
+        /// </summary>
+        /// <param name="x">point x</param>
+        /// <param name="y">point y</param>
         public void DrawPoint(float x, float y)
         {
             gfx.DrawPoint(x, y, paint);
         }
 
-        public float Alpha { get; set; } = 0.0f;
+        /// <summary>
+        /// Alpha. Setting alpha value.
+        /// </summary>
+        /// <value>value</value>
+        public float Alpha { get; set; } = 1.0f;
 
         public void Update()
         {
@@ -171,12 +234,15 @@ namespace MiCore2d
             _shader.SetMatrix4("model", Matrix4.Identity);
             _shader.SetMatrix4("view", _camera.GetViewMatrix());
             _shader.SetMatrix4("projection", _camera.GetProjectionMatrix());
-            _shader.SetFloat("texAlpha", Alpha);
+            _shader.SetFloat("texAlpha", 1.0f - Alpha);
 
             GL.DrawElements(PrimitiveType.Triangles, _indices.Length, DrawElementsType.UnsignedInt, 0);
             GL.BindVertexArray(0);
         }
 
+        /// <summary>
+        /// Flush. flushing canvas.
+        /// </summary>
         public void Flush()
         {
             gfx.Flush();
@@ -193,12 +259,19 @@ namespace MiCore2d
             GL.BindVertexArray(0);
         }
 
+        /// <summary>
+        /// Dispose.
+        /// </summary>
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Disose.
+        /// </summary>
+        /// <param name="disposing">disposing managed object or not</param>
         protected void Dispose(bool disposing)
         {
             if (!_disposed)
@@ -215,6 +288,9 @@ namespace MiCore2d
             }
         }
         
+        /// <summary>
+        /// Destructor.
+        /// </summary>
         ~Canvas()
         {
             Dispose(false);

@@ -2,15 +2,27 @@ using System;
 
 namespace MiCore2d
 {
+    /// <summary>
+    /// TextureManager.
+    /// </summary>
     public class TextureManager
     {
         private Dictionary<string, Texture> _textureDic;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public TextureManager()
         {
             _textureDic = new Dictionary<string, Texture>();
         }
 
+        /// <summary>
+        /// LoadTexture2d.
+        /// </summary>
+        /// <param name="key">management name</param>
+        /// <param name="path">file path</param>
+        /// <returns>texture</returns>
         public Texture LoadTexture2d(string key, string path)
         {
             if (_textureDic.ContainsKey(key))
@@ -22,6 +34,14 @@ namespace MiCore2d
             return texture;
         }
 
+        /// <summary>
+        /// LoadTexture2dArray.
+        /// </summary>
+        /// <param name="key">management name</param>
+        /// <param name="files">file list</param>
+        /// <param name="width">width of an image file</param>
+        /// <param name="height">height of an image file</param>
+        /// <returns>texture</returns>
         public Texture LoadTexture2dArray(string key, string[] files, int width, int height)
         {
             if (_textureDic.ContainsKey(key))
@@ -33,6 +53,14 @@ namespace MiCore2d
             return texture;
         }
 
+        /// <summary>
+        /// LoadTexture2dTile.
+        /// </summary>
+        /// <param name="key">management name</param>
+        /// <param name="path">file path</param>
+        /// <param name="tileW">tile width</param>
+        /// <param name="tileH">tile height</param>
+        /// <returns></returns>
         public Texture LoadTexture2dTile(string key, string path, int tileW, int tileH)
         {
             if (_textureDic.ContainsKey(key))
@@ -44,21 +72,39 @@ namespace MiCore2d
             return texture;
         }
 
+        /// <summary>
+        /// GetTexture.
+        /// </summary>
+        /// <param name="key">management name</param>
+        /// <returns>texture</returns>
         public Texture GetTexture(string key)
         {
             return _textureDic[key];
         }
 
+        /// <summary>
+        /// Haskey.
+        /// </summary>
+        /// <param name="key">management name</param>
+        /// <returns>true: there is a key</returns>
         public bool HasKey(string key)
         {
             return _textureDic.ContainsKey(key);
         }
 
+        /// <summary>
+        /// GetTextureCount.
+        /// </summary>
+        /// <returns>number of managed textures.</returns>
         public int GetTextureCount()
         {
             return _textureDic.Count;
         }
 
+        /// <summary>
+        /// Remove.
+        /// </summary>
+        /// <param name="key">management name</param>
         public void Remove(string key)
         {
             if (HasKey(key))
@@ -68,6 +114,9 @@ namespace MiCore2d
             }
         }
 
+        /// <summary>
+        /// Clear.
+        /// </summary>
         public void Clear()
         {
             foreach (KeyValuePair<string, Texture> kvp in _textureDic)
@@ -78,6 +127,9 @@ namespace MiCore2d
             _textureDic.Clear();
         }
 
+        /// <summary>
+        /// Dispose.
+        /// </summary>
         public void Dispose()
         {
             Clear();

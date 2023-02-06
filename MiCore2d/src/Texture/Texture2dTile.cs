@@ -5,8 +5,18 @@ using SkiaSharp;
 
 namespace MiCore2d
 {
+    /// <summary>
+    /// Texture2dTile.
+    /// </summary>
     public class Texture2dTile : Texture
     {
+        /// <summary>
+        /// Construtor.
+        /// </summary>
+        /// <param name="path">file paht</param>
+        /// <param name="tileW">tile width</param>
+        /// <param name="tileH">tile height</param>
+        /// <returns>instance</returns>
         public Texture2dTile(string path, int tileW, int tileH) : base(TextureTarget.Texture2DArray)
         {
             if (path == null)

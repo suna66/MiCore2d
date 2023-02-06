@@ -3,14 +3,23 @@ using OpenTK.Mathematics;
 
 namespace MiCore2d
 {
+    /// <summary>
+    /// LineRenderer.
+    /// </summary>
     public class LineRenderer : Renderer
     {
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public LineRenderer()
         {
             LoadShader(Resources.ReadText("MiCore2d.resources.line.vert"), Resources.ReadText("MiCore2d.resources.line.frag"));
             Init();
         }
 
+        /// <summary>
+        /// Init.
+        /// </summary>
         protected override void Init()
         {
             vertices = new float[]
@@ -42,6 +51,11 @@ namespace MiCore2d
             GL.BindVertexArray(0);
         }
 
+        /// <summary>
+        /// Draw.
+        /// </summary>
+        /// <param name="camera">camera</param>
+        /// <param name="element">element</param>
         public override void Draw(Camera camera, Element element)
         {
             if (!element.Disabled && element.Visibled)
@@ -50,6 +64,11 @@ namespace MiCore2d
             }
         }
 
+        /// <summary>
+        /// DrawElement.
+        /// </summary>
+        /// <param name="camera">camera</param>
+        /// <param name="element">element</param>
         protected override void DrawElement(Camera camera, Element element)
         {
             if (element is not LineSprite)
@@ -69,6 +88,11 @@ namespace MiCore2d
             GL.BindVertexArray(0);
         }
 
+        /// <summary>
+        /// updateVertics.
+        /// </summary>
+        /// <param name="startPos">start position</param>
+        /// <param name="endPos">end position</param>
         private void updateVertics(Vector3 startPos, Vector3 endPos)
         {
             vertices[0] = startPos.X;

@@ -5,8 +5,18 @@ using SkiaSharp;
 
 namespace MiCore2d
 {
+    /// <summary>
+    /// Texture2dArray.
+    /// </summary>
     public class Texture2dArray : Texture
-    {        
+    {
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="files">file list</param>
+        /// <param name="width">width of an image file.</param>
+        /// <param name="height">height of an image file.</param>
+        /// <returns>instance</returns>
         public Texture2dArray(string[] files, int width, int height) : base(TextureTarget.Texture2DArray)
         {
             if (files == null || files.Length == 0)

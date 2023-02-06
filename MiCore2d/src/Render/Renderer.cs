@@ -3,6 +3,9 @@ using OpenTK.Mathematics;
 
 namespace MiCore2d
 {
+    /// <summary>
+    /// Renderer.
+    /// </summary>
     public abstract class Renderer : IDisposable
     {
         protected int elementBufferObject;
@@ -26,15 +29,26 @@ namespace MiCore2d
 
         private bool _disposed = false;
  
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public Renderer()
         {
         }
 
+        /// <summary>
+        /// LoadShader.
+        /// </summary>
+        /// <param name="vartString">vartics glsl code</param>
+        /// <param name="fragString">fragment glsl code</param>
         protected virtual void LoadShader(string vartString, string fragString)
         {
             shader = new Shader(vartString, fragString);
         }
 
+        /// <summary>
+        /// Init.
+        /// </summary>
         protected virtual void Init()
         {
             vertexArrayObject = GL.GenVertexArray();
@@ -61,8 +75,18 @@ namespace MiCore2d
             GL.BindVertexArray(0);
         }
 
+        /// <summary>
+        /// DrawElement.
+        /// </summary>
+        /// <param name="camera">camera</param>
+        /// <param name="element">element</param>
         protected abstract void DrawElement(Camera camera, Element element);
 
+        /// <summary>
+        /// Draw.
+        /// </summary>
+        /// <param name="camera">camera</param>
+        /// <param name="element">element</param>
         public virtual void Draw(Camera camera, Element element)
         {
             if (!element.Disabled && element.Visibled)
@@ -75,6 +99,10 @@ namespace MiCore2d
             }
         }
 
+        /// <summary>
+        /// Begin.
+        /// </summary>
+        /// <param name="texture">texture</param>
         protected void Begin(Texture texture)
         {
             GL.BindVertexArray(vertexArrayObject);
@@ -82,32 +110,52 @@ namespace MiCore2d
             shader.Use();
         }
 
+        /// <summary>
+        /// Draw.
+        /// </summary>
         protected void Draw()
         {
             GL.DrawElements(PrimitiveType.Triangles, indices.Length, DrawElementsType.UnsignedInt, 0);
         }
 
+        /// <summary>
+        /// DrawInstanced.
+        /// </summary>
+        /// <param name="instanceCount">number of instanced</param>
         protected void DrawInstanced(int instanceCount)
         {
             GL.DrawElementsInstanced(PrimitiveType.Triangles, indices.Length, DrawElementsType.UnsignedInt, 0, instanceCount);
         }
 
+        /// <summary>
+        /// DrawLine.
+        /// </summary>
         protected void DrawLine()
         {
             GL.DrawElements(PrimitiveType.Lines, indices.Length, DrawElementsType.UnsignedInt, 0);
         }
 
+        /// <summary>
+        /// End.
+        /// </summary>
         public void End()
         {
             GL.BindVertexArray(0);
         }
 
+        /// <summary>
+        /// Dispose.
+        /// </summary>
         public virtual void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Dispose.
+        /// </summary>
+        /// <param name="disposing">disposing</param>
         protected virtual void Dispose(bool disposing)
         {
             if (!_disposed)

@@ -2,10 +2,19 @@ using OpenTK.Mathematics;
 
 namespace MiCore2d
 {
+    /// <summary>
+    /// ImageSprite.
+    /// </summary>
     public class ImageSprite : Element
     {
         private bool disposed = false;
         
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="tex">texture</param>
+        /// <param name="unitSize">unit size</param>
+        /// <returns>ImageSprite</returns>
         public ImageSprite(Texture tex, float unitSize) : base()
         {
             texture = tex;
@@ -24,6 +33,9 @@ namespace MiCore2d
             }
         }
 
+        /// <summary>
+        /// Dispose.
+        /// </summary>
         public override void Dispose()
         {
             if (!disposed)

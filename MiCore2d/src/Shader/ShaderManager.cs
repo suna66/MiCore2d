@@ -2,17 +2,27 @@ using System;
 
 namespace MiCore2d
 {
+    /// <summary>
+    /// ShaderManager
+    /// </summary>
     public class ShaderManager
     {
         private static ShaderManager _instance = null!;
 
         private Dictionary<string, Shader> _shaderList;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         private ShaderManager()
         {
             _shaderList = new Dictionary<string, Shader>();
         }
 
+        /// <summary>
+        /// GetInstance.
+        /// </summary>
+        /// <returns>instance</returns>
         public static ShaderManager GetInstance()
         {
             if (_instance == null)
@@ -22,6 +32,11 @@ namespace MiCore2d
             return _instance;
         }
 
+        /// <summary>
+        /// AddShader.
+        /// </summary>
+        /// <param name="shader">shader instance</param>
+        /// <param name="name">managment name</param>
         public void AddShader(Shader shader, string name)
         {
             if (shader == null)
@@ -41,6 +56,12 @@ namespace MiCore2d
             _shaderList.Add(name, shader);
         }
 
+        /// <summary>
+        /// AddShaderFromFile.
+        /// </summary>
+        /// <param name="vertFile">glsl vertics file</param>
+        /// <param name="fragFile">glsl fragment file</param>
+        /// <param name="name">management name</param>
         public void AddShaderFromFile(string vertFile, string fragFile, string name)
         {
             if (vertFile == null || vertFile.Length == 0)

@@ -3,11 +3,18 @@ using OpenTK.Mathematics;
 
 namespace MiCore2d
 {
+    /// <summary>
+    /// RendererManager.
+    /// </summary>
     public class RendererManager
     {
         private static RendererManager? _instance = null;
         private List<Renderer> _rendererList;
 
+        /// <summary>
+        /// GetInstance.
+        /// </summary>
+        /// <returns>instance</returns>
         public static RendererManager GetInstance()
         {
             if (_instance == null)
@@ -22,11 +29,19 @@ namespace MiCore2d
             return _instance;
         }
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         private RendererManager()
         {
             _rendererList = new List<Renderer>();
         }
 
+        /// <summary>
+        /// AddRenderer.
+        /// </summary>
+        /// <typeparam name="T">renderer type</typeparam>
+        /// <returns>renderer instance</returns>
         public T AddRenderer<T>() where T : new()
         {
             T obj = new T();
@@ -39,6 +54,11 @@ namespace MiCore2d
             throw new InvalidCastException("cannot convert to Renderer Object");
         }
 
+        /// <summary>
+        /// GetRenderer.
+        /// </summary>
+        /// <typeparam name="T">renderer type</typeparam>
+        /// <returns>renderer instance</returns>
         public T GetRenderer<T>()
         {
             foreach(Renderer c in _rendererList)
@@ -51,11 +71,19 @@ namespace MiCore2d
             return (T)(object)null!;
         }
 
+        /// <summary>
+        /// GetCount.
+        /// </summary>
+        /// <returns>number of renderers</returns>
         public int GetCount()
         {
             return _rendererList.Count;
         }
 
+        /// <summary>
+        /// Clear.
+        /// </summary>
+        /// <param name="renew">renew instance or not</param>
         public void Clear(bool renew)
         {
             foreach (Renderer renderer in _rendererList)
@@ -68,6 +96,9 @@ namespace MiCore2d
                 _rendererList = null!;
         }
 
+        /// <summary>
+        /// Dispose.
+        /// </summary>
         public void Dispose()
         {
             Clear(false);

@@ -2,11 +2,18 @@ using OpenTK.Mathematics;
 
 namespace MiCore2d
 {
+    /// <summary>
+    /// CAMERA_TYPE
+    /// </summary>
     public enum CAMERA_TYPE
     {
         PERSPECTIVE,
         ORTHONGRAPHIC,
     }
+
+    /// <summary>
+    /// Camera
+    /// </summary>
     public class Camera
     {
         private Vector3 _front = -Vector3.UnitZ;
@@ -19,19 +26,48 @@ namespace MiCore2d
         private float _fov = MathHelper.PiOver2;
         private CAMERA_TYPE _cameraType = CAMERA_TYPE.PERSPECTIVE;
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="position">Camera position</param>
+        /// <param name="aspectRatio">aspect ratio</param>
         public Camera(Vector3 position, float aspectRatio)
         {
             Position = position;
             AspectRatio = aspectRatio;
         }
 
+        /// <summary>
+        /// Position. Camera position.
+        /// </summary>
+        /// <value>camera position</value>
         public Vector3 Position { get; set; }
+
+        /// <summary>
+        /// AspectRatio. Camera aspect ratio.
+        /// </summary>
+        /// <value>aspect ratio</value>
         public float AspectRatio { private get; set; }
 
+        /// <summary>
+        /// Front. Direction of front.
+        /// </summary>
         public Vector3 Front => _front;
+
+        /// <summary>
+        /// Up. Direction of Up.
+        /// </summary>
         public Vector3 Up => _up;
+
+        /// <summary>
+        /// Right. Dirction of Right.
+        /// </summary>
         public Vector3 Right => _right;
 
+        /// <summary>
+        /// CameraType.
+        /// </summary>
+        /// <value>CAMERA_TYPE</value>
         public CAMERA_TYPE CameraType
         {
             get => _cameraType;
@@ -41,6 +77,10 @@ namespace MiCore2d
             }
         }
 
+        /// <summary>
+        /// Pitch.
+        /// </summary>
+        /// <value>pitch</value>
         public float Pitch
         {
             get => MathHelper.RadiansToDegrees(_pitch);
@@ -52,6 +92,10 @@ namespace MiCore2d
             }
         }
 
+        /// <summary>
+        /// Yaw.
+        /// </summary>
+        /// <value>yaw</value>
         public float Yaw
         {
             get => MathHelper.RadiansToDegrees(_yaw);
@@ -62,6 +106,10 @@ namespace MiCore2d
             }
         }
 
+        /// <summary>
+        /// Fov.
+        /// </summary>
+        /// <value>fov</value>
         public float Fov
         {
             get => MathHelper.RadiansToDegrees(_fov);
@@ -72,11 +120,19 @@ namespace MiCore2d
             }
         }
 
+        /// <summary>
+        /// GetViewMatrix.
+        /// </summary>
+        /// <returns>matrix</returns>
         public Matrix4 GetViewMatrix()
         {
             return Matrix4.LookAt(Position, Position + _front, _up);
         }
 
+        /// <summary>
+        /// GetProjectionMatrix.
+        /// </summary>
+        /// <returns>matrix</returns>
         public Matrix4 GetProjectionMatrix()
         {
             if (_cameraType == CAMERA_TYPE.PERSPECTIVE)
@@ -89,21 +145,36 @@ namespace MiCore2d
             }
         }
 
+        /// <summary>
+        /// createPerspectiveCameraView.
+        /// </summary>
+        /// <returns>matrix</returns>
         private Matrix4 createPerspectiveCameraView()
         {
             return Matrix4.CreatePerspectiveFieldOfView(_fov, AspectRatio, 0.01f, 100f);
         }
 
+        /// <summary>
+        /// createOrthographicCameraView.
+        /// </summary>
+        /// <returns>metrix</returns>
         private Matrix4 createOrthographicCameraView()
         {
             return Matrix4.CreateOrthographic(Position.Z * 2 * AspectRatio, Position.Z * 2 , 0.01f, 100f);
         }
 
+        /// <summary>
+        /// SetAspectRatio.
+        /// </summary>
+        /// <param name="aspectRatio">aspect ratio</param>
         public void SetAspectRatio(float aspectRatio)
         {
             AspectRatio = aspectRatio;
         }
 
+        /// <summary>
+        /// UpdateVectors.
+        /// </summary>
         private void UpdateVectors()
         {
             _front.X = MathF.Cos(_pitch) * MathF.Cos(_yaw);
