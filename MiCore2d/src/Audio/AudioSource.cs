@@ -19,7 +19,7 @@ namespace MiCore2d.Audio
 
     /// <summary>
     /// AudioSource. Management audio data
-    /// </summaray>
+    /// </summary>
     public class AudioSource : IDisposable
     {
         private ALDevice device;
@@ -201,7 +201,7 @@ namespace MiCore2d.Audio
         /// IsLoaded. 
         /// <summary>
         /// <param name="key">alias name</param>
-        /// <return>ture is already loaded the audio specified the key. false is not.</return>
+        /// <returns>ture is already loaded the audio specified the key. false is not.</returns>
         public bool IsLoaded(string key)
         {
             if (clipDic.ContainsKey(key))
@@ -235,7 +235,7 @@ namespace MiCore2d.Audio
         /// IsPlay. 
         /// <summary>
         /// <param name="key">alias name</param>
-        /// <return>ture is already playing the audio specified the key. false is not.</return>
+        /// <returns>ture is already playing the audio specified the key. false is not.</returns>
         public bool IsPlay(string key)
         {
             if (clipDic.ContainsKey(key))
@@ -352,7 +352,7 @@ namespace MiCore2d.Audio
         /// GetSourceVolume.
         /// <summary>
         /// <param name="key">alias name</param>
-        /// <return>volume value</return>
+        /// <returns>volume value</returns>
         public float GetSourceVolume(string key)
         {
             if (disposed)
@@ -385,7 +385,7 @@ namespace MiCore2d.Audio
         /// <summary>
         /// GetMasterVolume.
         /// <summary>
-        /// <return>volume value</return>
+        /// <returns>volume value</returns>
         public float GetMasterVolume()
         {
             if (disposed)
@@ -400,7 +400,7 @@ namespace MiCore2d.Audio
         /// <summary>
         /// GetClipCount.
         /// <summary>
-        /// <return>managed audio count</return>
+        /// <returns>managed audio count</returns>
         public int GetClipCount()
         {
             return clipDic.Count;
@@ -455,7 +455,7 @@ namespace MiCore2d.Audio
         /// getSourceState.
         /// <summary>
         /// <param name="key">alias name</param>
-        /// <return>audio status</return>
+        /// <returns>audio status</returns>
         private ALSourceState getSourceState(string key)
         {
             if (disposed)
@@ -470,12 +470,19 @@ namespace MiCore2d.Audio
             return (ALSourceState)state;
         }
 
+        /// <summary>
+        /// Dispose.
+        /// </summary>
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Dispose.
+        /// </summary>
+        /// <param name="disposing">disposing</param>
         protected void Dispose(bool disposing)
         {
             if (!disposed)
