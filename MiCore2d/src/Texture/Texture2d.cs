@@ -28,6 +28,20 @@ namespace MiCore2d
         }
 
         /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="stream">Stream</param>
+        /// <returns>instance</returns>
+        public Texture2d(Stream stream): base(TextureTarget.Texture2D)
+        {
+            if (stream == null)
+            {
+                throw new ArgumentException("parameter is null.");
+            }
+            loadTexture(stream);
+        }
+
+        /// <summary>
         /// loadTexture.
         /// </summary>
         /// <param name="stream">stream data</param>
