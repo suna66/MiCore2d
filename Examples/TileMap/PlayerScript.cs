@@ -29,22 +29,22 @@ namespace Example.TileMap
             if (input.IsKeyDown(Keys.Up))
             {
                 animation.SwitchPattern("up");
-                element.AddPositionY(5 * (float)elapsed);
+                element.AddPositionY(3 * (float)elapsed);
             }
             if (input.IsKeyDown(Keys.Down))
             {
                 animation.SwitchPattern("down");
-                element.AddPositionY(-5 * (float)elapsed);
+                element.AddPositionY(-3 * (float)elapsed);
             }
             if (input.IsKeyDown(Keys.Left))
             {
                 animation.SwitchPattern("left");
-                element.AddPositionX(-5 * (float)elapsed);
+                element.AddPositionX(-3 * (float)elapsed);
             }
             if (input.IsKeyDown(Keys.Right))
             {
                 animation.SwitchPattern("right");
-                element.AddPositionX(5 * (float)elapsed);
+                element.AddPositionX(3 * (float)elapsed);
             }
             if (input.IsKeyDown(Keys.Space))
             {
@@ -66,7 +66,7 @@ namespace Example.TileMap
                 {
                     direct = Vector3.UnitX;
                 }
-                magic.StartAnimation(element.Position, direct, 2.0f);
+                magic.StartAnimation(element.Position, direct, 5.0f);
                 gameScene.Audio.Play("magic");
             }
         }

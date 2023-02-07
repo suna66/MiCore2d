@@ -23,13 +23,30 @@ namespace MiCore2d
         /// <param name="key">management name</param>
         /// <param name="path">file path</param>
         /// <returns>texture</returns>
-        public Texture LoadTexture2d(string key, string path)
+        public Texture2d LoadTexture2d(string key, string path)
         {
             if (_textureDic.ContainsKey(key))
             {
-                return _textureDic[key];
+                return (Texture2d)_textureDic[key];
             }
             Texture2d texture = new Texture2d(path);
+            _textureDic.Add(key, texture);
+            return texture;
+        }
+
+        /// <summary>
+        /// LoadTexture2d
+        /// </summary>
+        /// <param name="key">management name</param>
+        /// <param name="stream">stream</param>
+        /// <returns>texture</returns>
+        public Texture2d LoadTexture2d(string key, Stream stream)
+        {
+            if (_textureDic.ContainsKey(key))
+            {
+                return (Texture2d)_textureDic[key];
+            }
+            Texture2d texture = new Texture2d(stream);
             _textureDic.Add(key, texture);
             return texture;
         }
@@ -42,13 +59,32 @@ namespace MiCore2d
         /// <param name="width">width of an image file</param>
         /// <param name="height">height of an image file</param>
         /// <returns>texture</returns>
-        public Texture LoadTexture2dArray(string key, string[] files, int width, int height)
+        public Texture2dArray LoadTexture2dArray(string key, string[] files, int width, int height)
         {
             if (_textureDic.ContainsKey(key))
             {
-                return _textureDic[key];
+                return (Texture2dArray)_textureDic[key];
             }
             Texture2dArray texture = new Texture2dArray(files, width, height);
+            _textureDic.Add(key, texture);
+            return texture;
+        }
+
+        /// <summary>
+        /// LoadTexture2dArray.
+        /// </summary>
+        /// <param name="key">management name</param>
+        /// <param name="array_size">array size</param>
+        /// <param name="width">width of an image file</param>
+        /// <param name="height">height of an image file</param>
+        /// <returns>texture</returns>
+        public Texture2dArray LoadTexture2dArray(string key, int array_size, int width, int height)
+        {
+            if (_textureDic.ContainsKey(key))
+            {
+                return (Texture2dArray)_textureDic[key];
+            }
+            Texture2dArray texture = new Texture2dArray(array_size, width, height);
             _textureDic.Add(key, texture);
             return texture;
         }
@@ -61,13 +97,32 @@ namespace MiCore2d
         /// <param name="tileW">tile width</param>
         /// <param name="tileH">tile height</param>
         /// <returns></returns>
-        public Texture LoadTexture2dTile(string key, string path, int tileW, int tileH)
+        public Texture2dTile LoadTexture2dTile(string key, string path, int tileW, int tileH)
         {
             if (_textureDic.ContainsKey(key))
             {
-                return _textureDic[key];
+                return (Texture2dTile)_textureDic[key];
             }
             Texture2dTile texture = new Texture2dTile(path, tileW, tileH);
+            _textureDic.Add(key, texture);
+            return texture;
+        }
+
+        /// <summary>
+        /// LoadTexture2dTile.
+        /// </summary>
+        /// <param name="key">management name</param>
+        /// <param name="stream">stream</param>
+        /// <param name="tileW">tile width</param>
+        /// <param name="tileH">tile height</param>
+        /// <returns></returns>
+        public Texture2dTile LoadTexture2dTile(string key, Stream stream, int tileW, int tileH)
+        {
+            if (_textureDic.ContainsKey(key))
+            {
+                return (Texture2dTile)_textureDic[key];
+            }
+            Texture2dTile texture = new Texture2dTile(stream, tileW, tileH);
             _textureDic.Add(key, texture);
             return texture;
         }

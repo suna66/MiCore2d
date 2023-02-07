@@ -15,6 +15,7 @@ namespace Example.TileMap
         public override void Start()
         {
             _animation = element.GetComponent<AnimationTile>();
+            _animation.Interval = 0.05f;
             element.Disabled = true;
         }
 
