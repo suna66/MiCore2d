@@ -21,16 +21,46 @@ namespace MiCore2d.Audio
                 if (_stream == null)
                     throw new FileNotFoundException(filename);
 
-                _sampleRate = _stream.SampleRate;
-                _channels = _stream.Channels;
-
-                int size = (int)_stream.Length;
-                float[] data = new float[size/sizeof(float)];
-
-                _stream.ReadSamples(data, 0, size/sizeof(float));
-
-                return data;
+                return loadMP3(_stream, out _channels, out _sampleRate);
             }
+        }
+
+        /// <summary>
+        /// LoadMP3FromStream.
+        /// </summary>
+        /// <param name="stream">Straem</param>
+        /// <param name="_channel">out parameter. number of channels</param>
+        /// <param name="_sampleRate">out parameter. sample rate</param>
+        /// <returns>audio arrray buffer</returns>
+        public static float[] LoadMP3FromStream(Stream stream, out int _channels, out int _sampleRate)
+        {
+            using(MpegFile _stream = new MpegFile(stream))
+            {
+                if (_stream == null)
+                    throw new ArgumentNullException("file stream is null");
+
+                return loadMP3(_stream, out _channels, out _sampleRate);
+            }
+        }
+
+        /// <summary>
+        /// loadMP3.
+        /// </summary>
+        /// <param name="_stream">Stream</param>
+        /// <param name="_channel">out parameter. number of channels</param>
+        /// <param name="_sampleRate">out parameter. sample rate</param>
+        /// <returns>audio arrray buffer</returns>
+        private static float[] loadMP3(MpegFile _stream, out int _channels, out int _sampleRate)
+        {
+            _sampleRate = _stream.SampleRate;
+            _channels = _stream.Channels;
+
+            int size = (int)_stream.Length;
+            float[] data = new float[size/sizeof(float)];
+
+            _stream.ReadSamples(data, 0, size/sizeof(float));
+
+            return data;
         }
     }
 }

@@ -21,67 +21,96 @@ namespace MiCore2d.Audio
         {
             using (BinaryReader reader = new BinaryReader(File.Open(filename, FileMode.Open)))
             {
-                Stream baseStream = reader.BaseStream;
+                return loadWav(reader, out _channels, out _bitsPerSample, out _sampleRate);
+            }
+        }
 
-                string signature = new string(reader.ReadChars(4));
-                //Console.WriteLine(signature);
-                if (signature != "RIFF")
-                    throw new NotSupportedException("Not wav format.");
+        /// <summary>
+        /// LoadWavFile. Load WAV audio from stream.
+        /// </summary>
+        /// <param name="stream">stream</param>
+        /// <param name="_channels">out parameter. number of channels</param>
+        /// <param name="_bitsPerSample">out parameter. bits par sample</param>
+        /// <param name="_sampleRate">out parameter. sample rate</param>
+        /// <returns>audio array buffer</returns>
+        public static float[] LoadWavStream(Stream stream, out int _channels, out int _bitsPerSample, out int _sampleRate)
+        {
+            using (BinaryReader reader = new BinaryReader(stream))
+            {
+                return loadWav(reader, out _channels, out _bitsPerSample, out _sampleRate);
+            }
+        }
 
-                int riff_chunck_size = reader.ReadInt32();
+        /// <summary>
+        /// loadWav
+        /// </summary>
+        /// <param name="reader">BinaryReader</param>
+        /// <param name="_channels">out parameter. number of channels</param>
+        /// <param name="_bitsPerSample">out parameter. bits par sample</param>
+        /// <param name="_sampleRate">out parameter. sample rate</param>
+        /// <returns>audio array buffer</returns>
+        private static float[] loadWav(BinaryReader reader , out int _channels, out int _bitsPerSample, out int _sampleRate)
+        {
+            Stream baseStream = reader.BaseStream;
 
-                string format = new string(reader.ReadChars(4));
-                if (format != "WAVE")
-                    throw new NotSupportedException("Not wav format.");
+            string signature = new string(reader.ReadChars(4));
+            //Console.WriteLine(signature);
+            if (signature != "RIFF")
+                throw new NotSupportedException("Not wav format.");
 
-                string format_signature = "";
-                byte[] data = null!;
-                _channels = 0;
-                _bitsPerSample = 0;
-                _sampleRate = 0;
+            int riff_chunck_size = reader.ReadInt32();
 
-                while (baseStream.Position != baseStream.Length)
+            string format = new string(reader.ReadChars(4));
+            if (format != "WAVE")
+                throw new NotSupportedException("Not wav format.");
+
+            string format_signature = "";
+            byte[] data = null!;
+            _channels = 0;
+            _bitsPerSample = 0;
+            _sampleRate = 0;
+
+            while (baseStream.Position != baseStream.Length)
+            {
+                format_signature = new string(reader.ReadChars(4));
+                if (format_signature == "fmt ")
                 {
-                    format_signature = new string(reader.ReadChars(4));
-                    if (format_signature == "fmt ")
-                    {
-                        reader.ReadInt32(); //chunk size
-                        int fmt = reader.ReadInt16(); //audio format
-                        int num_channels = reader.ReadInt16(); //number of channels
-                        int sample_rate = reader.ReadInt32(); //sample rate
-                        reader.ReadInt32(); //byte rate
-                        reader.ReadInt16(); //block algin
-                        int bits_per_sample = reader.ReadInt16(); //bits per sample
-                        if (fmt != 0x01) {
-                             throw new NotSupportedException("unsupport format. PCM format only");
-                        }
-                        _channels = num_channels;
-                        _bitsPerSample = bits_per_sample;
-                        _sampleRate = sample_rate;
+                    reader.ReadInt32(); //chunk size
+                    int fmt = reader.ReadInt16(); //audio format
+                    int num_channels = reader.ReadInt16(); //number of channels
+                    int sample_rate = reader.ReadInt32(); //sample rate
+                    reader.ReadInt32(); //byte rate
+                    reader.ReadInt16(); //block algin
+                    int bits_per_sample = reader.ReadInt16(); //bits per sample
+                    if (fmt != 0x01) {
+                            throw new NotSupportedException("unsupport format. PCM format only");
                     }
-                    else if (format_signature == "data")
-                    {
-                        int data_chunk_size = reader.ReadInt32();
-                        data = reader.ReadBytes(data_chunk_size);
-                    }
-                    else
-                    {
-                        int chunk_size = reader.ReadInt32();
-                        reader.ReadBytes(chunk_size);
-                    }
+                    _channels = num_channels;
+                    _bitsPerSample = bits_per_sample;
+                    _sampleRate = sample_rate;
                 }
-                if (_bitsPerSample == 8)
+                else if (format_signature == "data")
                 {
-                    return convert8ToFloat32(data);
-                }
-                else if (_bitsPerSample == 16)
-                {
-                    return convert16ToFloat32(data);
+                    int data_chunk_size = reader.ReadInt32();
+                    data = reader.ReadBytes(data_chunk_size);
                 }
                 else
                 {
-                    return convertFloat32(data);
+                    int chunk_size = reader.ReadInt32();
+                    reader.ReadBytes(chunk_size);
                 }
+            }
+            if (_bitsPerSample == 8)
+            {
+                return convert8ToFloat32(data);
+            }
+            else if (_bitsPerSample == 16)
+            {
+                return convert16ToFloat32(data);
+            }
+            else
+            {
+                return convertFloat32(data);
             }
         }
 

@@ -106,6 +106,24 @@ namespace MiCore2d.Audio
         }
 
         /// <summary>
+        /// LoadMP3Stream
+        /// <summary>
+        /// <param name="key">alias name</param>
+        /// <param name="stream">Stream</param>
+        /// <param name="isLoop">playback looping or not</param>
+        public void LoadMP3File(string key, Stream stream, bool isLoop)
+        {
+            if (disposed)
+            {
+                throw new ObjectDisposedException("AudioSource is alreay disposed");
+            }
+            int channel = 0;
+            int sampleRate = 0;
+            float[] data = MP3Loader.LoadMP3FromStream(stream, out channel, out sampleRate);
+            addAudioClipDic(key, data, sampleRate, channel, isLoop);
+        }
+
+        /// <summary>
         /// LoadOggFile
         /// <summary>
         /// <param name="key">alias name</param>
@@ -120,6 +138,24 @@ namespace MiCore2d.Audio
             int channel = 0;
             int sampleRate = 0;
             float[] data = OggLoader.LoadOggFromFile(fname, out channel, out sampleRate);
+            addAudioClipDic(key, data, sampleRate, channel, isLoop);
+        }
+
+        /// <summary>
+        /// LoadOggStream
+        /// <summary>
+        /// <param name="key">alias name</param>
+        /// <param name="stream">stream</param>
+        /// <param name="isLoop">playback looping or not</param>
+        public void LoadOggFile(string key, Stream stream, bool isLoop)
+        {
+            if (disposed)
+            {
+                throw new ObjectDisposedException("AudioSource is alreay disposed");
+            }
+            int channel = 0;
+            int sampleRate = 0;
+            float[] data = OggLoader.LoadOggFromStream(stream, out channel, out sampleRate);
             addAudioClipDic(key, data, sampleRate, channel, isLoop);
         }
 
@@ -139,6 +175,25 @@ namespace MiCore2d.Audio
             int sampleRate = 0;
             int bitsPerSample = 0;
             float[] data = WavLoader.LoadWavFile(fname, out channel, out bitsPerSample, out sampleRate);
+            addAudioClipDic(key, data, sampleRate, channel, isLoop);
+        }
+
+        /// <summary>
+        /// LoadWavStream
+        /// <summary>
+        /// <param name="key">alias name</param>
+        /// <param name="stream">stream</param>
+        /// <param name="isLoop">playback looping or not</param>
+        public void LoadWavFile(string key, Stream stream, bool isLoop)
+        {
+            if (disposed)
+            {
+                throw new ObjectDisposedException("AudioSource is alreay disposed");
+            }
+            int channel = 0;
+            int sampleRate = 0;
+            int bitsPerSample = 0;
+            float[] data = WavLoader.LoadWavStream(stream, out channel, out bitsPerSample, out sampleRate);
             addAudioClipDic(key, data, sampleRate, channel, isLoop);
         }
 
