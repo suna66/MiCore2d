@@ -30,7 +30,7 @@ namespace MiCore2d
         /// <param name="distance">distance</param>
         /// <param name="layerMask">target layer</param>
         /// <returns>hidded element</returns>
-        public static Element Raycast(Vector2 position, Vector2 direction, float distance, string layerMask)
+        public static Element Raycast(Vector2 position, Vector2 direction, float distance, string layerMask = "default")
         {
             if (_gameScene == null)
             {
@@ -48,22 +48,14 @@ namespace MiCore2d
                 {
                     continue;
                 }
-                Vector2 targetPos = target.Position2d;
-                Vector3 scale = target.Scale;
-                float widthUnit = scale.X / 2;
-                float heightUnit = scale.Y / 2;
-
-                Line[] targetLine = new Line[4];
-                targetLine[0] = new Line(targetPos + new Vector2(-widthUnit, heightUnit), targetPos + new Vector2(widthUnit, heightUnit));
-                targetLine[1] = new Line(targetPos + new Vector2(widthUnit, heightUnit), targetPos + new Vector2(widthUnit, -heightUnit));
-                targetLine[2] = new Line(targetPos + new Vector2(widthUnit, -heightUnit), targetPos + new Vector2(-widthUnit, -heightUnit));
-                targetLine[3] = new Line(targetPos + new Vector2(-widthUnit, -heightUnit), targetPos + new Vector2(-widthUnit, heightUnit));
-                for (int i = 0; i < 4; i++)
+                Collider collider = target.GetComponent<Collider>();
+                if (collider == null)
                 {
-                    if (ray.LineCollision(targetLine[i]))
-                    {
-                        return target;
-                    }
+                    continue;
+                }
+                if (collider.Collision(ray))
+                {
+                    return target;
                 }
             }
             return null!;

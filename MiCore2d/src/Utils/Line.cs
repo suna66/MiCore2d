@@ -46,7 +46,6 @@ namespace MiCore2d
             _point2 = value2;  
         }
 
-
         /// <summary>
         /// Point1
         /// </summary>
@@ -58,45 +57,6 @@ namespace MiCore2d
         /// </summary>
         /// <value>position 2</value>
         public Vector2 Point2 { get => _point2; }
-
-        /// <summary>
-        /// LineCollisioin.
-        /// </summary>
-        /// <param name="other">target line</param>
-        /// <returns>true: collided lines</returns>
-        public bool LineCollision(Line other)
-        {
-            float uA = ((other.Point2.X - other.Point1.X) * (_point1.Y - other.Point1.Y) - (other.Point2.Y - other.Point1.Y) * (_point1.X - other.Point1.X)) 
-                    / ((other.Point2.Y - other.Point1.Y) * (_point2.X - _point1.X) - (other.Point2.X - other.Point1.X) * (_point2.Y - _point1.Y));
-            float uB = ((_point2.X - _point1.X) * (_point1.Y - other.Point1.Y) - (_point2.Y - _point1.Y) * (_point1.X - other.Point1.X))
-                    / ((other.Point2.Y - other.Point1.Y) * (_point2.X - _point1.X) - (other.Point2.X - other.Point1.X) * (_point2.Y - _point1.Y));
-            if (uA >= 0 && uA <= 1 && uB >= 0 && uB <= 1)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        /// <summary>
-        /// IntersectionPoint.
-        /// </summary>
-        /// <param name="other">target line</param>
-        /// <returns>intersection point</returns>
-        public Vector2 IntersectionPoint(Line other)
-        {
-            Vector2 point = Vector2.Zero;
-            float uA = ((other.Point2.X - other.Point1.X) * (_point1.Y - other.Point1.Y) - (other.Point2.Y - other.Point1.Y) * (_point1.X - other.Point1.X)) 
-                    / ((other.Point2.Y - other.Point1.Y) * (_point2.X - _point1.X) - (other.Point2.X - other.Point1.X) * (_point2.Y - _point1.Y));
-            float uB = ((_point2.X - _point1.X) * (_point1.Y - other.Point1.Y) - (_point2.Y - _point1.Y) * (_point1.X - other.Point1.X))
-                    / ((other.Point2.Y - other.Point1.Y) * (_point2.X - _point1.X) - (other.Point2.X - other.Point1.X) * (_point2.Y - _point1.Y));
-            if (uA >= 0 && uA <= 1 && uB >= 0 && uB <= 1)
-            {
-                float intersectionX = _point1.X + (uA * (_point2.X - _point1.X));
-                float intersectionY = _point1.Y + (uA * (_point2.Y - _point1.Y));
-                point = new Vector2(intersectionX, intersectionY);
-            }
-            return point;
-        }
 
         /// <summary>
         /// operation ==

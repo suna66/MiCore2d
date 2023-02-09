@@ -85,6 +85,26 @@ namespace MiCore2d
         }
 
         /// <summary>
+        /// Collision. check collided to line.
+        /// </summary>
+        /// <param name="line">line</param>
+        /// <returns>true: collided, false: not</returns>
+        public virtual bool Collision(Line line)
+        {
+            return false;
+        }
+
+        /// <summary>
+        /// Collision. check collided to point.
+        /// </summary>
+        /// <param name="point">point</param>
+        /// <returns>true: collided, false: not</returns>
+        public virtual bool Collision(Vector2 point)
+        {
+            return false;
+        }
+
+        /// <summary>
         /// AddCollidedTarget. add collided element to management list. 
         /// </summary>
         /// <param name="target">collided target</param>

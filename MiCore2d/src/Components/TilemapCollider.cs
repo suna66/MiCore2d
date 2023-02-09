@@ -91,6 +91,35 @@ namespace MiCore2d
         }
 
         /// <summary>
+        /// Collision. check collided to line.
+        /// </summary>
+        /// <param name="line">line</param>
+        /// <returns>true: collided, false: not</returns>
+        public override bool Collision(Line line)
+        {
+            TilemapSprite sprite = (TilemapSprite)element;
+            float[] map = sprite.GetPositionMap();
+            int num = map.Length;
+
+            for (int i = 0; i < num; i += 4)
+            {
+                if (map[i + 3] < 0.0f)
+                {
+                    continue;
+                }
+                Vector3 tilePos = new Vector3(map[i], map[i + 1], map[i + 2]);
+                Vector3 localPos = sprite.Position + tilePos;
+
+                bool collided = CollisionUtil.LineBox(line, localPos, WidthUnit, HeightUnit);
+                if (collided)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
         /// checkCollision. checking collision of box collider.
         /// </summary>
         /// <param name="localPos">map position</param>
@@ -99,20 +128,7 @@ namespace MiCore2d
         private bool checkCollision(Vector3 localPos, BoxCollider target)
         {
             Vector3 targetPos = target.GetPosition();
-            if (localPos.Z != targetPos.Z)
-            {
-                return false;
-            }
-            if (
-                (localPos.X + WidthUnit > targetPos.X - target.WidthUnit)
-                && (localPos.X - WidthUnit < targetPos.X + target.WidthUnit)
-                && (localPos.Y + HeightUnit > targetPos.Y - target.HeightUnit)
-                && (localPos.Y - HeightUnit < targetPos.Y + target.HeightUnit)
-            )
-            {
-                return true;
-            }
-            return false;
+            return CollisionUtil.BoxBox(localPos, WidthUnit, HeightUnit, targetPos, target.WidthUnit, target.HeightUnit);
         }
 
         /// <summary>
@@ -125,32 +141,7 @@ namespace MiCore2d
         {
             Vector3 thisPos = localPos;
             Vector3 targetPos = target.GetPosition();
-
-            float cond_distanceX = WidthUnit + target.RadiusUnit;
-            float cond_distanceY = HeightUnit + target.RadiusUnit;
-
-            float maxY = MathF.Max(thisPos.Y, targetPos.Y);
-            float minY = MathF.Min(thisPos.Y, targetPos.Y);
-            float distanceY = maxY - minY;
-            float maxX = MathF.Max(thisPos.X, targetPos.X);
-            float minX = MathF.Min(thisPos.X, targetPos.X);
-            float distanceX = maxX - minX;
-
-            if (thisPos.Z != targetPos.Z)
-            {
-                return false;
-            }
-            if (distanceX > cond_distanceX)
-                return false;
-            if (distanceY > cond_distanceY)
-                return false;
-            if (distanceX <= WidthUnit)
-                return true;
-            if (distanceY <= HeightUnit)
-                return true;
-
-            float dist_sq = (distanceX - WidthUnit)*(distanceX - WidthUnit) + (distanceY - HeightUnit)*(distanceY - HeightUnit);
-            return (dist_sq <= (target.RadiusUnit * target.RadiusUnit));
+            return CollisionUtil.BoxCircle(thisPos, WidthUnit, HeightUnit, targetPos, target.RadiusUnit);
         }
 
         /// <summary>

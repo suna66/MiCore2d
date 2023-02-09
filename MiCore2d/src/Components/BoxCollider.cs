@@ -44,6 +44,16 @@ namespace MiCore2d
         }
 
         /// <summary>
+        /// Collision. check collided to line.
+        /// </summary>
+        /// <param name="line">line</param>
+        /// <returns>true: collided, false: not</returns>
+        public override bool Collision(Line line)
+        {
+            return CollisionUtil.LineBox(line, GetPosition(), WidthUnit, HeightUnit);
+        }
+
+        /// <summary>
         /// checkCollision for BoxCollider.
         /// </summary>
         /// <param name="target">target element</param>
@@ -52,21 +62,7 @@ namespace MiCore2d
         {
             Vector3 thisPos = GetPosition();
             Vector3 targetPos = target.GetPosition();
-            if (thisPos.Z != targetPos.Z)
-            {
-                return false;
-            }
-            
-            if (
-                (thisPos.X + WidthUnit > targetPos.X - target.WidthUnit)
-                && (thisPos.X - WidthUnit < targetPos.X + target.WidthUnit)
-                && (thisPos.Y + HeightUnit > targetPos.Y - target.HeightUnit)
-                && (thisPos.Y - HeightUnit < targetPos.Y + target.HeightUnit)
-            )
-            {
-                return true;
-            }
-            return false;
+            return CollisionUtil.BoxBox(thisPos, WidthUnit, HeightUnit, targetPos, target.WidthUnit, target.HeightUnit);
         }
 
         /// <summary>
@@ -78,32 +74,7 @@ namespace MiCore2d
         {
             Vector3 thisPos = GetPosition();
             Vector3 targetPos = target.GetPosition();
-
-            float cond_distanceX = WidthUnit + target.RadiusUnit;
-            float cond_distanceY = HeightUnit + target.RadiusUnit;
-
-            float maxY = MathF.Max(thisPos.Y, targetPos.Y);
-            float minY = MathF.Min(thisPos.Y, targetPos.Y);
-            float distanceY = maxY - minY;
-            float maxX = MathF.Max(thisPos.X, targetPos.X);
-            float minX = MathF.Min(thisPos.X, targetPos.X);
-            float distanceX = maxX - minX;
-
-            if (thisPos.Z != targetPos.Z)
-            {
-                return false;
-            }
-            if (distanceX > cond_distanceX)
-                return false;
-            if (distanceY > cond_distanceY)
-                return false;
-            if (distanceX <= WidthUnit)
-                return true;
-            if (distanceY <= HeightUnit)
-                return true;
-
-            float dist_sq = (distanceX - WidthUnit)*(distanceX - WidthUnit) + (distanceY - HeightUnit)*(distanceY - HeightUnit);
-            return (dist_sq <= (target.RadiusUnit * target.RadiusUnit));
+            return CollisionUtil.BoxCircle(thisPos, WidthUnit, HeightUnit, targetPos, target.RadiusUnit);
         }
 
         /// <summary>
