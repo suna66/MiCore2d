@@ -20,8 +20,8 @@ namespace MiCore2d
         /// </summary>
         public override void OnLoad()
         {
-            WidthUnit = element.Scale.X / 2;
-            HeightUnit = element.Scale.Y / 2;
+            WidthUnit = element.Scale.X;
+            HeightUnit = element.Scale.Y;
         }
 
         /// <summary>
@@ -152,8 +152,8 @@ namespace MiCore2d
         {
             if (IsDynamic)
             {
-                WidthUnit = element.Scale.X / 2;
-                HeightUnit = element.Scale.Y / 2;
+                WidthUnit = element.Scale.X;
+                HeightUnit = element.Scale.Y;
             }
         }
 

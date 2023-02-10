@@ -12,13 +12,13 @@ namespace MiCore2d
         /// Box Box collision detection.
         /// </summary>
         /// <param name="b1">box1 position</param>
-        /// <param name="widthUnit1">half width of box1</param>
-        /// <param name="heightUnit1">half height of box1</param>
+        /// <param name="width1">width of box1</param>
+        /// <param name="height1">height of box1</param>
         /// <param name="b2">box2 position</param>
-        /// <param name="widthUnit2">half width of box2</param>
-        /// <param name="heightUnit2">half height of box2</param>
+        /// <param name="width2">width of box2</param>
+        /// <param name="heigh2">height of box2</param>
         /// <returns>result of collision</returns>
-        public static bool BoxBox(Vector3 b1, float widthUnit1, float heightUnit1, Vector3 b2, float widthUnit2, float heightUnit2)
+        public static bool BoxBox(Vector3 b1, float width1, float height1, Vector3 b2, float width2, float height2)
         {
             if (b1.Z != b2.Z)
             {
@@ -26,10 +26,10 @@ namespace MiCore2d
             }
             
             if (
-                (b1.X + widthUnit1 > b2.X - widthUnit2)
-                && (b1.X - widthUnit1 < b2.X + widthUnit2)
-                && (b1.Y + heightUnit1 > b2.Y - heightUnit2)
-                && (b1.Y - heightUnit1 < b2.Y + heightUnit2)
+                (b1.X + width1/2 > b2.X - width2/2)
+                && (b1.X - width1/2 < b2.X + width2/2)
+                && (b1.Y + height1/2 > b2.Y - height2/2)
+                && (b1.Y - height1/2 < b2.Y + height2/2)
             )
             {
                 return true;
@@ -41,15 +41,15 @@ namespace MiCore2d
         /// Box Circle collision detection
         /// </summary>
         /// <param name="b">box position</param>
-        /// <param name="widthUnit">half width of box</param>
-        /// <param name="heightUnit">half height of box</param>
+        /// <param name="widthUnit">width of box</param>
+        /// <param name="heightUnit">height of box</param>
         /// <param name="c">circle position</param>
         /// <param name="radius">radius</param>
         /// <returns>result of collision</returns>
-        public static bool BoxCircle(Vector3 b, float widthUnit, float heightUnit, Vector3 c, float radius)
+        public static bool BoxCircle(Vector3 b, float width, float height, Vector3 c, float radius)
         {
-            float cond_distanceX = widthUnit + radius;
-            float cond_distanceY = heightUnit + radius;
+            float cond_distanceX = width/2 + radius;
+            float cond_distanceY = height/2 + radius;
 
             float maxY = MathF.Max(b.Y, c.Y);
             float minY = MathF.Min(b.Y, c.Y);
@@ -66,12 +66,12 @@ namespace MiCore2d
                 return false;
             if (distanceY > cond_distanceY)
                 return false;
-            if (distanceX <= widthUnit)
+            if (distanceX <= width/2)
                 return true;
-            if (distanceY <= heightUnit)
+            if (distanceY <= height/2)
                 return true;
 
-            float dist_sq = (distanceX - widthUnit)*(distanceX - widthUnit) + (distanceY - heightUnit)*(distanceY - heightUnit);
+            float dist_sq = (distanceX - width)*(distanceX - width) + (distanceY - height)*(distanceY - height);
             return (dist_sq <= (radius * radius));
         }
 
@@ -126,15 +126,15 @@ namespace MiCore2d
         /// </summary>
         /// <param name="line">line</param>
         /// <param name="b">box position</param>
-        /// <param name="widthUnit">half width of box</param>
-        /// <param name="heightUnit">half height of box</param>
+        /// <param name="width">width of box</param>
+        /// <param name="height">height of box</param>
         /// <returns>result of collision</returns>
-        public static bool LineBox(Line line, Vector3 b, float widthUnit, float heightUnit)
+        public static bool LineBox(Line line, Vector3 b, float width, float height)
         {
-            Line leftLine = new Line(b.X - widthUnit, b.Y + heightUnit, b.X - widthUnit, b.Y - heightUnit);
-            Line rightLine = new Line(b.X + widthUnit, b.Y + heightUnit, b.X + widthUnit, b.Y - heightUnit);
-            Line topLine = new Line(b.X - widthUnit, b.Y + heightUnit, b.X + widthUnit, b.Y + heightUnit);
-            Line bottomtLine = new Line(b.X - widthUnit, b.Y - heightUnit, b.X + widthUnit, b.Y - heightUnit);
+            Line leftLine = new Line(b.X - width/2, b.Y + height/2, b.X - width/2, b.Y - height/2);
+            Line rightLine = new Line(b.X + width/2, b.Y + height/2, b.X + width/2, b.Y - height/2);
+            Line topLine = new Line(b.X - width/2, b.Y + height/2, b.X + width/2, b.Y + height/2);
+            Line bottomtLine = new Line(b.X - width/2, b.Y - height/2, b.X + width/2, b.Y - height/2);
 
             bool left = LineLine(line, leftLine);
             bool right = LineLine(line, rightLine);
@@ -190,15 +190,15 @@ namespace MiCore2d
         /// </summary>
         /// <param name="p">point position</param>
         /// <param name="b">box position</param>
-        /// <param name="widthUnit">half width of box</param>
-        /// <param name="heightUnit">half height of box</param>
+        /// <param name="width">width of box</param>
+        /// <param name="height">height of box</param>
         /// <returns>result of collision</returns>
-        public static bool PointBox(Vector2 p,  Vector3 b, float widthUnit, float heightUnit)
+        public static bool PointBox(Vector2 p,  Vector3 b, float width, float height)
         {
-            if (p.X >= b.X - widthUnit &&
-                p.X <= b.X + widthUnit &&
-                p.Y >= b.Y - heightUnit &&
-                p.Y <= b.Y + heightUnit)
+            if (p.X >= b.X - width/2 &&
+                p.X <= b.X + width/2 &&
+                p.Y >= b.Y - height/2 &&
+                p.Y <= b.Y + height/2)
             {
                 return true;
             }

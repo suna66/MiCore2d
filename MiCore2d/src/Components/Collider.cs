@@ -35,13 +35,13 @@ namespace MiCore2d
         /// WidthUnit. element size from origin.
         /// </summary>
         /// <value>width size from origin.</value>
-        public float WidthUnit {get; set;} = 0.5f;
+        public float WidthUnit {get; set;} = 1.0f;
 
         /// <summary>
         /// HeightUnit element size from origin.
         /// </summary>
         /// <value>height size from origin</value>
-        public float HeightUnit {get; set;} = 0.5f;
+        public float HeightUnit {get; set;} = 1.0f;
 
         /// <summary>
         /// RadiusUnit. element size of radius.
@@ -50,11 +50,11 @@ namespace MiCore2d
         public float RadiusUnit {
             get
             {
-                return WidthUnit;
+                return WidthUnit / 2;
             }
             set{
-                WidthUnit = value;
-                HeightUnit = value;
+                WidthUnit = value * 2;
+                HeightUnit = value * 2;
             }
         }
 

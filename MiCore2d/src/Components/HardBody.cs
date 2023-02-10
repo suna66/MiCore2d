@@ -140,8 +140,8 @@ namespace MiCore2d
             float distanceY = MathF.Max(thisPos.Y, targetPos.Y) - MathF.Min(thisPos.Y, targetPos.Y);
             float distanceX = MathF.Max(thisPos.X, targetPos.X) - MathF.Min(thisPos.X, targetPos.X);
 
-            float cond_distanceX = src.WidthUnit + target.WidthUnit;
-            float cond_distanceY = src.HeightUnit + target.HeightUnit;
+            float cond_distanceX = src.WidthUnit/2 + target.WidthUnit/2;
+            float cond_distanceY = src.HeightUnit/2 + target.HeightUnit/2;
             float sinkX = 0.0f;
             float sinkY = 0.0f;
 
@@ -161,12 +161,12 @@ namespace MiCore2d
                 if (thisPos.Y < targetPos.Y)
                 {
                     //hit under
-                    thisPos.Y = targetPos.Y - target.HeightUnit - src.HeightUnit;
+                    thisPos.Y = targetPos.Y - target.HeightUnit/2 - src.HeightUnit/2;
                 }
                 else
                 {
                     //hit upper
-                    thisPos.Y = targetPos.Y + target.HeightUnit + src.HeightUnit;
+                    thisPos.Y = targetPos.Y + target.HeightUnit/2 + src.HeightUnit/2;
                 }
             }
             else
@@ -174,12 +174,12 @@ namespace MiCore2d
                 if (thisPos.X < targetPos.X)
                 {
                     //hit left
-                    thisPos.X = targetPos.X - target.WidthUnit - src.WidthUnit;
+                    thisPos.X = targetPos.X - target.WidthUnit/2 - src.WidthUnit/2;
                 }
                 else
                 {
                     //hit right
-                    thisPos.X = targetPos.X + target.WidthUnit + src.WidthUnit;
+                    thisPos.X = targetPos.X + target.WidthUnit/2 + src.WidthUnit/2;
                 }
             }
             element.Position = thisPos;

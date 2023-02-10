@@ -60,5 +60,39 @@ namespace MiCore2d
             }
             return null!;
         }
+
+        /// <summary>
+        /// Pointcast.
+        /// </summary>
+        /// <param name="point">point of world spece</param>
+        /// <param name="layerMask">target layer</param>
+        /// <returns>hidded element</returns>
+        public static Element Pointcast(Vector2 point, string layerMask = "default")
+        {
+            if (_gameScene == null)
+            {
+                Log.Debug("GameScene is no set yet");
+                return null;
+            }
+            IDictionaryEnumerator enumerator = _gameScene.GetElementEnumerator();
+            while (enumerator.MoveNext())
+            {
+                Element target = (Element)enumerator.Value;
+                if (target.Layer != layerMask)
+                {
+                    continue;
+                }
+                Collider collider = target.GetComponent<Collider>();
+                if (collider == null)
+                {
+                    continue;
+                }
+                if (collider.Collision(point))
+                {
+                    return target;
+                }
+            }
+            return null!;
+        }
     }
 }
