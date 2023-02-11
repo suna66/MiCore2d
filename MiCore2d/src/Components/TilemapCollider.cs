@@ -119,6 +119,30 @@ namespace MiCore2d
             return false;
         }
 
+        public override bool Collision(Vector2 point)
+        {
+            TilemapSprite sprite = (TilemapSprite)element;
+            float[] map = sprite.GetPositionMap();
+            int num = map.Length;
+
+            for (int i = 0; i < num; i += 4)
+            {
+                if (map[i + 3] < 0.0f)
+                {
+                    continue;
+                }
+                Vector3 tilePos = new Vector3(map[i], map[i + 1], map[i + 2]);
+                Vector3 localPos = sprite.Position + tilePos;
+
+                bool collided = CollisionUtil.PointBox(point, localPos, WidthUnit, HeightUnit);
+                if (collided)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         /// <summary>
         /// checkCollision. checking collision of box collider.
         /// </summary>

@@ -54,6 +54,16 @@ namespace MiCore2d
         }
 
         /// <summary>
+        /// Collision. check collided to point.
+        /// </summary>
+        /// <param name="point">point</param>
+        /// <returns>true: collided, false: not</returns>
+        public override bool Collision(Vector2 point)
+        {
+            return CollisionUtil.PointBox(point, GetPosition(), WidthUnit, HeightUnit);
+        }
+
+        /// <summary>
         /// checkCollision for BoxCollider.
         /// </summary>
         /// <param name="target">target element</param>

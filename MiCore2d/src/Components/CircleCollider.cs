@@ -51,6 +51,16 @@ namespace MiCore2d
         {
             return CollisionUtil.LineCircle(line, GetPosition(), RadiusUnit);
         }
+
+        /// <summary>
+        /// Collision. check collided to point.
+        /// </summary>
+        /// <param name="point">point</param>
+        /// <returns>true: collided, false: not</returns>
+        public override bool Collision(Vector2 point)
+        {
+            return CollisionUtil.PointCircle(point, GetPosition(), RadiusUnit);
+        }
         
         /// <summary>
         /// checkCollision for CircleCollider.
