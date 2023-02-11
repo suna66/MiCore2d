@@ -128,6 +128,8 @@ namespace MiCore2d
         protected override void OnMouseUp(MouseButtonEventArgs e)
         {
             base.OnMouseUp(e);
+
+            _control.OnMouseUp(e);
         }
 
         /// <summary>
@@ -137,6 +139,7 @@ namespace MiCore2d
         protected override void OnMouseDown(MouseButtonEventArgs e)
         {
             base.OnMouseDown(e);
+            _control.OnMouseDown(e);
         }
 
         /// <summary>
@@ -146,6 +149,7 @@ namespace MiCore2d
         protected override void OnMouseMove(MouseMoveEventArgs e)
         {
             base.OnMouseMove(e);
+            _control.OnMouseMove(e);
         }
 
         /// <summary>

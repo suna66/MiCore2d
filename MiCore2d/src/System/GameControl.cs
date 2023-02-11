@@ -27,6 +27,9 @@ namespace MiCore2d
             _audio = new AudioSource();
             GameSceneManager.Init();
             GameSceneManager.SetStartScene(scene);
+            Physics.SetGameScene(scene);
+
+            updateUnitInfo();
         }
 
         /// <summary>
@@ -42,6 +45,9 @@ namespace MiCore2d
             UnitCount = unitCount;
             GameSceneManager.Init();
             GameSceneManager.SetStartScene(scene);
+            Physics.SetGameScene(scene);
+
+            updateUnitInfo();
         }
 
         /// <summary>
@@ -61,6 +67,16 @@ namespace MiCore2d
         /// </summary>
         /// <value>half height unit count</value>
         public int UnitCount { get; set; } = 5;
+
+        /// <summary>
+        /// PixelParUnit.
+        /// </summary>
+        /// <value>pixel num par unit</value>
+        public int PixelParUnit { get; set; } = 0;
+
+        public int CentorOfPixelWidth { get; set; } = 0;
+
+        public int CenterOfPixelHeight { get; set; } = 0;
 
         /// <summary>
         /// OnLoad
@@ -88,6 +104,7 @@ namespace MiCore2d
         /// <param name="e">parameter</param>
         public void OnResize(ResizeEventArgs e)
         {
+            updateUnitInfo();
             if (GameSceneManager.Current != null)
                 GameSceneManager.Current.OnResize(e);
         }
@@ -119,6 +136,7 @@ namespace MiCore2d
                 GameScene game = GameSceneManager.SwitchScene();
                 game.Init(this);
                 game.OnLoad();
+                Physics.SetGameScene(game);
             }
             if (GameSceneManager.Current != null)
             {
@@ -153,8 +171,10 @@ namespace MiCore2d
         /// <param name="e">parameter</param>
         public void OnMouseMove(MouseMoveEventArgs e)
         {
+            float localX = (e.X - CentorOfPixelWidth) / PixelParUnit;
+            float localY = (CenterOfPixelHeight - e.Y) / PixelParUnit;
             if (GameSceneManager.Current != null)
-                GameSceneManager.Current.OnMouseMove(e.X, e.Y, e.DeltaX, e.DeltaY);
+                GameSceneManager.Current.OnMouseMove(localX, localY, e.DeltaX / PixelParUnit, e.DeltaY / PixelParUnit);
         }
 
         /// <summary>
@@ -165,6 +185,18 @@ namespace MiCore2d
         {
             if (GameSceneManager.Current != null)
                 GameSceneManager.Current.OnMouseWheel(e.OffsetX, e.OffsetY);
+        }
+
+
+        /// <summary>
+        /// updateUnitInfo.
+        /// </summary>
+        private void updateUnitInfo()
+        {
+            PixelParUnit = (int)((_win.Size.Y / 2) / UnitCount);
+
+            CentorOfPixelWidth = (int)(_win.Size.X / 2);
+            CenterOfPixelHeight = (int)(_win.Size.Y / 2);
         }
     }
 }
