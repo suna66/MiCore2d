@@ -62,6 +62,47 @@ namespace MiCore2d
         }
 
         /// <summary>
+        /// Raycast.
+        /// </summary>
+        /// <param name="position">paycast start position</param>
+        /// <param name="direction">direction</param>
+        /// <param name="distance">distance</param>
+        /// <param name="layerMask">target layer</param>
+        /// <returns>hidded element</returns>
+        public static Element Raycast(Vector3 position, Vector2 direction, float distance, string layerMask = "default")
+        {
+            if (_gameScene == null)
+            {
+                Log.Debug("GameScene is not set yet.");
+                return null!;
+            }
+
+            Vector2 pos = new Vector2(position.X, position.Y);
+
+            Line ray = new Line(pos, pos + direction * distance);
+
+            IDictionaryEnumerator enumerator = _gameScene.GetElementEnumerator();
+            while (enumerator.MoveNext())
+            {
+                Element target = (Element)enumerator.Value;
+                if (target.Layer != layerMask)
+                {
+                    continue;
+                }
+                Collider collider = target.GetComponent<Collider>();
+                if (collider == null)
+                {
+                    continue;
+                }
+                if (collider.Collision(ray))
+                {
+                    return target;
+                }
+            }
+            return null!;
+        }
+
+        /// <summary>
         /// Pointcast.
         /// </summary>
         /// <param name="point">point of world spece</param>

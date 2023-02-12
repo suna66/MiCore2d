@@ -44,6 +44,51 @@ namespace MiCore2d
         public Vector3 Position { get; set; }
 
         /// <summary>
+        /// SetPosition.
+        /// </summary>
+        /// <param name="pos">Vector2 position</param>
+        public void SetPosition(Vector2 pos)
+        {
+            Vector3 position = Position;
+            position.X = pos.X;
+            position.Y = pos.Y;
+            Position = position;
+        }
+
+        /// <summary>
+        /// SetPositionX.
+        /// </summary>
+        /// <param name="x">x position</param>
+        public void SetPositionX(float x)
+        {
+            Vector3 pos = Position;
+            pos.X = x;
+            Position = pos;
+        }
+
+        /// <summary>
+        /// SetPositionY.
+        /// </summary>
+        /// <param name="y">y position</param>
+        public void SetPositionY(float y)
+        {
+            Vector3 pos = Position;
+            pos.Y = y;
+            Position = pos;
+        }
+
+        /// <summary>
+        /// SetPositionZ.
+        /// </summary>
+        /// <param name="Z">z position</param>
+        public void SetPositionZ(float z)
+        {
+            Vector3 pos = Position;
+            pos.Z = z;
+            Position = pos;
+        }
+
+        /// <summary>
         /// AspectRatio. Camera aspect ratio.
         /// </summary>
         /// <value>aspect ratio</value>

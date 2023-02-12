@@ -345,5 +345,27 @@ namespace MiCore2d
         {
             return _elemetDic.GetEnumerator();
         }
+
+        /// <summary>
+        /// LocaltoWorld. Get world position from local position.
+        /// </summary>
+        /// <param name="localPosition">local position</param>
+        /// <returns>world position</returns>
+        public Vector3 LocalToWorld(Vector3 localPosition)
+        {
+            return _camera.Position + localPosition;
+        }
+
+        /// <summary>
+        /// LocaltoWorld. Get world position from local position.
+        /// </summary>
+        /// <param name="localPosition">local position</param>
+        /// <returns>world position</returns>
+        public Vector2 LocalToWorld(Vector2 localPosition)
+        {
+            Vector3 localPos = new Vector3(localPosition.X, localPosition.Y, 0.0f);
+            Vector3 worldPos = _camera.Position + localPos;
+            return new Vector2(worldPos.X, worldPos.Y);
+        }
     }
 }
