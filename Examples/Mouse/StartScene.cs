@@ -17,6 +17,11 @@ namespace Example.Mouse
 
         private int direction = 1;
 
+        //  0: not pressed.
+        //  1: pressing.
+        //  2: pressed.
+        private int pressState = 0;
+
         public StartScene()
         {
              
@@ -24,6 +29,8 @@ namespace Example.Mouse
 
         public override void Load()
         {
+            Audio.LoadMP3File("magic", "../resource/magic.mp3", false);
+
             Texture2d tex = LoadTexture2d("awe", "../resource/awesomeface.png");
             awe = new ImageSprite(tex, 1);
             awe.AddComponent<CircleCollider>();
@@ -80,7 +87,17 @@ namespace Example.Mouse
                 if (e.Name == "rect")
                 {
                     PlainSprite sprite = (PlainSprite)e;
-                    sprite.SetColor(1.0f, 0.0f, 0.0f);
+                    if (pressState == 1)
+                    {
+                        sprite.SetColor(1.0f, 0.0f, 0.0f);
+                        Audio.Play("magic");
+                        pressState = 2;
+                    }
+                    if (pressState == 0)
+                    {
+                        rect.SetColor(0.1f, 0.5f, 0.0f);
+                    }
+                    
                     isHitRect = true;
                 }
                 else if (e.Name == "awe")
@@ -116,7 +133,15 @@ namespace Example.Mouse
 
         public override void OnMouseButton(MouseButton button, bool pressed)
         {
-
+            Log.Debug($"button {button}, press {pressed}");
+            if (pressed)
+            {
+                pressState = 1;
+            }
+            else
+            {
+                pressState = 0;
+            }
         }
 
         public override void OnMouseMove(float x, float y, float deltaX, float deltaY)

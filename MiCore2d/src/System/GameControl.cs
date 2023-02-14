@@ -74,8 +74,16 @@ namespace MiCore2d
         /// <value>pixel num par unit</value>
         public int PixelParUnit { get; set; } = 0;
 
+        /// <summary>
+        /// CentorOfPixelWidth.
+        /// </summary>
+        /// <value>centor of pixel width</value>
         public int CentorOfPixelWidth { get; set; } = 0;
 
+        /// <summary>
+        /// CenterOfPixelHeight.
+        /// </summary>
+        /// <value>centor of pixel height</value>
         public int CenterOfPixelHeight { get; set; } = 0;
 
         /// <summary>
