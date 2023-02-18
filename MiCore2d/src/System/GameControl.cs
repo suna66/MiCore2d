@@ -128,6 +128,7 @@ namespace MiCore2d
                 GameScene game = GameSceneManager.SwitchScene();
                 game.Init(this);
                 game.OnLoad();
+                Physics.SetGameScene(game);
             }
             if (GameSceneManager.Current != null)
                 GameSceneManager.Current.OnRenderer(e.Time);

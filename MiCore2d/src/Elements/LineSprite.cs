@@ -1,4 +1,5 @@
 using OpenTK.Mathematics;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace MiCore2d
 {
@@ -9,7 +10,7 @@ namespace MiCore2d
     {
         private Vector3 _endPosition = Vector3.Zero;
 
-        private Vector3 _color = Vector3.Zero;
+        private Color4 _color = Color4.Black;
 
         /// <summary>
         /// LineSprite.
@@ -65,7 +66,16 @@ namespace MiCore2d
         /// <param name="b">blue</param>
         public void SetColor(float r, float g, float b)
         {
-            _color = new Vector3(r, g, b);
+            _color = new Color4(r, g, b, 1.0f);
+        }
+
+        /// <summary>
+        /// SetColor.
+        /// </summary>
+        /// <param name="color">Color4 struct</param>
+        public void SetColor(Color4 color)
+        {
+            _color = color;
         }
 
         /// <summary>
@@ -73,6 +83,15 @@ namespace MiCore2d
         /// </summary>
         /// <returns>color</returns>
         public Vector3 GetColor()
+        {
+            return new Vector3(_color.R, _color.G, _color.B);
+        }
+
+        /// <summary>
+        /// GetColor4
+        /// </summary>
+        /// <returns>Color4 struct</returns>
+        public Color4 GetColor4()
         {
             return _color;
         }
