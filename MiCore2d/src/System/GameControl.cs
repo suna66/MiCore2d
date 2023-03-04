@@ -1,8 +1,6 @@
 #nullable disable warnings
 using OpenTK.Windowing.Common;
-using OpenTK.Windowing.GraphicsLibraryFramework;
 using OpenTK.Windowing.Desktop;
-using OpenTK.Mathematics;
 using MiCore2d.Audio;
 
 namespace MiCore2d
