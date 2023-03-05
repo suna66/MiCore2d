@@ -40,5 +40,31 @@ namespace Example.TileMap
             element.Disabled = false;
             _animation.RestartAnimation(true);
         }
+
+        public override void OnEnterCollision(Element target)
+        {
+            if (element.Disabled)
+            {
+                return;
+            }
+            if (target.Name == "awe")
+            {
+                target.Disabled = true;
+                Element explosion = gameScene.GetElement("explosion");
+                explosion.Position = target.Position;
+                explosion.Disabled = false;
+                AnimationTile animation = explosion.GetComponent<AnimationTile>();
+                animation.Interval = 0.3f;
+                animation.RestartAnimation(true);
+                gameScene.Audio.Play("explosion");
+                TimeUtil.Delay(1000, offExplosionSprite);
+            }
+        }
+
+        private void offExplosionSprite()
+        {
+            Element explosion = gameScene.GetElement("explosion");
+            explosion.Disabled = true;
+        }
     }
 }

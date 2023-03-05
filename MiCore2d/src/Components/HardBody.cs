@@ -32,6 +32,12 @@ namespace MiCore2d
         public Vector3 Power {get; set;}
 
         /// <summary>
+        /// Layer. layer name of collision.
+        /// </summary>
+        /// <value></value>
+        public string Layer {get; set;} = "default";
+
+        /// <summary>
         /// AddForce. Add force of moving this element.
         /// </summary>
         /// <param name="directPower">direction of power</param>
@@ -76,6 +82,11 @@ namespace MiCore2d
             {
                 return;
             }
+            if (element.Disabled || element.Destroyed)
+            {
+                collider.RemoveColidedAll();
+                return;
+            }
 
             Controller objScript = element.GetComponent<Controller>();
             IDictionaryEnumerator enumerator = gameScene.GetElementEnumerator();
@@ -84,6 +95,10 @@ namespace MiCore2d
             {
                 Element target = (Element)enumerator.Value;
                 if (target.Disabled || target.Destroyed)
+                {
+                    continue;
+                }
+                if (target.Layer != Layer)
                 {
                     continue;
                 }

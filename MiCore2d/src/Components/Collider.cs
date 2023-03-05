@@ -150,6 +150,14 @@ namespace MiCore2d
         }
 
         /// <summary>
+        /// RemoveColidedAll
+        /// </summary>
+        public void RemoveColidedAll()
+        {
+            _collidedList = null;
+        }
+
+        /// <summary>
         /// Dispose.
         /// </summary>
         public override void Dispose()

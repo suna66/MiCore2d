@@ -32,10 +32,14 @@ namespace Example.TileMap
 
             ImageSprite magic = new ImageSprite(GetTexture("magic"), 1);
             magic.AddComponent<AnimationTile>();
-            magic.AddComponent<MagicScript>();        
+            magic.AddComponent<MagicScript>();
+            magic.AddComponent<HardBody>();
+            BoxCollider m_collider = magic.AddComponent<BoxCollider>();
+            m_collider.IsSolid = false;
 
             awe = new ImageSprite(GetTexture("awe"), 1);
             BoxCollider collider = awe.AddComponent<BoxCollider>();
+            collider.IsSolid = false;
             collider.IsTrigger = true;
             awe.Disabled = true;
 
