@@ -23,34 +23,30 @@ namespace Example.TileMap
             Audio.LoadMP3File("magic", "../resource/magic.mp3", false);
             Audio.Play("sound1");
 
-            LoadTexture2dTile("explosion", "../resource/explosion.png", 120, 120);
-            LoadTexture2dTile("magic", "../resource/magic.png", 120, 120);
-            LoadTexture2d("awe", "../resource/awesomeface.png");
-            explosionSprite = new ImageSprite(GetTexture("explosion"), 1);
+            explosionSprite = new ImageSprite("../resource/explosion.png", 120, 120, 1);
             explosionSprite.AddComponent<AnimationTile>();
             explosionSprite.Disabled = true;
 
-            ImageSprite magic = new ImageSprite(GetTexture("magic"), 1);
+            ImageSprite magic = new ImageSprite("../resource/magic.png", 120, 120, 1);
             magic.AddComponent<AnimationTile>();
             magic.AddComponent<MagicScript>();
             magic.AddComponent<HardBody>();
             BoxCollider m_collider = magic.AddComponent<BoxCollider>();
             m_collider.IsSolid = false;
 
-            awe = new ImageSprite(GetTexture("awe"), 1);
+            awe = new ImageSprite("../resource/awesomeface.png", 1);
             BoxCollider collider = awe.AddComponent<BoxCollider>();
             collider.IsSolid = false;
             collider.IsTrigger = true;
             awe.Disabled = true;
 
-            ImageSprite sprite = new ImageSprite(LoadTexture2dTile("girl", "../resource/GirlTile001.png", 32, 32), 1);
+            ImageSprite sprite = new ImageSprite("../resource/GirlTile001.png", 32, 32, 1);
             sprite.AddComponent<PlayerScript>();
 
-            LoadTexture2dTile("map", "../resource/BrightForest.png", 32, 32);
             MapRenderer basemapRenderer = RendererManager.GetInstance().AddRenderer<MapRenderer>();
             ObstacleRenderer obstacleRenderer = RendererManager.GetInstance().AddRenderer<ObstacleRenderer>();
-            TilemapSprite map = new TilemapSprite(GetTexture("map"), 1, basemapRenderer);
-            TilemapSprite obstacle = new TilemapSprite(GetTexture("map"), 1, obstacleRenderer);
+            TilemapSprite map = new TilemapSprite("../resource/BrightForest.png", 32, 32, 1, basemapRenderer);
+            TilemapSprite obstacle = new TilemapSprite("../resource/BrightForest.png", 32, 32, 1, obstacleRenderer);
             obstacle.AddComponent<TilemapCollider>();
 
             AddElement("map", map);

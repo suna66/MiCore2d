@@ -13,7 +13,7 @@ namespace Example.HelloWorld
 
         public override void Load()
         {
-            ImageSprite awe = new ImageSprite(LoadTexture2d("awe", "../resource/awesomeface.png"), 3);
+            ImageSprite awe = new ImageSprite("../resource/awesomeface.png", 3);
             
             LineSprite lineSprite = new LineSprite();
             lineSprite.SetColor(1.0f, 1.0f, 0.0f);

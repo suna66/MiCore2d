@@ -31,12 +31,11 @@ namespace Example.Mouse
         {
             Audio.LoadMP3File("magic", "../resource/magic.mp3", false);
 
-            Texture2d tex = LoadTexture2d("awe", "../resource/awesomeface.png");
-            awe = new ImageSprite(tex, 1);
+            awe = new ImageSprite("../resource/awesomeface.png", 1);
             awe.AddComponent<CircleCollider>();
             awe.Position = new Vector3(3.0f, 1.0f, 0.0f);
 
-            moveAwe = new ImageSprite(tex, 1);
+            moveAwe = new ImageSprite("../resource/awesomeface.png", 1);
             moveAwe.Position = new Vector3(0.0f, 1.0f, 0.0f);
 
             rect = new PlainSprite(1);

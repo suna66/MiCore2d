@@ -14,7 +14,6 @@ namespace MiCore2d
     /// </summary>
     public abstract class GameScene
     {
-        private TextureManager _textureManager;
 
         private OrderedDictionary _elemetDic;
 
@@ -30,8 +29,6 @@ namespace MiCore2d
         public GameScene()
         {
             _elemetDic = new OrderedDictionary();
-
-            _textureManager = new TextureManager();
 
             CurrentTime = 0;
         }
@@ -127,7 +124,6 @@ namespace MiCore2d
         public virtual void OnUnLoad()
         {
             _elemetDic.Clear();
-            _textureManager.Clear();
             if (_canvas != null)
             {
                 _canvas.Dispose();
@@ -224,80 +220,6 @@ namespace MiCore2d
         }
 
         /// <summary>
-        /// LoadTexture2d. Loading 2D texture data from file.
-        /// </summary>
-        /// <param name="key">namagement name</param>
-        /// <param name="filename">file name</param>
-        /// <returns>Texture</returns>
-        public Texture2d LoadTexture2d(string key, string filename)
-        {
-            return _textureManager.LoadTexture2d(key, filename);
-        }
-
-        /// <summary>
-        /// LoadTexture2d. Loading 2D texture data from stream.
-        /// </summary>
-        /// <param name="key">management name</param>
-        /// <param name="stream">stream</param>
-        /// <returns>Texture2d</returns>
-        public Texture2d LoadTexture2d(string key, Stream stream)
-        {
-            return _textureManager.LoadTexture2d(key, stream);
-        }
-
-        /// <summary>
-        /// LoadTexture2dArray. Loading multiple 2D texture data from files.
-        /// </summary>
-        /// <param name="key">management name</param>
-        /// <param name="files">image file list</param>
-        /// <param name="width">widht of an image file</param>
-        /// <param name="height">height of an image file</param>
-        /// <returns>Texture</returns>
-        public Texture2dArray LoadTexture2dArray(string key, string[] files, int width, int height)
-        {
-            return _textureManager.LoadTexture2dArray(key, files, width, height);
-        }
-
-        /// <summary>
-        /// LoadTexture2dArray. Loading multiple 2D texture data from stream.
-        /// </summary>
-        /// <param name="key">management name</param>
-        /// <param name="array_size">array_size</param>
-        /// <param name="width">widht of an image file</param>
-        /// <param name="height">height of an image file</param>
-        /// <returns>Texture</returns>
-        public Texture2dArray LoadTexture2dArray(string key, int array_size, int width, int height)
-        {
-            return _textureManager.LoadTexture2dArray(key, array_size, width, height);
-        }
-
-        /// <summary>
-        /// LoadTexture2dTile. Loading tilemap texture data from file.
-        /// </summary>
-        /// <param name="key">management name</param>
-        /// <param name="filename">image file name</param>
-        /// <param name="tileW">one tile width</param>
-        /// <param name="tileH">one tile height</param>
-        /// <returns>Texture</returns>
-        public Texture2dTile LoadTexture2dTile(string key, string filename, int tileW, int tileH)
-        {
-            return _textureManager.LoadTexture2dTile(key, filename, tileW, tileH);
-        }
-
-        /// <summary>
-        /// LoadTexture2dTile. Loading tilemap texture data from file.
-        /// </summary>
-        /// <param name="key">management name</param>
-        /// <param name="stream">stream</param>
-        /// <param name="tileW">one tile width</param>
-        /// <param name="tileH">one tile height</param>
-        /// <returns>Texture</returns>
-        public Texture2dTile LoadTexture2dTile(string key, Stream stream, int tileW, int tileH)
-        {
-            return _textureManager.LoadTexture2dTile(key, stream, tileW, tileH);
-        }
-
-        /// <summary>
         /// AddElement. add element to scene.
         /// </summary>
         /// <param name="key">namagement name</param>
@@ -311,16 +233,6 @@ namespace MiCore2d
             element.Layer = layerName;
             _elemetDic.Add(key, element);
             return element;
-        }
-
-        /// <summary>
-        /// GetTexture. Getting texture data from managed data.
-        /// </summary>
-        /// <param name="key">manangement name</param>
-        /// <returns>Texture</returns>
-        public Texture GetTexture(string key)
-        {
-            return _textureManager.GetTexture(key);
         }
 
         /// <summary>

@@ -10,17 +10,19 @@ namespace MiCore2d
     {
         private float[]? _positionMap = null;
 
+
         /// <summary>
-        /// Constructor.
+        /// Constructor
         /// </summary>
-        /// <param name="tex">texture</param>
+        /// <param name="file">image file path</param>
+        /// <param name="tileWidth">size of tile width</param>
+        /// <param name="tileHeight">size of tile height</param>
         /// <param name="unitSize">unit size</param>
         /// <param name="renderer">renderer</param>
-        /// <returns>TimemapSprite</returns>
-        public TilemapSprite(Texture tex, float unitSize, InstancedRenderer renderer) : base()
+        /// <returns></returns>
+        public TilemapSprite(string file, int tileWidth, int tileHeight, float unitSize, InstancedRenderer renderer) : base()
         {
-            texture = tex;
-
+            texture = new Texture2dTile(file, tileWidth, tileHeight);
             float aspectRatio = texture.Width / (float)texture.Height;
             scale.X = unitSize * aspectRatio;
             scale.Y = unitSize;

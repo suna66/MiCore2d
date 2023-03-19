@@ -19,10 +19,10 @@ namespace Example.SceneChange
                 }
                 Audio.Play("sound1");
             }
-            ImageSprite sprite = new ImageSprite(LoadTexture2dTile("girl", "../resource/GirlTile001.png", 32, 32), 1);
+            ImageSprite sprite = new ImageSprite("../resource/GirlTile001.png", 32, 32, 1);
             sprite.AddComponent<PlayerScript>();
 
-            ImageSprite awe = new ImageSprite(LoadTexture2d("awe", "../resource/awesomeface.png"), 1);
+            ImageSprite awe = new ImageSprite("../resource/awesomeface.png", 1);
             awe.SetPosition(0.0f, -3.0f, 0.0f);
             Collider awe_collider = awe.AddComponent<BoxCollider>();
             awe_collider.IsTrigger = true;

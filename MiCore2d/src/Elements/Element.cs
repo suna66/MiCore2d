@@ -472,7 +472,10 @@ namespace MiCore2d
         /// </summary>
         public virtual void Dispose()
         {
-            texture = null;
+            if (texture != null)
+            {
+                texture.Dispose();
+            }
             if (_componentList != null)
             {
                 for (int i = 0; i < _componentList.Count; i++)

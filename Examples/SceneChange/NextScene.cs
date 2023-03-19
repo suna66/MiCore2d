@@ -10,10 +10,10 @@ namespace Example.SceneChange
         private FadeScript? fadeScript = null;
         public override void Load()
         {
-            ImageSprite sprite = new ImageSprite(LoadTexture2dTile("girl", "../resource/GirlTile001.png", 32, 32), 1);
+            ImageSprite sprite = new ImageSprite("../resource/GirlTile001.png", 32, 32, 1);
             sprite.AddComponent<PlayerScript>();
 
-            ImageSprite awe = new ImageSprite(LoadTexture2d("awe", "../resource/awesomeface.png"), 3);
+            ImageSprite awe = new ImageSprite("../resource/awesomeface.png", 3);
             BoxCollider collider = awe.AddComponent<BoxCollider>();
             collider.IsDynamic = true;
 
