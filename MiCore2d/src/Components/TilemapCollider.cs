@@ -31,7 +31,7 @@ namespace MiCore2d
         public float[] GetTilemapData()
         {
             TilemapSprite sprite = (TilemapSprite)element;
-            return sprite.GetPositionMap();
+            return sprite.GetTileMap();
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace MiCore2d
                 return false;
             }
             TilemapSprite sprite = (TilemapSprite)element;
-            float[] map = sprite.GetPositionMap();
+            float[] map = sprite.GetTileMap();
             int num = map.Length;
             bool isCollision = false;
 
@@ -98,7 +98,7 @@ namespace MiCore2d
         public override bool Collision(Line line)
         {
             TilemapSprite sprite = (TilemapSprite)element;
-            float[] map = sprite.GetPositionMap();
+            float[] map = sprite.GetTileMap();
             int num = map.Length;
 
             for (int i = 0; i < num; i += 4)
@@ -122,7 +122,7 @@ namespace MiCore2d
         public override bool Collision(Vector2 point)
         {
             TilemapSprite sprite = (TilemapSprite)element;
-            float[] map = sprite.GetPositionMap();
+            float[] map = sprite.GetTileMap();
             int num = map.Length;
 
             for (int i = 0; i < num; i += 4)

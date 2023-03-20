@@ -8,9 +8,6 @@ namespace MiCore2d
     /// </summary>
     public class TilemapSprite : Element
     {
-        private float[]? _positionMap = null;
-
-
         /// <summary>
         /// Constructor
         /// </summary>
@@ -20,33 +17,34 @@ namespace MiCore2d
         /// <param name="unitSize">unit size</param>
         /// <param name="renderer">renderer</param>
         /// <returns></returns>
-        public TilemapSprite(string file, int tileWidth, int tileHeight, float unitSize, InstancedRenderer renderer) : base()
+        public TilemapSprite(string file, int tileWidth, int tileHeight, float unitSize,  float[] tileMap, bool isDynamic) : base()
         {
             texture = new Texture2dTile(file, tileWidth, tileHeight);
             float aspectRatio = texture.Width / (float)texture.Height;
             scale.X = unitSize * aspectRatio;
             scale.Y = unitSize;
             unit = unitSize;
-            DrawRenderer = renderer;
-            _positionMap = renderer.GetTilemap();
+            DrawRenderer = new TilemapRenderer(tileMap, isDynamic);
         }
 
         /// <summary>
-        /// SetPositionMap.
+        /// SetTileMap.
         /// </summary>
         /// <param name="map">position map list</param>
-        public void SetPositionMap(float[] map)
+        public void SetTileMap(float[] map)
         {
-            _positionMap = map;
+            TilemapRenderer tilemapRenderer = (TilemapRenderer)DrawRenderer;
+            tilemapRenderer.SetTileMap(map);
         }
 
         /// <summary>
         /// GetPositionMap.
         /// </summary>
         /// <returns>position map list</returns>
-        public float[] GetPositionMap()
+        public float[] GetTileMap()
         {
-            return _positionMap;
+            TilemapRenderer tilemapRenderer = (TilemapRenderer)DrawRenderer;
+            return tilemapRenderer.GetTileMap();
         }
     }
 }

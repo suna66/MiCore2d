@@ -11,6 +11,85 @@ namespace Example.TileMap
         private ImageSprite explosionSprite;
         private ImageSprite awe;
 
+        private float[] _baseMap = {
+                -3.0f,  2.0f,  0.0f,  6.0f,
+                -2.0f,  2.0f,  0.0f,  6.0f,
+                -1.0f,  2.0f,  0.0f,  6.0f,
+                 0.0f,  2.0f,  0.0f,  6.0f,
+                 1.0f,  2.0f,  0.0f,  6.0f,
+                 2.0f,  2.0f,  0.0f,  6.0f,
+                 3.0f,  2.0f,  0.0f,  6.0f,
+                -3.0f,  1.0f,  0.0f,  6.0f,
+                -2.0f,  1.0f,  0.0f,  0.0f,
+                -1.0f,  1.0f,  0.0f,  0.0f,
+                 0.0f,  1.0f,  0.0f,  0.0f,
+                 1.0f,  1.0f,  0.0f,  0.0f,
+                 2.0f,  1.0f,  0.0f,  0.0f,
+                 3.0f,  1.0f,  0.0f,  6.0f,
+                -3.0f,  0.0f,  0.0f,  6.0f,
+                -2.0f,  0.0f,  0.0f,  0.0f,
+                -1.0f,  0.0f,  0.0f,  0.0f,
+                 0.0f,  0.0f,  0.0f,  0.0f,
+                 1.0f,  0.0f,  0.0f,  0.0f,
+                 2.0f,  0.0f,  0.0f,  0.0f,
+                 3.0f,  0.0f,  0.0f,  6.0f,
+                -3.0f, -1.0f,  0.0f,  6.0f,
+                -2.0f, -1.0f,  0.0f,  0.0f,
+                -1.0f, -1.0f,  0.0f,  0.0f,
+                 0.0f, -1.0f,  0.0f,  0.0f,
+                 1.0f, -1.0f,  0.0f,  0.0f,
+                 2.0f, -1.0f,  0.0f,  0.0f,
+                 3.0f, -1.0f,  0.0f,  6.0f,
+                -3.0f, -2.0f,  0.0f,  6.0f,
+                -2.0f, -2.0f,  0.0f,  0.0f,
+                -1.0f, -2.0f,  0.0f,  0.0f,
+                 0.0f, -2.0f,  0.0f,  0.0f,
+                 1.0f, -2.0f,  0.0f,  0.0f,
+                 2.0f, -2.0f,  0.0f,  0.0f,
+                 3.0f, -2.0f,  0.0f,  6.0f,
+                -3.0f, -3.0f,  0.0f,  6.0f,
+                -2.0f, -3.0f,  0.0f,  6.0f,
+                -1.0f, -3.0f,  0.0f,  6.0f,
+                 0.0f, -3.0f,  0.0f,  6.0f,
+                 1.0f, -3.0f,  0.0f,  6.0f,
+                 2.0f, -3.0f,  0.0f,  6.0f,
+                 3.0f, -3.0f,  0.0f,  6.0f
+                 //3.0f, -3.0f,  0.0f, 102.0f
+            };
+        
+        private float[] _obstacleMap = {
+                -4.0f,  3.0f,  0.0f, 102.0f,
+                -3.0f,  3.0f,  0.0f, 102.0f,
+                -2.0f,  3.0f,  0.0f, 102.0f,
+                -1.0f,  3.0f,  0.0f, 102.0f,
+                 0.0f,  3.0f,  0.0f, 102.0f,
+                 1.0f,  3.0f,  0.0f, 102.0f,
+                 2.0f,  3.0f,  0.0f, 102.0f,
+                 3.0f,  3.0f,  0.0f, 102.0f,
+                 4.0f,  3.0f,  0.0f, 102.0f,
+                -4.0f,  2.0f,  0.0f, 102.0f,
+                -4.0f,  1.0f,  0.0f, 102.0f,
+                -4.0f,  0.0f,  0.0f, 102.0f,
+                -4.0f, -1.0f,  0.0f, 102.0f,
+                -4.0f, -2.0f,  0.0f, 102.0f,
+                -4.0f, -3.0f,  0.0f, 102.0f,
+                 4.0f,  2.0f,  0.0f, 102.0f,
+                 4.0f,  1.0f,  0.0f, 102.0f,
+                 4.0f,  0.0f,  0.0f, 102.0f, 
+                 4.0f, -1.0f,  0.0f, 102.0f,
+                 4.0f, -2.0f,  0.0f, 102.0f,
+                 4.0f, -3.0f,  0.0f, 102.0f,
+                -4.0f, -4.0f,  0.0f, 102.0f,
+                -3.0f, -4.0f,  0.0f, 102.0f,
+                -2.0f, -4.0f,  0.0f, 102.0f,
+                -1.0f, -4.0f,  0.0f, 102.0f,
+                 0.0f, -4.0f,  0.0f, 102.0f,
+                 1.0f, -4.0f,  0.0f, 102.0f,
+                 2.0f, -4.0f,  0.0f, 102.0f,
+                 3.0f, -4.0f,  0.0f, 102.0f,
+                 4.0f, -4.0f,  0.0f, 102.0f
+            };
+
         public StartScene()
         {
              
@@ -43,10 +122,10 @@ namespace Example.TileMap
             ImageSprite sprite = new ImageSprite("../resource/GirlTile001.png", 32, 32, 1);
             sprite.AddComponent<PlayerScript>();
 
-            MapRenderer basemapRenderer = RendererManager.GetInstance().AddRenderer<MapRenderer>();
-            ObstacleRenderer obstacleRenderer = RendererManager.GetInstance().AddRenderer<ObstacleRenderer>();
-            TilemapSprite map = new TilemapSprite("../resource/BrightForest.png", 32, 32, 1, basemapRenderer);
-            TilemapSprite obstacle = new TilemapSprite("../resource/BrightForest.png", 32, 32, 1, obstacleRenderer);
+            // MapRenderer basemapRenderer = RendererManager.GetInstance().AddRenderer<MapRenderer>();
+            // ObstacleRenderer obstacleRenderer = RendererManager.GetInstance().AddRenderer<ObstacleRenderer>();
+            TilemapSprite map = new TilemapSprite("../resource/BrightForest.png", 32, 32, 1, _baseMap, false);
+            TilemapSprite obstacle = new TilemapSprite("../resource/BrightForest.png", 32, 32, 1, _obstacleMap, false);
             obstacle.AddComponent<TilemapCollider>();
 
             AddElement("map", map);
