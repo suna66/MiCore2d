@@ -40,8 +40,8 @@ $ dotnet pack
 - 2D Graphics System
   - ImageSprite - normal texture sprite
   - PlainSprite - rectangle sharp sprite
-  - LineSprite - line sharp sprite
-  - MultiSprite - instanced renderring sprite
+  - TilemapSprite - timemap sprite
+  - CanvasSprite - SKCanvas sprite
 - Components
   - Animation
   - Collider

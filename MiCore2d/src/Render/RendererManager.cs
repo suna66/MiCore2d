@@ -23,7 +23,6 @@ namespace MiCore2d
                 _instance.AddRenderer<TextureRenderer>();
                 _instance.AddRenderer<SepiaTextureRenderer>();
                 _instance.AddRenderer<TextureArrayRenderer>();
-                _instance.AddRenderer<LineRenderer>();
                 _instance.AddRenderer<PolygonRenderer>();
             }
             return _instance;

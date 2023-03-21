@@ -8,6 +8,8 @@ namespace MiCore2d
     /// </summary>
     public class TilemapSprite : Element
     {
+        private bool disposed = false;
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -45,6 +47,19 @@ namespace MiCore2d
         {
             TilemapRenderer tilemapRenderer = (TilemapRenderer)DrawRenderer;
             return tilemapRenderer.GetTileMap();
+        }
+
+                /// <summary>
+        /// Dispose.
+        /// </summary>
+        public override void Dispose()
+        {
+            if (!disposed)
+            {
+                DrawRenderer?.Dispose();
+                base.Dispose();
+                disposed = true;
+            }
         }
     }
 }

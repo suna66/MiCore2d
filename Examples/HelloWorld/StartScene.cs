@@ -1,6 +1,7 @@
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using OpenTK.Mathematics;
 using MiCore2d;
+using SkiaSharp;
 
 namespace Example.HelloWorld
 {
@@ -15,9 +16,10 @@ namespace Example.HelloWorld
         {
             ImageSprite awe = new ImageSprite("../resource/awesomeface.png", 3);
             
-            LineSprite lineSprite = new LineSprite();
-            lineSprite.SetColor(1.0f, 1.0f, 0.0f);
-            lineSprite.SetLine(new Vector3(-4.0f, 4.0f, 0.0f), new Vector3(4.0f, 4.0f, 0.0f));
+            CanvasSprite can = new CanvasSprite(320, 240, 2);
+            can.Position = new Vector3(-2.0f, 0.0f, 0.0f);
+            SKCanvas skCanvas = can.GetCanvas();
+            skCanvas.Clear(new SKColor(0, 0, 255, 255));
 
             PlainSprite rect = new PlainSprite(1);
             rect.Alpha = 0.4f;
@@ -27,7 +29,7 @@ namespace Example.HelloWorld
             rect.SetColor(0.1f, 0.5f, 0.0f);
 
             AddElement("aws", awe);
-            AddElement("line", lineSprite);
+            AddElement("can", can);
             AddElement("rect", rect);
 
             SceneCanvas.SetColor(255, 255, 255);
