@@ -22,7 +22,7 @@ namespace MiCore2d
             scale.X = unitSize * aspectRatio;
             scale.Y = unitSize;
             unit = unitSize;
-            DrawRenderer = RendererManager.GetInstance().GetRenderer<TextureRenderer>();
+            DrawRenderer = new TextureRenderer();
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace MiCore2d
             scale.X = unitSize * aspectRatio;
             scale.Y = unitSize;
             unit = unitSize;
-            DrawRenderer = RendererManager.GetInstance().GetRenderer<TextureArrayRenderer>();
+            DrawRenderer = new TextureArrayRenderer();
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace MiCore2d
             scale.X = unitSize * aspectRatio;
             scale.Y = unitSize;
             unit = unitSize;
-            DrawRenderer = RendererManager.GetInstance().GetRenderer<TextureArrayRenderer>();
+            DrawRenderer = new TextureArrayRenderer();
         }
 
         /// <summary>

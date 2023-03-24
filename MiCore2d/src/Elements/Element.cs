@@ -101,7 +101,30 @@ namespace MiCore2d
         /// DrawRenderer.
         /// </summary>
         /// <value>renderer instance</value>
-        public Renderer? DrawRenderer { get; set; } = null;
+        public Renderer? DrawRenderer { get; protected set; } = null;
+
+        /// <summary>
+        /// GetRenderer
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>Renderer</returns>
+        public T GetRenderer<T>()
+        {
+            return (T)(object)(DrawRenderer);
+        }
+
+        /// <summary>
+        /// SetRenderer
+        /// </summary>
+        /// <param name="renderer">Renderer</param>
+        public void SetRenderer(Renderer renderer)
+        {
+            if (DrawRenderer != null)
+            {
+                DrawRenderer.Dispose();
+            }
+            DrawRenderer = renderer;
+        }
 
         /// <summary>
         /// AddComponent.
@@ -472,6 +495,10 @@ namespace MiCore2d
         /// </summary>
         public virtual void Dispose()
         {
+            if (DrawRenderer != null)
+            {
+                DrawRenderer?.Dispose();
+            }
             if (texture != null)
             {
                 texture.Dispose();

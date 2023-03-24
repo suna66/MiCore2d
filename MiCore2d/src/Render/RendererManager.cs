@@ -5,6 +5,7 @@ namespace MiCore2d
 {
     /// <summary>
     /// RendererManager.
+    /// Now, This class is not used.
     /// </summary>
     public class RendererManager
     {

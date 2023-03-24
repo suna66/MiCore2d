@@ -49,14 +49,14 @@ namespace MiCore2d
             return tilemapRenderer.GetTileMap();
         }
 
-                /// <summary>
+        /// <summary>
         /// Dispose.
         /// </summary>
         public override void Dispose()
         {
             if (!disposed)
             {
-                DrawRenderer?.Dispose();
+                //DrawRenderer?.Dispose();
                 base.Dispose();
                 disposed = true;
             }

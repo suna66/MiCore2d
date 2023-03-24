@@ -64,7 +64,6 @@ namespace MiCore2d
         {
             if (!disposed)
             {
-                DrawRenderer?.Dispose();
                 base.Dispose();
                 disposed = true;
             }
