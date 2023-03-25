@@ -133,7 +133,7 @@ namespace Example.TileMap
             AddElement("magic", magic);
             AddElement("girl", sprite);
             AddElement("explosion", explosionSprite);
-            AddElement("awe", awe);
+            AddElement("awe", awe, "enemy");
 
             TimeUtil.Delay(5000, DisplayAweface);
         }

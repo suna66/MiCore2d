@@ -15,11 +15,15 @@ namespace MiCore2d
         private bool _start = false;
 
         /// <summary>
-        /// Layer.
+        /// TargetLayer.
         /// </summary>
         /// <value></value>
-        public string Layer {get; set;} = "default";
+        public List<string> TargetLayer = new List<string>();
 
+        /// <summary>
+        /// IsEnableCollsionDetect
+        /// </summary>
+        /// <value>true: call collision detact function when updating Controller component</value>
         public bool IsEnableCollsionDetect {get; set;} = false;
 
         /// <summary>
@@ -84,9 +88,12 @@ namespace MiCore2d
                 {
                     continue;
                 }
-                if (target.Layer != Layer)
+                if (TargetLayer.Count > 0)
                 {
-                    continue;
+                    if (!TargetLayer.Contains(target.Layer))
+                    {
+                        continue;
+                    }
                 }
                 if (element.Name != target.Name)
                 {

@@ -17,6 +17,8 @@ namespace Example.TileMap
             _animation = element.GetComponent<AnimationTile>();
             _animation.Interval = 0.05f;
             element.Disabled = true;
+            IsEnableCollsionDetect = true;
+            TargetLayer.Add("enemy");
         }
 
         public override void Update(double elapsed)
@@ -30,7 +32,6 @@ namespace Example.TileMap
             {
                 element.AddPosition(_direction * _speed * (float)elapsed);
             }
-            CollisionDetector();
         }
 
         public void StartAnimation(Vector3 position, Vector3 direction, float speed)
