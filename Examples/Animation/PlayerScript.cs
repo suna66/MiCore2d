@@ -9,6 +9,8 @@ namespace Example.Animation
     {
         private AnimationTile animation;
 
+         private HardBody body = null!;
+
         public override void Start()
         {
             animation = element.AddComponent<AnimationTile>();
@@ -18,7 +20,7 @@ namespace Example.Animation
             animation.AddPattern("up", new int[] {9, 10, 11} );
             animation.SwitchPattern("down");
 
-            //element.AddComponent<HardBody>();
+            body = gameScene.GetElement("awe").GetComponent<HardBody>();
             element.AddComponent<BoxCollider>();
             IsEnableCollsionDetect = true;
         }
@@ -46,6 +48,10 @@ namespace Example.Animation
             {
                 animation.SwitchPattern("right");
                 element.AddPositionX(5 * (float)elapsed);
+            }
+            if (input.IsKeyDown(Keys.Space))
+            {
+                body.Shake(0.05f, 1000);
             }
         }
 

@@ -15,7 +15,7 @@ namespace MiCore2d
         private bool _start = false;
 
         /// <summary>
-        /// Layer. layer name of collision.
+        /// Layer.
         /// </summary>
         /// <value></value>
         public string Layer {get; set;} = "default";
@@ -60,6 +60,9 @@ namespace MiCore2d
             return e.GetComponent<Collider>();
         }
 
+        /// <summary>
+        /// CollisionDetector.
+        /// </summary>
         public void CollisionDetector()
         {
             Collider collider = getCollider(element);
@@ -73,9 +76,7 @@ namespace MiCore2d
                 return;
             }
 
-            Controller objScript = element.GetComponent<Controller>();
             IDictionaryEnumerator enumerator = gameScene.GetElementEnumerator();
-
             while (enumerator.MoveNext())
             {
                 Element target = (Element)enumerator.Value;
@@ -101,11 +102,11 @@ namespace MiCore2d
                                 if (!collider.IsCollidedTarget(target))
                                 {
                                     collider.AddCollidedTarget(target);
-                                    OnEnterCollision(objScript, target);
+                                    OnEnterCollision(target, collidedPosition);
                                 }
                                 else
                                 {
-                                    OnStayCollision(objScript, target);
+                                    OnStayCollision(target, collidedPosition);
                                 }
                             }
                             if (target_collider.IsSolid)
@@ -120,7 +121,7 @@ namespace MiCore2d
                                 if (collider.IsCollidedTarget(target))
                                 {
                                     collider.RemoveCollidedTarget(target);
-                                    OnLeaveCollision(objScript, target);
+                                    OnLeaveCollision(target);
                                 }
                             }
                         }
@@ -203,34 +204,29 @@ namespace MiCore2d
         /// <summary>
         /// OnEnterCollision. called this function when collided target.
         /// </summary>
-        /// <param name="objScript">controller component this element</param>
         /// <param name="target">collided element</param>
-        public virtual void OnEnterCollision(Controller objScript, Element target)
+        /// <param name="collidedPosition">collieded vecto3 position</param>
+        public virtual void OnEnterCollision(Element target, Vector3 collidedPosition)
         {
-            if (objScript != null)
-                objScript.OnEnterCollision(target);
+            OnEnterCollision(target);
         }
 
         /// <summary>
         /// OnEnterCollision. called this function while  colliding target.
         /// </summary>
-        /// <param name="objScript">controller component this element</param>
         /// <param name="target">collided element</param>
-        public virtual void OnStayCollision(Controller objScript, Element target)
+        /// <param name="collidedPosition">collieded vecto3 position</param>
+        public virtual void OnStayCollision(Element target, Vector3 collidedPosition)
         {
-            if (objScript != null)
-                objScript.OnStayCollision(target);
+            OnStayCollision(target);
         }
 
         /// <summary>
         /// OnEnterCollision. called this function while  leaving target.
         /// </summary>
-        /// <param name="objScript">controller component this element</param>
         /// <param name="target">collided element</param>
-        public virtual void OnLeaveCollision(Controller objScript, Element target)
+        public virtual void OnLeaveCollision(Element target)
         {
-            if (objScript != null)
-                objScript.OnLeaveCollision(target);
         }
 
         /// <summary>
@@ -246,14 +242,6 @@ namespace MiCore2d
         /// </summary>
         /// <param name="target">target element</param>
         public virtual void OnStayCollision(Element target)
-        {
-        }
-
-        /// <summary>
-        /// OnLeaveCollision. called this method when element leaved the state of collision.
-        /// </summary>
-        /// <param name="target">target element</param>
-        public virtual void OnLeaveCollision(Element target)
         {
         }
 

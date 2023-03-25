@@ -10,6 +10,11 @@ namespace MiCore2d
     /// </summary>
     public class HardBody : Component
     {
+        private const int ACTION_TYPE_NONE = 0;
+
+        private const int ACTION_TYPE_FORCE = 1;
+
+        private const int ACTION_TYPE_SHAKE = 2;
         /// <summary>
         /// Constructor.
         /// </summary>
@@ -31,11 +36,21 @@ namespace MiCore2d
         /// <value>power</value>
         public Vector3 Power {get; set;}
 
+
+        /// <summary>
+        /// Amplitude.
+        /// </summary>
+        /// <value></value>
+        public float Amplitude {get; set;}
+
         /// <summary>
         /// Layer. layer name of collision.
         /// </summary>
         /// <value></value>
         public string Layer {get; set;} = "default";
+
+
+        private int actionType = ACTION_TYPE_NONE;
 
         /// <summary>
         /// AddForce. Add force of moving this element.
@@ -46,6 +61,14 @@ namespace MiCore2d
         {
             Timeout = msec/1000.0f;
             Power = directPower;
+            actionType = ACTION_TYPE_FORCE;
+        }
+
+        public void Shake(float amplitude, float msec)
+        {
+            Timeout = msec/1000.0f;
+            Amplitude = amplitude;
+            actionType = ACTION_TYPE_SHAKE;
         }
 
         /// <summary>
@@ -56,8 +79,21 @@ namespace MiCore2d
         {
             if (Timeout > 0.0)
             {
-                element.Position += Power;
+                if (actionType == ACTION_TYPE_FORCE)
+                {
+                    element.Position += Power;
+                } else if (actionType == ACTION_TYPE_SHAKE)
+                {
+                    Random r = new Random();
+                    float x = (float)(r.NextDouble() * 2 - 1) * Amplitude;
+                    float y = (float)(r.NextDouble() * 2 - 1) * Amplitude;
+                    element.Position += new Vector3(x, y, 0);
+                }
                 Timeout -= (float)elapsed;
+            }
+            else
+            {
+                actionType = ACTION_TYPE_NONE;
             }
         }
 

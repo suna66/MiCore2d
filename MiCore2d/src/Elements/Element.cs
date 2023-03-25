@@ -190,6 +190,28 @@ namespace MiCore2d
         }
 
         /// <summary>
+        /// GetComponents
+        /// </summary>
+        /// <typeparam name="T">component type</typeparam>
+        /// <returns>list of components</returns>
+        public List<T> GetComponents<T>()
+        {
+            List<T> list = new List<T>();
+             if (_componentList == null)
+            {
+                return list;
+            }
+            foreach(Component c in _componentList)
+            {
+                if (c is T)
+                {
+                    list.Add((T)(object)c);
+                }
+            }
+            return list;
+        }
+
+        /// <summary>
         /// SetParentGameScene.
         /// </summary>
         /// <param name="scene">game scene</param>
