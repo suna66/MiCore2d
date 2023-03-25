@@ -13,6 +13,7 @@ namespace MiCore2d
         /// </summary>
         public CircleCollider()
         {
+            IsDynamic = true;
         }
 
         /// <summary>
@@ -27,17 +28,24 @@ namespace MiCore2d
         /// Collision. Check collision of targets.
         /// </summary>
         /// <param name="target">target element</param>
+        /// <param name="collidedPosition">collision vector3 position</param>
         /// <returns>true: collided. false: not collided</returns>
-        public override bool Collision(Collider target)
+        public override bool Collision(Collider target, out Vector3 collidedPosition)
         {
+            collidedPosition = Vector3.Zero;
             bool is_collision = false;
+            if (IsDynamic)
+            {
+                RadiusUnit = element.Scale.Y / 2;
+            }
+
             if (target is BoxCollider)
             {
-                is_collision = checkCollision((BoxCollider)target);
+                is_collision = checkCollision(target as BoxCollider, out collidedPosition);
             }
             else if (target is CircleCollider)
             {
-                is_collision = checkCollision((CircleCollider)target);
+                is_collision = checkCollision(target as CircleCollider, out collidedPosition);
             }
             return is_collision;
         }
@@ -49,6 +57,10 @@ namespace MiCore2d
         /// <returns>true: collided, false: not</returns>
         public override bool Collision(Line line)
         {
+            if (IsDynamic)
+            {
+                RadiusUnit = element.Scale.Y / 2;
+            }
             return CollisionUtil.LineCircle(line, GetPosition(), RadiusUnit);
         }
 
@@ -59,6 +71,10 @@ namespace MiCore2d
         /// <returns>true: collided, false: not</returns>
         public override bool Collision(Vector2 point)
         {
+            if (IsDynamic)
+            {
+                RadiusUnit = element.Scale.Y / 2;
+            }
             return CollisionUtil.PointCircle(point, GetPosition(), RadiusUnit);
         }
         
@@ -66,11 +82,13 @@ namespace MiCore2d
         /// checkCollision for CircleCollider.
         /// </summary>
         /// <param name="target">target element</param>
+        /// <param name="collidedPosition">collision vector3 position</param>
         /// <returns>true: collided. false: not collided</returns>
-        private bool checkCollision(CircleCollider target)
+        private bool checkCollision(CircleCollider target, out Vector3 collidedPosition)
         {
             Vector3 thisPos = GetPosition();
             Vector3 targetPos = target.GetPosition();
+            collidedPosition = thisPos;
             return CollisionUtil.CircleCircle(thisPos, RadiusUnit, targetPos, target.RadiusUnit);
 
         }
@@ -79,11 +97,13 @@ namespace MiCore2d
         /// checkCollision for BoxCollider.
         /// </summary>
         /// <param name="target">target element</param>
+        /// <param name="collidedPosition">collision vector3 position</param>
         /// <returns>true: collided. false: not collided</returns>
-        private bool checkCollision(BoxCollider target)
+        private bool checkCollision(BoxCollider target, out Vector3 collidedPosition)
         {
             Vector3 thisPos = GetPosition();
             Vector3 targetPos = target.GetPosition();
+            collidedPosition = thisPos;
             return CollisionUtil.BoxCircle(targetPos, target.WidthUnit, target.HeightUnit, thisPos, RadiusUnit);
         }
 
@@ -93,10 +113,6 @@ namespace MiCore2d
         /// <param name="elapsed">elpased time of frame.</param>
         public override void UpdateComponent(double elapsed)
         {
-            if (IsDynamic)
-            {
-                RadiusUnit = element.Scale.Y / 2;
-            }
         }
 
         /// <summary>

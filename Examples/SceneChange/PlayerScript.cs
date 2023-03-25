@@ -20,10 +20,10 @@ namespace Example.SceneChange
             animation.SwitchPattern("down");
             animation.StopAnimation = true;
 
-            element.AddComponent<HardBody>();
             element.AddComponent<BoxCollider>();
 
             fadeScript = gameScene.GetElement("fade").GetComponent<FadeScript>();
+            IsEnableCollsionDetect = true;
         }
 
         public override void Update(double elapsed)

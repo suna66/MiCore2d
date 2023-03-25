@@ -9,10 +9,17 @@ namespace MiCore2d
     public class TilemapCollider : Collider
     {
         /// <summary>
+        /// Tilemap Positions
+        /// </summary>
+        /// <value></value>
+        public Vector3[] PositionList {get; set;} = null;
+
+        /// <summary>
         /// Constructor.
         /// </summary>
         public TilemapCollider()
         {
+            IsDynamic = false;
         }
 
         /// <summary>
@@ -22,6 +29,7 @@ namespace MiCore2d
         {
             WidthUnit = element.Scale.X;
             HeightUnit = element.Scale.Y;
+            PositionList = GetTilemapVector();
         }
 
         /// <summary>
@@ -30,8 +38,33 @@ namespace MiCore2d
         /// <returns>tilemap array list</returns>
         public float[] GetTilemapData()
         {
-            TilemapSprite sprite = (TilemapSprite)element;
+            if (element is not TilemapSprite)
+            {
+                return null;
+            }
+            TilemapSprite sprite = element as TilemapSprite;
             return sprite.GetTileMap();
+        }
+
+        /// <summary>
+        /// GetTilemapVector
+        /// </summary>
+        /// <returns>Vector3 from tilemap</returns>
+        private Vector3[] GetTilemapVector()
+        {
+            float[] map = GetTilemapData();
+            if (map == null)
+            {
+                return null;
+            }
+            int num = map.Length;
+            Vector3[] list = new Vector3[num / 4];
+            int index = 0;
+            for (int i = 0; i < num; i += 4) {
+                Vector3 tilePos = new Vector3(map[i], map[i + 1], map[i + 2]);
+                list[index++] = tilePos + element.Position;
+            }
+            return list;
         }
 
         /// <summary>
@@ -47,34 +80,30 @@ namespace MiCore2d
             {
                 return false;
             }
-            TilemapSprite sprite = (TilemapSprite)element;
-            float[] map = sprite.GetTileMap();
-            int num = map.Length;
             bool isCollision = false;
 
-            for (int i = 0; i < num; i += 4)
+            foreach(Vector3 pos in PositionList)
             {
-                if (map[i + 3] < 0.0f)
+                if (pos.Z != 0.0f)
                 {
                     continue;
                 }
-                Vector3 tilePos = new Vector3(map[i], map[i + 1], map[i + 2]);
-                Vector3 localPos = sprite.Position + tilePos;
                 
-                if  (target is BoxCollider)
+                if (target is BoxCollider)
                 {
-                    isCollision = checkCollision(localPos, (BoxCollider)target);
+                    isCollision = checkCollision(pos, target as BoxCollider);
                 }
                 else if (target is CircleCollider)
                 {
-                    isCollision = checkCollision(localPos, (CircleCollider)target);
+                    isCollision = checkCollision(pos, target as CircleCollider);
                 }
-
+                
                 if (isCollision)
                 {
-                    collidedPos = localPos;
+                    collidedPos = pos;
                     return isCollision;
                 }
+
             }
             return false;
         }
@@ -83,11 +112,19 @@ namespace MiCore2d
         /// Collision. checking collision.
         /// </summary>
         /// <param name="target">target element collider</param>
+        /// <param name="collidedPosition">collision vector3 position</param>
         /// <returns>true: collided, false: not</returns>
-        public override bool Collision(Collider target)
+        public override bool Collision(Collider target, out Vector3 collidedPosition)
         {
-            Vector3 pos;
-            return CheckCollidedMap(target, out pos);
+            if (IsDynamic)
+            {
+                WidthUnit = element.Scale.X;
+                HeightUnit = element.Scale.Y;
+                PositionList = GetTilemapVector();
+            }
+            collidedPosition = Vector3.Zero;
+            bool isCollided = CheckCollidedMap(target, out collidedPosition);
+            return isCollided;
         }
 
         /// <summary>
@@ -97,20 +134,19 @@ namespace MiCore2d
         /// <returns>true: collided, false: not</returns>
         public override bool Collision(Line line)
         {
-            TilemapSprite sprite = (TilemapSprite)element;
-            float[] map = sprite.GetTileMap();
-            int num = map.Length;
-
-            for (int i = 0; i < num; i += 4)
+            if (IsDynamic)
             {
-                if (map[i + 3] < 0.0f)
+                WidthUnit = element.Scale.X;
+                HeightUnit = element.Scale.Y;
+                PositionList = GetTilemapVector();
+            }
+            foreach(Vector3 pos in PositionList)
+            {
+                if (pos.Z != 0.0f)
                 {
                     continue;
                 }
-                Vector3 tilePos = new Vector3(map[i], map[i + 1], map[i + 2]);
-                Vector3 localPos = sprite.Position + tilePos;
-
-                bool collided = CollisionUtil.LineBox(line, localPos, WidthUnit, HeightUnit);
+                bool collided = CollisionUtil.LineBox(line, pos, WidthUnit, HeightUnit);
                 if (collided)
                 {
                     return true;
@@ -121,20 +157,19 @@ namespace MiCore2d
 
         public override bool Collision(Vector2 point)
         {
-            TilemapSprite sprite = (TilemapSprite)element;
-            float[] map = sprite.GetTileMap();
-            int num = map.Length;
-
-            for (int i = 0; i < num; i += 4)
+            if (IsDynamic)
             {
-                if (map[i + 3] < 0.0f)
+                WidthUnit = element.Scale.X;
+                HeightUnit = element.Scale.Y;
+                PositionList = GetTilemapVector();
+            }
+            foreach(Vector3 pos in PositionList)
+            {
+                if (pos.Z != 0.0f)
                 {
                     continue;
                 }
-                Vector3 tilePos = new Vector3(map[i], map[i + 1], map[i + 2]);
-                Vector3 localPos = sprite.Position + tilePos;
-
-                bool collided = CollisionUtil.PointBox(point, localPos, WidthUnit, HeightUnit);
+                bool collided = CollisionUtil.PointBox(point, pos, WidthUnit, HeightUnit);
                 if (collided)
                 {
                     return true;
@@ -174,11 +209,6 @@ namespace MiCore2d
         /// <param name="elapsed">elpased time of frame.</param>
         public override void UpdateComponent(double elapsed)
         {
-            if (IsDynamic)
-            {
-                WidthUnit = element.Scale.X;
-                HeightUnit = element.Scale.Y;
-            }
         }
 
         /// <summary>

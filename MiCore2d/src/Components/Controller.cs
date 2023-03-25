@@ -1,5 +1,6 @@
 #nullable disable warnings
 using OpenTK.Mathematics;
+using System.Collections;
 
 namespace MiCore2d
 {
@@ -12,6 +13,14 @@ namespace MiCore2d
         ///  _start. status of called start method.
         /// </summary>
         private bool _start = false;
+
+        /// <summary>
+        /// Layer. layer name of collision.
+        /// </summary>
+        /// <value></value>
+        public string Layer {get; set;} = "default";
+
+        public bool IsEnableCollsionDetect {get; set;} = false;
 
         /// <summary>
         ///  constructor.
@@ -34,7 +43,194 @@ namespace MiCore2d
             else
             {
                 Update(elapsed);
+                if (IsEnableCollsionDetect)
+                {
+                    CollisionDetector();
+                }
             }
+        }
+
+        /// <summary>
+        /// getCollider. getting collider component specified element.
+        /// </summary>
+        /// <param name="e">target element</param>
+        /// <returns>collider component</returns>
+        private Collider getCollider(Element e)
+        {
+            return e.GetComponent<Collider>();
+        }
+
+        public void CollisionDetector()
+        {
+            Collider collider = getCollider(element);
+            if (collider == null)
+            {
+                return;
+            }
+            if (element.Disabled || element.Destroyed)
+            {
+                collider.RemoveColidedAll();
+                return;
+            }
+
+            Controller objScript = element.GetComponent<Controller>();
+            IDictionaryEnumerator enumerator = gameScene.GetElementEnumerator();
+
+            while (enumerator.MoveNext())
+            {
+                Element target = (Element)enumerator.Value;
+                if (target.Disabled || target.Destroyed)
+                {
+                    continue;
+                }
+                if (target.Layer != Layer)
+                {
+                    continue;
+                }
+                if (element.Name != target.Name)
+                {
+                    Vector3 collidedPosition;
+                    Collider target_collider = getCollider(target);
+                    if (target_collider != null)
+                    {
+                        bool is_collision = target_collider.Collision(collider, out collidedPosition);
+                        if (is_collision)
+                        {
+                            if (target_collider.IsTrigger)
+                            {
+                                if (!collider.IsCollidedTarget(target))
+                                {
+                                    collider.AddCollidedTarget(target);
+                                    OnEnterCollision(objScript, target);
+                                }
+                                else
+                                {
+                                    OnStayCollision(objScript, target);
+                                }
+                            }
+                            if (target_collider.IsSolid)
+                            {
+                                OnSolidCollision(collider, target_collider, collidedPosition);
+                            }
+                        }
+                        else
+                        {
+                            if (target_collider.IsTrigger)
+                            {
+                                if (collider.IsCollidedTarget(target))
+                                {
+                                    collider.RemoveCollidedTarget(target);
+                                    OnLeaveCollision(objScript, target);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// CalcObjectPosition. Calecration of position of collistion.
+        /// </summary>
+        /// <param name="thisPos">this element position</param>
+        /// <param name="targetPos">target collided postition</param>
+        /// <param name="src">collision component this element</param>
+        /// <param name="target">collision component target element</param>
+        protected virtual void CalcObjectPosition(Vector3 thisPos, Vector3 targetPos, Collider src, Collider target)
+        {
+            float distanceY = MathF.Max(thisPos.Y, targetPos.Y) - MathF.Min(thisPos.Y, targetPos.Y);
+            float distanceX = MathF.Max(thisPos.X, targetPos.X) - MathF.Min(thisPos.X, targetPos.X);
+
+            float cond_distanceX = src.WidthUnit/2 + target.WidthUnit/2;
+            float cond_distanceY = src.HeightUnit/2 + target.HeightUnit/2;
+            float sinkX = 0.0f;
+            float sinkY = 0.0f;
+
+            if (cond_distanceX > distanceX)
+            {
+                sinkX = cond_distanceX - distanceX;
+            }
+
+            if (cond_distanceY > distanceY)
+            {
+                sinkY = cond_distanceY - distanceY;
+            }
+
+            //if (distanceX < distanceY)
+            if (sinkX > sinkY)
+            {
+                if (thisPos.Y < targetPos.Y)
+                {
+                    //hit under
+                    thisPos.Y = targetPos.Y - target.HeightUnit/2 - src.HeightUnit/2;
+                }
+                else
+                {
+                    //hit upper
+                    thisPos.Y = targetPos.Y + target.HeightUnit/2 + src.HeightUnit/2;
+                }
+            }
+            else
+            {
+                if (thisPos.X < targetPos.X)
+                {
+                    //hit left
+                    thisPos.X = targetPos.X - target.WidthUnit/2 - src.WidthUnit/2;
+                }
+                else
+                {
+                    //hit right
+                    thisPos.X = targetPos.X + target.WidthUnit/2 + src.WidthUnit/2;
+                }
+            }
+            element.Position = thisPos;
+        }
+
+        /// <summary>
+        /// OnSolidCollision. collided solid object.
+        /// </summary>
+        /// <param name="src">thie element collider</param>
+        /// <param name="target">target element collider</param>
+        /// <param name="collidedPosition>collided vector3 position</param>
+        protected virtual void OnSolidCollision(Collider src, Collider target, Vector3 collidedPosition)
+        {
+            //Console.WriteLine($"position {collidedPosition}");
+            Vector3 thisPos = src.GetPosition();
+            CalcObjectPosition(thisPos, collidedPosition, src, target);
+        }
+
+
+        /// <summary>
+        /// OnEnterCollision. called this function when collided target.
+        /// </summary>
+        /// <param name="objScript">controller component this element</param>
+        /// <param name="target">collided element</param>
+        public virtual void OnEnterCollision(Controller objScript, Element target)
+        {
+            if (objScript != null)
+                objScript.OnEnterCollision(target);
+        }
+
+        /// <summary>
+        /// OnEnterCollision. called this function while  colliding target.
+        /// </summary>
+        /// <param name="objScript">controller component this element</param>
+        /// <param name="target">collided element</param>
+        public virtual void OnStayCollision(Controller objScript, Element target)
+        {
+            if (objScript != null)
+                objScript.OnStayCollision(target);
+        }
+
+        /// <summary>
+        /// OnEnterCollision. called this function while  leaving target.
+        /// </summary>
+        /// <param name="objScript">controller component this element</param>
+        /// <param name="target">collided element</param>
+        public virtual void OnLeaveCollision(Controller objScript, Element target)
+        {
+            if (objScript != null)
+                objScript.OnLeaveCollision(target);
         }
 
         /// <summary>

@@ -17,9 +17,8 @@ namespace Example.TileMap
             animation.AddPattern("right", new int[] {6, 7, 8} );
             animation.AddPattern("up", new int[] {9, 10, 11} );
             animation.SwitchPattern("down");
-
-            HardBody body = element.AddComponent<HardBody>();
             element.AddComponent<BoxCollider>();
+            IsEnableCollsionDetect = true;
         }
 
         public override void Update(double elapsed)

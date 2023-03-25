@@ -30,6 +30,7 @@ namespace Example.TileMap
             {
                 element.AddPosition(_direction * _speed * (float)elapsed);
             }
+            CollisionDetector();
         }
 
         public void StartAnimation(Vector3 position, Vector3 direction, float speed)

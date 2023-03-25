@@ -43,6 +43,7 @@ namespace MiCore2d
         /// <value>height size from origin</value>
         public float HeightUnit {get; set;} = 1.0f;
 
+
         /// <summary>
         /// RadiusUnit. element size of radius.
         /// </summary>
@@ -78,9 +79,11 @@ namespace MiCore2d
         /// Collision. check collided to target.
         /// </summary>
         /// <param name="target">target element</param>
+        /// <param name="collidedPosition>collided vector3 position</param>
         /// <returns>true: collided, false: not</returns>
-        public virtual bool Collision(Collider target)
+        public virtual bool Collision(Collider target, out Vector3 collidedPosition)
         {
+            collidedPosition = Vector3.Zero;
             return false;
         }
 

@@ -109,7 +109,7 @@ namespace Example.TileMap
             ImageSprite magic = new ImageSprite("../resource/magic.png", 120, 120, 1);
             magic.AddComponent<AnimationTile>();
             magic.AddComponent<MagicScript>();
-            magic.AddComponent<HardBody>();
+            //magic.AddComponent<HardBody>();
             BoxCollider m_collider = magic.AddComponent<BoxCollider>();
             m_collider.IsSolid = false;
 

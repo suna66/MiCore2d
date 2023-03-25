@@ -18,8 +18,9 @@ namespace Example.Animation
             animation.AddPattern("up", new int[] {9, 10, 11} );
             animation.SwitchPattern("down");
 
-            element.AddComponent<HardBody>();
+            //element.AddComponent<HardBody>();
             element.AddComponent<BoxCollider>();
+            IsEnableCollsionDetect = true;
         }
 
         public override void Update(double elapsed)
