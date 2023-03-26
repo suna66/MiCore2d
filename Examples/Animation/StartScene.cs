@@ -17,8 +17,8 @@ namespace Example.Animation
             awe.AddComponent<BoxCollider>();
             awe.AddComponent<HardBody>();
 
-            AddElement("girl", sprite);
             AddElement("awe", awe);
+            AddElement("girl", sprite);
         }
 
          public override void Update(double elapsed)

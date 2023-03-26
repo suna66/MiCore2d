@@ -97,11 +97,11 @@ namespace MiCore2d
                 }
                 if (element.Name != target.Name)
                 {
-                    Vector3 collidedPosition;
+                    Vector3 collidedTargetPosition;
                     Collider target_collider = getCollider(target);
                     if (target_collider != null)
                     {
-                        bool is_collision = target_collider.Collision(collider, out collidedPosition);
+                        bool is_collision = target_collider.Collision(collider, out collidedTargetPosition);
                         if (is_collision)
                         {
                             if (target_collider.IsTrigger)
@@ -109,16 +109,16 @@ namespace MiCore2d
                                 if (!collider.IsCollidedTarget(target))
                                 {
                                     collider.AddCollidedTarget(target);
-                                    OnEnterCollision(target, collidedPosition);
+                                    OnEnterCollision(target, collidedTargetPosition);
                                 }
                                 else
                                 {
-                                    OnStayCollision(target, collidedPosition);
+                                    OnStayCollision(target, collidedTargetPosition);
                                 }
                             }
                             if (target_collider.IsSolid)
                             {
-                                OnSolidCollision(collider, target_collider, collidedPosition);
+                                OnSolidCollision(collider, target_collider, collidedTargetPosition);
                             }
                         }
                         else
@@ -191,7 +191,8 @@ namespace MiCore2d
                     thisPos.X = targetPos.X + target.WidthUnit/2 + src.WidthUnit/2;
                 }
             }
-            element.Position = thisPos;
+            //element.Position = thisPos;
+            src.SetPosition(thisPos);
         }
 
         /// <summary>
@@ -199,12 +200,12 @@ namespace MiCore2d
         /// </summary>
         /// <param name="src">thie element collider</param>
         /// <param name="target">target element collider</param>
-        /// <param name="collidedPosition>collided vector3 position</param>
-        protected virtual void OnSolidCollision(Collider src, Collider target, Vector3 collidedPosition)
+        /// <param name="collidedTargetPosition>collided vector3 position</param>
+        protected virtual void OnSolidCollision(Collider src, Collider target, Vector3 collidedTargetPosition)
         {
             //Console.WriteLine($"position {collidedPosition}");
             Vector3 thisPos = src.GetPosition();
-            CalcObjectPosition(thisPos, collidedPosition, src, target);
+            CalcObjectPosition(thisPos, collidedTargetPosition, src, target);
         }
 
 
@@ -213,7 +214,7 @@ namespace MiCore2d
         /// </summary>
         /// <param name="target">collided element</param>
         /// <param name="collidedPosition">collieded vecto3 position</param>
-        public virtual void OnEnterCollision(Element target, Vector3 collidedPosition)
+        public virtual void OnEnterCollision(Element target, Vector3 collidedTargetPosition)
         {
             OnEnterCollision(target);
         }
@@ -223,7 +224,7 @@ namespace MiCore2d
         /// </summary>
         /// <param name="target">collided element</param>
         /// <param name="collidedPosition">collieded vecto3 position</param>
-        public virtual void OnStayCollision(Element target, Vector3 collidedPosition)
+        public virtual void OnStayCollision(Element target, Vector3 collidedTargetPosition)
         {
             OnStayCollision(target);
         }

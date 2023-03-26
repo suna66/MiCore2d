@@ -13,7 +13,6 @@ namespace MiCore2d
         /// </summary>
         public CircleCollider()
         {
-            IsDynamic = true;
         }
 
         /// <summary>

@@ -19,7 +19,7 @@ namespace Example.HelloWorld
             CanvasSprite can = new CanvasSprite(320, 240, 2);
             can.Position = new Vector3(-2.0f, 0.0f, 0.0f);
             SKCanvas skCanvas = can.GetCanvas();
-            skCanvas.Clear(new SKColor(0, 0, 255, 255));
+            skCanvas.Clear(new SKColor(0, 255, 0, 128));
 
             PlainSprite rect = new PlainSprite(1);
             rect.Alpha = 0.4f;
