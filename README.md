@@ -56,6 +56,10 @@ $ dotnet pack
   - Rectangle
   - Circle
   - String
+- Effect
+  - Fadein-out
+  - Sepia
+  - Blur
 
 
 ## Special Thanks
@@ -65,6 +69,7 @@ $ dotnet pack
   - explosion.png -  [https://pipoya.net/sozai/](https://pipoya.net/sozai/)
   - magic.png -  [https://pipoya.net/sozai/](https://pipoya.net/sozai/)
   - BrightForest.png -  [http://yms.main.jp/](http://yms.main.jp/)
+  - park.jpg - [https://min-chi.material.jp/](https://min-chi.material.jp/)
 
 - sounds
   - sanjinooyatsu.mp3 -  [https://amachamusic.chagasi.com/](https://amachamusic.chagasi.com/)
