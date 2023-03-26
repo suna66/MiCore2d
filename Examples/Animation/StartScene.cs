@@ -7,6 +7,9 @@ namespace Example.Animation
 {
     public class StartScene : GameScene
     {
+        private float blur = 0.0f;
+        private float step = 0.05f;
+        BlurRenderer renderer = null!;
         public override void Load()
         {
             ImageSprite sprite = new ImageSprite("../resource/GirlTile001.png", 32, 32, 1);
@@ -17,6 +20,13 @@ namespace Example.Animation
             awe.AddComponent<BoxCollider>();
             awe.AddComponent<HardBody>();
 
+            ImageSprite backgorund = new ImageSprite("../resource/park.jpg", 10);
+            renderer = new BlurRenderer();
+            renderer.Blur = blur;
+            renderer.Bloom = 1.0f;
+            backgorund.SetRenderer(renderer);
+
+            AddElement("back", backgorund);
             AddElement("awe", awe);
             AddElement("girl", sprite);
         }
@@ -27,6 +37,17 @@ namespace Example.Animation
             {
                 Environment.Exit(0);
             }
+            blur += step;
+            if (blur >= 30.0f)
+            {
+                step = -0.05f;
+            }
+            if (blur <= 0.0f)
+            {
+                blur = 0.0f;
+                step = 0.05f;
+            }
+            renderer.Blur = blur;
          }
     }
 }

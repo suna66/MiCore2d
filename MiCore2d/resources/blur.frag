@@ -17,12 +17,12 @@ void main()
 	float pi = 3.141592653589793;
 	float ew_step = 1.0 / width;
   	float eh_step = 1.0 / height;
-	float radius = blurSize;
+	float radius = blur;
   	if ( radius < 0 ) radius = 0;
 
   	int steps = int(min(radius * 0.7, sqrt(radius) * pi));
 	float r = radius / steps;
-	float t = bloom / (steps * 2 + 1);
+	float t = bloom / (steps * 4 + 1);
 	float x = texCoord.x;
 	float y = texCoord.y;
 	
