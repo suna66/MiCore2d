@@ -106,7 +106,7 @@ namespace MiCore2d
         /// OnUpload. called game control class every frame.
         /// </summary>
         /// <param name="elapsed">elapsed time</param>
-        public virtual void OnUpdate(double elapsed)
+        public void OnUpdate(double elapsed)
         {
             CurrentTime += elapsed;
             Update(elapsed);
@@ -116,7 +116,13 @@ namespace MiCore2d
         /// Update. Abstruct method. Called game control class every frame.
         /// </summary>
         /// <param name="elapsed">elapsed time</param>
-        public abstract void Update(double elapsed);
+        public virtual void Update(double elapsed)
+        {
+            if (KeyState.IsKeyDown(Keys.Escape))
+            {
+                Environment.Exit(0);
+            }
+        }
 
         /// <summary>
         /// OnUnLoad

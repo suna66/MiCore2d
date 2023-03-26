@@ -10,6 +10,7 @@ namespace Example.Animation
         private float blur = 0.0f;
         private float step = 0.05f;
         BlurRenderer renderer = null!;
+        
         public override void Load()
         {
             ImageSprite sprite = new ImageSprite("../resource/GirlTile001.png", 32, 32, 1);

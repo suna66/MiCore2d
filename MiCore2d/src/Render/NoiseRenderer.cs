@@ -4,28 +4,18 @@ using OpenTK.Mathematics;
 namespace MiCore2d
 {
     /// <summary>
-    /// BlurRenderer
+    /// NoiseRenderer
     /// </summary>
-    public class BlurRenderer : Renderer
+    public class NoiseRenderer : Renderer
     {
-        /// <summary>
-        /// Blur size
-        /// </summary>
-        /// <value>0.0f - 500.0</value>
-        public float Blur {get; set;} = 0.0f;
-
-        /// <summary>
-        /// Bloom size
-        /// </summary>
-        /// <value>0.00-2.00</value>
-        public float Bloom {get; set;} = 1.0f;
-
+        public float Times {get; set;} = 0.0f;
         /// <summary>
         /// Constructor.
         /// </summary>
-        public BlurRenderer()
+        public NoiseRenderer()
         {
-            LoadShader(Resources.ReadText("MiCore2d.resources.basic.vert"), Resources.ReadText("MiCore2d.resources.blur.frag"));
+            //LoadShader("resources/basic.vert", "resources/sepia.frag");
+            LoadShader(Resources.ReadText("MiCore2d.resources.basic.vert"), Resources.ReadText("MiCore2d.resources.noise.frag"));
             Init();
         }
 
@@ -42,10 +32,7 @@ namespace MiCore2d
             shader.SetMatrix4("view", camera.GetViewMatrix());
             shader.SetMatrix4("projection", camera.GetProjectionMatrix());
             shader.SetFloat("texAlpha", (1.0f - element.Alpha));
-            shader.SetFloat("blur", Blur);
-            shader.SetFloat("bloom", Bloom);
-            shader.SetFloat("width", element.Texture.Width);
-            shader.SetFloat("height", element.Texture.Height);
+            shader.SetFloat("times", Times);
 
             Draw();
         }

@@ -14,5 +14,5 @@ void main()
   color.r = g * 0.9;
   color.g = g * 0.7;
   color.b = g * 0.4;
-  outputColor = mix(color, vec4(0.0, 0.0, 0.0, 0.0), texAlpha);
+  outputColor = mix(color, texture(texture0, texCoord), texAlpha);
 }

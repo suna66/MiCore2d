@@ -1,5 +1,4 @@
 #nullable disable warnings
-using OpenTK.Windowing.GraphicsLibraryFramework;
 using OpenTK.Mathematics;
 using MiCore2d;
 
@@ -56,10 +55,10 @@ namespace Example.TileMap
                 explosion.Position = target.Position;
                 explosion.Disabled = false;
                 AnimationTile animation = explosion.GetComponent<AnimationTile>();
-                animation.Interval = 0.3f;
+                animation.Interval = 0.1f;
                 animation.RestartAnimation(true);
                 gameScene.Audio.Play("explosion");
-                TimeUtil.Delay(1000, offExplosionSprite);
+                TimeUtil.Delay(500, offExplosionSprite);
             }
         }
 

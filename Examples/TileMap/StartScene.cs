@@ -152,14 +152,5 @@ namespace Example.TileMap
             }
             TimeUtil.Delay(5000, DisplayAweface);
         }
-
-
-         public override void Update(double elapsed)
-         {
-            if (KeyState.IsKeyDown(Keys.Escape))
-            {
-                Environment.Exit(0);
-            }
-         }
     }
 }
