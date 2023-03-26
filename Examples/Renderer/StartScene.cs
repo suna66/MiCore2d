@@ -15,12 +15,16 @@ namespace Example.Renderer
         WaveTextureRenderer waveRenderer = null!;
         SepiaTextureRenderer sepiaRenderer = null!;
         NoiseRenderer noiseRendere = null!;
+        SwipeRenderer swipeRenderer = null!;
 
         private float interval = 0.0f;
         
         public override void Load()
         {
             backgorund = new ImageSprite("../resource/park.jpg", 10);
+            swipeRenderer = new SwipeRenderer();
+            swipeRenderer.Scale = 0.0f;
+            backgorund.SetRenderer(swipeRenderer);
             AddElement("back", backgorund);
         }
 
@@ -66,8 +70,8 @@ namespace Example.Renderer
                     else
                     {
                         renderType = -1;
-                        TextureRenderer renderer = new TextureRenderer();
-                        backgorund.SetRenderer(renderer);
+                        swipeRenderer = new SwipeRenderer();
+                        backgorund.SetRenderer(swipeRenderer);
                     }
                     interval = 0.0f;
                 }
@@ -101,7 +105,12 @@ namespace Example.Renderer
             }
             if (renderType == -1)
             {
-                backgorund.Alpha = MathF.Abs(MathF.Sin((float)CurrentTime * 0.3f));
+                //backgorund.Alpha = MathF.Abs(MathF.Sin((float)CurrentTime * 0.3f));
+                swipeRenderer.Scale += (float)elapsed;
+                if (swipeRenderer.Scale >= 5.0f)
+                {
+                    swipeRenderer.Scale = 0.0f;
+                }
             }
             interval += (float)elapsed;
 

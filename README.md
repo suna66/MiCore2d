@@ -60,6 +60,8 @@ $ dotnet pack
   - Fadein-out
   - Sepia
   - Blur
+  - Wave
+  - Noise
 
 
 ## Special Thanks
