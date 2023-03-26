@@ -60,6 +60,13 @@ namespace MiCore2d
         }
 
         /// <summary>
+        /// ArrangePosition.
+        /// Arrange centor position of element one.
+        /// </summary>
+        /// <value>Vector3</value>
+        public Vector3 ArrangePosition {get; set;} = Vector3.Zero;
+
+        /// <summary>
         /// constructor.
         /// </summary>
         public Collider()
@@ -67,12 +74,23 @@ namespace MiCore2d
         }
 
         /// <summary>
-        /// GetPosition. get element position.
+        /// GetPosition.
+        /// get element position.
         /// </summary>
         /// <returns>position</returns>
         public virtual Vector3 GetPosition()
         {
-            return element.Position;
+            return element.Position + ArrangePosition;
+        }
+
+        /// <summary>
+        /// SetPositioin.
+        /// set element position.
+        /// </summary>
+        /// <param name="position"></param>
+        public virtual void SetPosition(Vector3 position)
+        {
+            element.Position = position - ArrangePosition;
         }
 
         /// <summary>

@@ -21,7 +21,9 @@ namespace Example.Animation
             animation.SwitchPattern("down");
 
             body = gameScene.GetElement("awe").GetComponent<HardBody>();
-            element.AddComponent<BoxCollider>();
+            BoxCollider collider = element.AddComponent<BoxCollider>();
+            collider.ArrangePosition = new Vector3(0.0f, -0.25f, 0.0f);
+            collider.HeightUnit = 0.5f;
             IsEnableCollsionDetect = true;
         }
 
