@@ -8,7 +8,7 @@ namespace Example.Renderer
     public class StartScene : GameScene
     {
         private ImageSprite backgorund = null;
-        private int renderType = 0;
+        private int renderType = -1;
         private float blur = 0.0f;
         private float step = 0.05f;
         BlurRenderer blurRenderer = null!;
@@ -21,11 +21,6 @@ namespace Example.Renderer
         public override void Load()
         {
             backgorund = new ImageSprite("../resource/park.jpg", 10);
-            blurRenderer = new BlurRenderer();
-            blurRenderer.Blur = blur;
-            blurRenderer.Bloom = 1.0f;
-            backgorund.SetRenderer(blurRenderer);
-
             AddElement("back", backgorund);
         }
 
@@ -40,7 +35,14 @@ namespace Example.Renderer
                 if (interval > 0.5f)
                 {
                     backgorund.Alpha = 1.0f;
-                    if (renderType == 0)
+                    if (renderType == -1)
+                    {
+                        renderType = 0;
+                        blurRenderer = new BlurRenderer();
+                        backgorund.SetRenderer(blurRenderer);
+                        blur = 0.0f;
+                        blurRenderer.Blur = blur;
+                    } else if (renderType == 0)
                     {
                         renderType = 1;
                         waveRenderer = new WaveTextureRenderer();
@@ -63,11 +65,9 @@ namespace Example.Renderer
                     }
                     else
                     {
-                        renderType = 0;
-                        blurRenderer = new BlurRenderer();
-                        backgorund.SetRenderer(blurRenderer);
-                        blur = 0.0f;
-                        blurRenderer.Blur = blur; 
+                        renderType = -1;
+                        TextureRenderer renderer = new TextureRenderer();
+                        backgorund.SetRenderer(renderer);
                     }
                     interval = 0.0f;
                 }
@@ -92,12 +92,16 @@ namespace Example.Renderer
             }
             if (renderType == 2)
             {
-                backgorund.Alpha = MathF.Abs(MathF.Sin((float)CurrentTime * 0.2f));
+                backgorund.Alpha = MathF.Abs(MathF.Sin((float)CurrentTime * 0.3f));
             }
             if (renderType == 3)
             {
                 noiseRendere.Times += (float)elapsed;
-                backgorund.Alpha = MathF.Abs(MathF.Sin((float)CurrentTime * 0.2f));
+                backgorund.Alpha = MathF.Abs(MathF.Sin((float)CurrentTime * 0.3f));
+            }
+            if (renderType == -1)
+            {
+                backgorund.Alpha = MathF.Abs(MathF.Sin((float)CurrentTime * 0.3f));
             }
             interval += (float)elapsed;
 
