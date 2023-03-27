@@ -1,3 +1,4 @@
+#nullable disable warnings
 using SkiaSharp;
 
 namespace MiCore2d
@@ -32,8 +33,8 @@ namespace MiCore2d
         public SKCanvas GetCanvas()
         {
             if (texture == null) return null!;
-            Texture2dCanvas texCanvas = (Texture2dCanvas)texture;
-            return texCanvas.GetCanvas()!;
+            Texture2dCanvas? texCanvas = texture as Texture2dCanvas;
+            return texCanvas?.GetCanvas()!;
         }
 
         /// <summary>
@@ -43,8 +44,8 @@ namespace MiCore2d
         public SKBitmap GetBitmap()
         {
             if (texture == null) return null!;
-            Texture2dCanvas texCanvas = (Texture2dCanvas)texture;
-            return texCanvas.GetBitmap();
+            Texture2dCanvas? texCanvas = texture as Texture2dCanvas;
+            return texCanvas?.GetBitmap()!;
         }
 
         /// <summary>
@@ -53,8 +54,8 @@ namespace MiCore2d
         public void Flush()
         {
             if (texture == null) return;
-            Texture2dCanvas texCanvas = (Texture2dCanvas)texture;
-            texCanvas.Flush();
+            Texture2dCanvas? texCanvas = texture as Texture2dCanvas;
+            texCanvas?.Flush();
         }
 
         /// <summary>

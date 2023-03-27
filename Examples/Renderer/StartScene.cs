@@ -79,6 +79,8 @@ namespace Example.Renderer
                     {
                         renderType = -1;
                         swipeRenderer = new SwipeRenderer();
+                        swipeRenderer.Scale = 0.0f;
+                        swipeRenderer.Direct = 1.0f;
                         backgorund.SetRenderer(swipeRenderer);
                     }
                     interval = 0.0f;

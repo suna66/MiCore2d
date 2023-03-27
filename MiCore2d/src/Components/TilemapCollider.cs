@@ -43,7 +43,7 @@ namespace MiCore2d
                 return null;
             }
             TilemapSprite sprite = element as TilemapSprite;
-            return sprite.GetTileMap();
+            return sprite?.GetTileMap();
         }
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace MiCore2d
             }
             bool isCollision = false;
 
-            foreach(Vector3 pos in PositionList)
+            foreach(Vector3 pos in PositionList ?? new Vector3[0])
             {
                 if (pos.Z != 0.0f)
                 {

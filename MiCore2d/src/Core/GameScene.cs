@@ -147,7 +147,7 @@ namespace MiCore2d
             IDictionaryEnumerator enumerator = _elemetDic.GetEnumerator();
             while (enumerator.MoveNext())
             {
-                Element element = (Element)enumerator.Value;
+                Element element = enumerator.Value as Element;
 
                 if (element.Destroyed)
                 {
@@ -216,7 +216,7 @@ namespace MiCore2d
 
             while (enumerator.MoveNext())
             {
-                Element element = (Element)enumerator.Value;
+                Element element = enumerator.Value as Element;
                 if (!element.Disabled && !element.Destroyed)
                 {
                     element.DrawRenderer?.Draw(_camera, element);
@@ -252,7 +252,7 @@ namespace MiCore2d
             {
                 throw new KeyNotFoundException(key);
             }
-            return (Element)_elemetDic[key];
+            return _elemetDic[key] as Element;
         }
 
         /// <summary>

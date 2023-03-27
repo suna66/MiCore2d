@@ -35,8 +35,8 @@ namespace MiCore2d
         /// <param name="map">position map list</param>
         public void SetTileMap(float[] map)
         {
-            TilemapRenderer tilemapRenderer = (TilemapRenderer)DrawRenderer;
-            tilemapRenderer.SetTileMap(map);
+            TilemapRenderer? tilemapRenderer = DrawRenderer as TilemapRenderer;
+            tilemapRenderer?.SetTileMap(map);
         }
 
         /// <summary>
@@ -45,8 +45,8 @@ namespace MiCore2d
         /// <returns>position map list</returns>
         public float[] GetTileMap()
         {
-            TilemapRenderer tilemapRenderer = (TilemapRenderer)DrawRenderer;
-            return tilemapRenderer.GetTileMap();
+            TilemapRenderer? tilemapRenderer = DrawRenderer as TilemapRenderer;
+            return tilemapRenderer?.GetTileMap();
         }
 
         /// <summary>
