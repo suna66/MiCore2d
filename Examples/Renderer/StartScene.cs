@@ -16,6 +16,7 @@ namespace Example.Renderer
         SepiaTextureRenderer sepiaRenderer = null!;
         NoiseRenderer noiseRendere = null!;
         SwipeRenderer swipeRenderer = null!;
+        CircleRenderer circleRenderer = null!;
 
         private float interval = 0.0f;
         
@@ -25,6 +26,8 @@ namespace Example.Renderer
             swipeRenderer = new SwipeRenderer();
             swipeRenderer.Scale = 0.0f;
             backgorund.SetRenderer(swipeRenderer);
+            // CircleRenderer renderer = new CircleRenderer();
+            // backgorund.SetRenderer(renderer);
             AddElement("back", backgorund);
         }
 
@@ -67,6 +70,12 @@ namespace Example.Renderer
                         noiseRendere = new NoiseRenderer();
                         backgorund.SetRenderer(noiseRendere);
                     }
+                    else if (renderType == 3)
+                    {
+                        renderType = 4;
+                        circleRenderer = new CircleRenderer();
+                        backgorund.SetRenderer(circleRenderer);
+                    }
                     else
                     {
                         renderType = -1;
@@ -102,6 +111,10 @@ namespace Example.Renderer
             {
                 noiseRendere.Times += (float)elapsed;
                 backgorund.Alpha = MathF.Abs(MathF.Sin((float)CurrentTime * 0.3f));
+            }
+            if (renderType == 4)
+            {
+                circleRenderer.Radius = MathF.Abs(MathF.Sin((float)CurrentTime) * 10.0f);
             }
             if (renderType == -1)
             {
