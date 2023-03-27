@@ -25,9 +25,8 @@ namespace Example.Renderer
             backgorund = new ImageSprite("../resource/park.jpg", 10);
             swipeRenderer = new SwipeRenderer();
             swipeRenderer.Scale = 0.0f;
+            swipeRenderer.Direct = 1.0f;
             backgorund.SetRenderer(swipeRenderer);
-            // CircleRenderer renderer = new CircleRenderer();
-            // backgorund.SetRenderer(renderer);
             AddElement("back", backgorund);
         }
 
@@ -118,15 +117,14 @@ namespace Example.Renderer
             }
             if (renderType == -1)
             {
-                //backgorund.Alpha = MathF.Abs(MathF.Sin((float)CurrentTime * 0.3f));
-                swipeRenderer.Scale += (float)elapsed;
-                if (swipeRenderer.Scale >= 5.0f)
+                swipeRenderer.Scale += (float)elapsed * 0.5f;
+                if (swipeRenderer.Scale >= 1.0f)
                 {
+                    swipeRenderer.Direct *= -1;
                     swipeRenderer.Scale = 0.0f;
                 }
             }
             interval += (float)elapsed;
-
          }
     }
 }

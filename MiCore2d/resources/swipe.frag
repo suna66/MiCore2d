@@ -11,16 +11,40 @@ uniform float direct;
 
 void main()
 {
-  float length = 0.0;
-  if (direct == 0.0)
+  float len = 1.0 - scale;
+  if (direct >= 0.0)
   {
-    length = texCoord.x * scale;
+    if (texCoord.x < len)
+    {
+      outputColor = mix(texture(texture0, texCoord), vec4(0.0, 0.0, 0.0, 0.0), texAlpha);
+    }
+    else
+    {
+      float alpha = 1.0;
+      float dis = texCoord.x - len;
+      if (dis < 0.1)
+      {
+        alpha = dis * 10.0f;
+      }
+
+      outputColor = mix(texture(texture0, texCoord), vec4(0.0, 0.0, 0.0, 0.0), alpha);
+    }
   }
   else
   {
-    length = 1.0 - (texCoord.x * scale);
-  }
-  float alpha = texAlpha - length;
-
-  outputColor = mix(texture(texture0, texCoord), vec4(0.0, 0.0, 0.0, 0.0), length);
+    if (texCoord.x < len)
+    {
+      float alpha = 1.0;
+      float dis = len - texCoord.x;
+      if (dis < 0.1)
+      {
+        alpha = dis * 10.0f;
+      }
+      outputColor = mix(texture(texture0, texCoord), vec4(0.0, 0.0, 0.0, 0.0), alpha);
+    }
+    else
+    {
+      outputColor = mix(texture(texture0, texCoord), vec4(0.0, 0.0, 0.0, 0.0), texAlpha);
+    }
+  }  
 }
