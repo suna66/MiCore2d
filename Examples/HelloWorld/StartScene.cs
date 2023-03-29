@@ -7,7 +7,6 @@ namespace Example.HelloWorld
 {
     public class StartScene : GameScene
     {
-        NoiseRenderer renderer = null!;
         public StartScene()
         {
              
@@ -16,9 +15,6 @@ namespace Example.HelloWorld
         public override void Load()
         {
             ImageSprite awe = new ImageSprite("../resource/awesomeface.png", 3);
-            awe.Alpha = 0.5f;
-            renderer = new NoiseRenderer();
-            awe.SetRenderer(renderer);
             
             CanvasSprite can = new CanvasSprite(320, 240, 2);
             can.Position = new Vector3(-2.0f, 0.0f, 0.0f);
@@ -57,7 +53,6 @@ namespace Example.HelloWorld
             {
                 Environment.Exit(0);
             }
-            renderer.Times += (float)elapsed;
          }
     }
 }

@@ -101,6 +101,7 @@ namespace MiCore2d
         /// </summary>
         public void OnUnload()
         {
+            _audio.Dispose();
             GameSceneManager.Dispose();
         }
 
