@@ -74,14 +74,11 @@ namespace MiCore2d
         /// <summary>
         /// UpdateTilemap.
         /// </summary>
-        public void UpdateTilemap()
+        private void updateTilemap()
         {
-            GL.BindVertexArray(vertexArrayObject);
             GL.BindBuffer(BufferTarget.ArrayBuffer, tilemapBufferObject);
             GL.BufferSubData(BufferTarget.ArrayBuffer, 0, _tileMap.Length * sizeof(float), _tileMap);
-
             GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
-            GL.BindVertexArray(0);
         }
 
         /// <summary>
@@ -99,7 +96,7 @@ namespace MiCore2d
 
             if (_isDynamic)
             {
-                UpdateTilemap();
+                updateTilemap();
             }
 
             shader.SetMatrix4("model", model);
