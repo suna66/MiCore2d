@@ -7,11 +7,14 @@ in vec2 texCoord;
 uniform sampler2D texture0;
 uniform vec2 r;
 uniform float radius;
+uniform vec2 centor;
 
 void main()
 {
-  vec2 centor = r / 2.0;
-  vec2 p = (texCoord * r) - centor;
+  //vec2 centor = r / 2.0;
+  vec2 point = centor + r / 2.0;
+
+  vec2 p = (texCoord * r) - point;
 
   float len = length(p);
   if (len > radius)
