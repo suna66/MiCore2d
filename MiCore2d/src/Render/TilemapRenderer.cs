@@ -29,6 +29,16 @@ namespace MiCore2d
             InitTilemap();
         }
 
+        public TilemapRenderer(int tileNum, bool isDynamic)
+        {
+            _tileMap = Enumerable.Repeat<float>(0.0f, tileNum*4).ToArray();
+            _isDynamic = isDynamic;
+            
+            LoadShader(Resources.ReadText("MiCore2d.resources.instanced.vert"), Resources.ReadText("MiCore2d.resources.instanced.frag"));
+            Init();
+            InitTilemap();
+        }
+
         /// <summary>
         /// InitTilemap.
         /// </summary>
