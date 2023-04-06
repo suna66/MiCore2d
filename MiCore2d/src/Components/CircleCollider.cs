@@ -27,11 +27,11 @@ namespace MiCore2d
         /// Collision. Check collision of targets.
         /// </summary>
         /// <param name="target">target element</param>
-        /// <param name="collidedPosition">collision vector3 position</param>
+        /// <param name="collidedElementPosition">collision element position</param>
         /// <returns>true: collided. false: not collided</returns>
-        public override bool Collision(Collider target, out Vector3 collidedPosition)
+        public override bool Collision(Collider target, out Vector3 collidedElementPosition)
         {
-            collidedPosition = Vector3.Zero;
+            collidedElementPosition = Vector3.Zero;
             bool is_collision = false;
             if (IsDynamic)
             {
@@ -40,11 +40,11 @@ namespace MiCore2d
 
             if (target is BoxCollider)
             {
-                is_collision = checkCollision(target as BoxCollider, out collidedPosition);
+                is_collision = checkCollision(target as BoxCollider, out collidedElementPosition);
             }
             else if (target is CircleCollider)
             {
-                is_collision = checkCollision(target as CircleCollider, out collidedPosition);
+                is_collision = checkCollision(target as CircleCollider, out collidedElementPosition);
             }
             return is_collision;
         }
@@ -81,13 +81,13 @@ namespace MiCore2d
         /// checkCollision for CircleCollider.
         /// </summary>
         /// <param name="target">target element</param>
-        /// <param name="collidedPosition">collision vector3 position</param>
+        /// <param name="collidedElementPosition">collision vector3 position</param>
         /// <returns>true: collided. false: not collided</returns>
-        private bool checkCollision(CircleCollider target, out Vector3 collidedPosition)
+        private bool checkCollision(CircleCollider target, out Vector3 collidedElementPosition)
         {
             Vector3 thisPos = GetPosition();
             Vector3 targetPos = target.GetPosition();
-            collidedPosition = thisPos;
+            collidedElementPosition = thisPos;
             return CollisionUtil.CircleCircle(thisPos, RadiusUnit, targetPos, target.RadiusUnit);
 
         }
@@ -96,13 +96,13 @@ namespace MiCore2d
         /// checkCollision for BoxCollider.
         /// </summary>
         /// <param name="target">target element</param>
-        /// <param name="collidedPosition">collision vector3 position</param>
+        /// <param name="collidedElementPosition">collision vector3 position</param>
         /// <returns>true: collided. false: not collided</returns>
-        private bool checkCollision(BoxCollider target, out Vector3 collidedPosition)
+        private bool checkCollision(BoxCollider target, out Vector3 collidedElementPosition)
         {
             Vector3 thisPos = GetPosition();
             Vector3 targetPos = target.GetPosition();
-            collidedPosition = thisPos;
+            collidedElementPosition = thisPos;
             return CollisionUtil.BoxCircle(targetPos, target.WidthUnit, target.HeightUnit, thisPos, RadiusUnit);
         }
 

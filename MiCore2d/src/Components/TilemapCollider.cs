@@ -112,9 +112,9 @@ namespace MiCore2d
         /// Collision. checking collision.
         /// </summary>
         /// <param name="target">target element collider</param>
-        /// <param name="collidedPosition">collision vector3 position</param>
+        /// <param name="collidedElementPosition">collision element position</param>
         /// <returns>true: collided, false: not</returns>
-        public override bool Collision(Collider target, out Vector3 collidedPosition)
+        public override bool Collision(Collider target, out Vector3 collidedElementPosition)
         {
             if (IsDynamic)
             {
@@ -122,8 +122,8 @@ namespace MiCore2d
                 HeightUnit = element.Scale.Y;
                 PositionList = GetTilemapVector();
             }
-            collidedPosition = Vector3.Zero;
-            bool isCollided = CheckCollidedMap(target, out collidedPosition);
+            collidedElementPosition = Vector3.Zero;
+            bool isCollided = CheckCollidedMap(target, out collidedElementPosition);
             return isCollided;
         }
 

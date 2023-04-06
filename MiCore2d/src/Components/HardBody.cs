@@ -64,6 +64,11 @@ namespace MiCore2d
             actionType = ACTION_TYPE_FORCE;
         }
 
+        /// <summary>
+        /// Shake
+        /// </summary>
+        /// <param name="amplitude">amplitude value</param>
+        /// <param name="msec">time of shaking</param>
         public void Shake(float amplitude, float msec)
         {
             Timeout = msec/1000.0f;

@@ -97,11 +97,11 @@ namespace MiCore2d
         /// Collision. check collided to target.
         /// </summary>
         /// <param name="target">target element</param>
-        /// <param name="collidedPosition>collided vector3 position</param>
+        /// <param name="collidedElementPosition">collided element position</param>
         /// <returns>true: collided, false: not</returns>
-        public virtual bool Collision(Collider target, out Vector3 collidedPosition)
+        public virtual bool Collision(Collider target, out Vector3 collidedElementPosition)
         {
-            collidedPosition = Vector3.Zero;
+            collidedElementPosition = Vector3.Zero;
             return false;
         }
 
