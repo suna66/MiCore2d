@@ -44,11 +44,6 @@ namespace MiCore2d
         protected int textureIndex = 0;
 
         /// <summary>
-        /// game scene instance.
-        /// </summary>
-        protected GameScene? parentGameScene = null;
-
-        /// <summary>
         /// attached component list.
         /// </summary>
         private List<Component>? _componentList = null;
@@ -108,6 +103,12 @@ namespace MiCore2d
         /// </summary>
         /// <value>default zero</value>
         public int RendererOrder { get; set; } = 0;
+
+        /// <summary>
+        /// CurrentGameScene
+        /// </summary>
+        /// <value></value>
+        public GameScene CurrentGameScene { get; set; } = null!;
 
         /// <summary>
         /// GetRenderer
@@ -215,24 +216,6 @@ namespace MiCore2d
                 }
             }
             return list;
-        }
-
-        /// <summary>
-        /// SetParentGameScene.
-        /// </summary>
-        /// <param name="scene">game scene</param>
-        public void SetParentGameScene(GameScene scene)
-        {
-            parentGameScene = scene;
-        }
-
-        /// <summary>
-        /// GetParentGameScene
-        /// </summary>
-        /// <returns>game scene</returns>
-        public GameScene GetParentGameScene()
-        {
-            return parentGameScene;
         }
 
         /// <summary>

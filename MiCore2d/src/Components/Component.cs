@@ -77,7 +77,7 @@ namespace MiCore2d
         /// <value>game scene</value>
         public GameScene gameScene
         {
-            get => element.GetParentGameScene();
+            get => element.CurrentGameScene;
         }
     }
 }

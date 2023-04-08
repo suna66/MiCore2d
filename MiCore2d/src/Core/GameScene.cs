@@ -256,7 +256,7 @@ namespace MiCore2d
         /// <returns>added element</returns>
         public Element AddElement(string key, Element element, string layerName = "default")
         {
-            element.SetParentGameScene(this);
+            element.CurrentGameScene = this;
             element.Name = key;
             element.Layer = layerName;
             _elemetDic.Add(key, element);
