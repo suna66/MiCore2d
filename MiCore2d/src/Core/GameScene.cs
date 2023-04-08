@@ -14,8 +14,13 @@ namespace MiCore2d
     /// </summary>
     public abstract class GameScene
     {
+        private const float _RendererOrderCheckPriod = 1.0f;
 
         private OrderedDictionary _elemetDic;
+        
+        private List<Element> _rendererOrderList;
+
+        private float _rendererOrderCheckTimer = 0.0f;
 
         private Camera? _camera = null;
 
@@ -29,6 +34,8 @@ namespace MiCore2d
         public GameScene()
         {
             _elemetDic = new OrderedDictionary();
+
+            _rendererOrderList = new List<Element>();
 
             CurrentTime = 0;
         }
@@ -130,6 +137,7 @@ namespace MiCore2d
         public virtual void OnUnLoad()
         {
             _elemetDic.Clear();
+            _rendererOrderList.Clear();
             if (_canvas != null)
             {
                 _canvas.Dispose();
@@ -212,11 +220,25 @@ namespace MiCore2d
         /// <param name="elapsed">elapsed time</param>
         public virtual void OnRenderer(double elapsed)
         {
-            IDictionaryEnumerator enumerator = _elemetDic.GetEnumerator();
+            // IDictionaryEnumerator enumerator = _elemetDic.GetEnumerator();
 
-            while (enumerator.MoveNext())
+            // while (enumerator.MoveNext())
+            // {
+            //     Element element = enumerator.Value as Element;
+            //     if (!element.Disabled && !element.Destroyed)
+            //     {
+            //         element.DrawRenderer?.Draw(_camera, element);
+            //     }
+            // }
+            _rendererOrderCheckTimer += (float)elapsed;
+            if (_rendererOrderCheckTimer > _RendererOrderCheckPriod)
             {
-                Element element = enumerator.Value as Element;
+                _rendererOrderList.Sort((x, y) => x.RendererOrder - y.RendererOrder);
+                _rendererOrderCheckTimer = 0.0f;
+            }
+
+            foreach (Element element in _rendererOrderList)
+            {
                 if (!element.Disabled && !element.Destroyed)
                 {
                     element.DrawRenderer?.Draw(_camera, element);
@@ -238,6 +260,7 @@ namespace MiCore2d
             element.Name = key;
             element.Layer = layerName;
             _elemetDic.Add(key, element);
+            _rendererOrderList.Add(element);
             return element;
         }
 

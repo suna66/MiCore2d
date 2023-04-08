@@ -104,6 +104,12 @@ namespace MiCore2d
         public Renderer? DrawRenderer { get; protected set; } = null;
 
         /// <summary>
+        /// RendererOrder
+        /// </summary>
+        /// <value>default zero</value>
+        public int RendererOrder { get; set; } = 0;
+
+        /// <summary>
         /// GetRenderer
         /// </summary>
         /// <typeparam name="T"></typeparam>
