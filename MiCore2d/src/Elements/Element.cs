@@ -286,7 +286,8 @@ namespace MiCore2d
         {
             get
             {
-                return new Vector2(position.X, position.Y);
+                //return new Vector2(position.X, position.Y);
+                return position.Xy;
             }
             set
             {
