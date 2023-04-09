@@ -24,19 +24,10 @@ namespace MiCore2d
         protected Matrix4 rotation = Matrix4.Identity;
 
         /// <summary>
-        /// alpha.
-        /// </summary>
-        protected float alpha = 1.0f;
-
-        /// <summary>
         /// scale.
         /// </summary>
         protected Vector3 scale = Vector3.One;
 
-        /// <summary>
-        /// unit size.
-        /// </summary>
-        protected float unit = 1.0f;
 
         /// <summary>
         /// texture index.
@@ -47,20 +38,6 @@ namespace MiCore2d
         /// attached component list.
         /// </summary>
         private List<Component>? _componentList = null;
-
-        /// <summary>
-        /// Constructor.
-        /// </summary>
-        public Element()
-        {
-        }
-
-        /// <summary>
-        /// Destructor.
-        /// </summary> 
-        ~Element()
-        {
-        }
 
         /// <summary>
         /// Name. element name.
@@ -109,6 +86,32 @@ namespace MiCore2d
         /// </summary>
         /// <value></value>
         public GameScene CurrentGameScene { get; set; } = null!;
+
+        /// <summary>
+        /// Alpha
+        /// </summary>
+        /// <value></value>
+        public float Alpha { get; set; } = 1.0f;
+
+        /// <summary>
+        /// Unit
+        /// </summary>
+        /// <value></value>
+        public float Unit { get; set; } = 1.0f;
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        public Element()
+        {
+        }
+
+        /// <summary>
+        /// Destructor.
+        /// </summary> 
+        ~Element()
+        {
+        }
 
         /// <summary>
         /// GetRenderer
@@ -258,7 +261,7 @@ namespace MiCore2d
         {
             position = e.Position;
             rotation = e.Rotation;
-            alpha = e.Alpha;
+            Alpha = e.Alpha;
             SetScale(e.Scale.Y/e.Unit);
         }
 
@@ -364,8 +367,8 @@ namespace MiCore2d
             if (texture != null)
                 aspectRatio = texture.Width / (float)texture.Height;
     
-            scale.X = unit * aspectRatio * value;
-            scale.Y = unit * value;
+            scale.X = Unit * aspectRatio * value;
+            scale.Y = Unit * value;
             scale.Z = 1.0f;
         }
 
@@ -375,7 +378,7 @@ namespace MiCore2d
         /// <param name="value">scale value</param>
         public void SetScaleX(float value)
         {
-            scale.X = unit * value;
+            scale.X = Unit * value;
         }
 
         /// <summary>
@@ -384,33 +387,7 @@ namespace MiCore2d
         /// <param name="value">scale value</param>
         public void SetScaleY(float value)
         {
-            scale.Y = unit * value;
-        }
-
-        /// <summary>
-        /// Alpha.
-        /// </summary>
-        /// <value>alpha value</value>
-        public float Alpha
-        {
-            get => alpha;
-            set
-            {
-                alpha = value;
-            }
-        }
-
-        /// <summary>
-        /// Unit.
-        /// </summary>
-        /// <value>unit size</value>
-        public float Unit
-        {
-            get => unit;
-            set
-            {
-                unit = value;
-            }
+            scale.Y = Unit * value;
         }
 
         /// <summary>

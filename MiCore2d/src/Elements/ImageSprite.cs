@@ -21,7 +21,7 @@ namespace MiCore2d
             float aspectRatio = texture.Width / (float)texture.Height;
             scale.X = unitSize * aspectRatio;
             scale.Y = unitSize;
-            unit = unitSize;
+            Unit = unitSize;
             DrawRenderer = new TextureRenderer();
         }
 
@@ -39,7 +39,7 @@ namespace MiCore2d
             float aspectRatio = texture.Width / (float)texture.Height;
             scale.X = unitSize * aspectRatio;
             scale.Y = unitSize;
-            unit = unitSize;
+            Unit = unitSize;
             DrawRenderer = new TextureArrayRenderer();
         }
 
@@ -57,7 +57,7 @@ namespace MiCore2d
             float aspectRatio = texture.Width / (float)texture.Height;
             scale.X = unitSize * aspectRatio;
             scale.Y = unitSize;
-            unit = unitSize;
+            Unit = unitSize;
             DrawRenderer = new TextureArrayRenderer();
         }
 

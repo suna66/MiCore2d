@@ -29,32 +29,6 @@ namespace MiCore2d
         private Canvas? _canvas = null;
 
         /// <summary>
-        /// Constructor.
-        /// </summary>
-        public GameScene()
-        {
-            _elemetDic = new OrderedDictionary();
-
-            _rendererOrderList = new List<Element>();
-
-            CurrentTime = 0;
-        }
-
-        /// <summary>
-        /// Init.
-        /// </summary>
-        /// <param name="control">game control instance</param>
-        public void Init(GameControl control)
-        {
-            _control = control;
-
-            _camera = new Camera(Vector3.UnitZ * _control.UnitCount, GW.Size.X / (float)GW.Size.Y);
-            _camera.CameraType = CAMERA_TYPE.ORTHONGRAPHIC;
-
-            _canvas = new Canvas(GW.Size.X, GW.Size.Y);
-        }
-
-        /// <summary>
         /// GW. GameWindow instance.
         /// </summary>
         /// <value>GameWindow</value>
@@ -95,6 +69,32 @@ namespace MiCore2d
         /// </summary>
         /// <value>elpased time since executing game scene.</value>
         public double CurrentTime { get; set; }
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        public GameScene()
+        {
+            _elemetDic = new OrderedDictionary();
+
+            _rendererOrderList = new List<Element>();
+
+            CurrentTime = 0;
+        }
+
+        /// <summary>
+        /// Init.
+        /// </summary>
+        /// <param name="control">game control instance</param>
+        public void Init(GameControl control)
+        {
+            _control = control;
+
+            _camera = new Camera(Vector3.UnitZ * _control.UnitCount, GW.Size.X / (float)GW.Size.Y);
+            _camera.CameraType = CAMERA_TYPE.ORTHONGRAPHIC;
+
+            _canvas = new Canvas(GW.Size.X, GW.Size.Y);
+        }
 
         /// <summary>
         /// OnLoad.

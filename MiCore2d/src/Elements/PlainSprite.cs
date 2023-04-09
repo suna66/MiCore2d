@@ -21,7 +21,7 @@ namespace MiCore2d
 
             scale.X = unitSize;
             scale.Y = unitSize;
-            unit = unitSize;
+            Unit = unitSize;
             DrawRenderer = new PolygonRenderer();
         }
 
