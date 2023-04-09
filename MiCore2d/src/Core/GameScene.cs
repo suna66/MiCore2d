@@ -70,6 +70,8 @@ namespace MiCore2d
         /// <value>elpased time since executing game scene.</value>
         public double CurrentTime { get; set; }
 
+        public Element CameraTarget { get; set; } = null;
+
         /// <summary>
         /// Constructor.
         /// </summary>
@@ -116,6 +118,10 @@ namespace MiCore2d
         public void OnUpdate(double elapsed)
         {
             CurrentTime += elapsed;
+            if (CameraTarget != null)
+            {
+                _camera.SetPosition(CameraTarget.Position2d);
+            }
             Update(elapsed);
         }
 

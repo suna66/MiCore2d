@@ -70,5 +70,57 @@ namespace MiCore2d
         {
             return new Vector2(v);
         }
+
+        /// <summary>
+        /// Vector4ToFloat
+        /// </summary>
+        /// <param name="v">Vector4 Array</param>
+        /// <returns>float array</returns>
+        public static float[] Vector4ToFloat(Vector4[] v)
+        {
+            int i = 0;
+            float[] array = new float[v.Length * 4];
+            foreach(Vector4 vec in v)
+            {
+                array[i++] = vec.X;
+                array[i++] = vec.Y;
+                array[i++] = vec.Z;
+                array[i++] = vec.W;
+            }
+            return array;
+        }
+
+        /// <summary>
+        /// FloatToVector4
+        /// </summary>
+        /// <param name="array">float array</param>
+        /// <returns>vector4 array</returns>
+        public static Vector4[] FloatToVector4(float[] array)
+        {
+            int j = 0;
+            Vector4[] vecArray = new Vector4[array.Length/4];
+            for (int i = 0; i < array.Length; i += 4)
+            {
+                vecArray[j++] = new Vector4(array[i], array[i+1], array[i+2], array[i+3]);
+            }
+            return vecArray;
+        }
+
+        /// <summary>
+        /// Vector4Zero
+        /// </summary>
+        /// <param name="num">array length</param>
+        /// <returns>Vecor4 array</returns>
+        public static Vector4[] Vector4Zero(int num)
+        {
+            Vector4[] vecArray = new Vector4[num];
+
+            for (int i = 0; i < num; i++)
+            {
+                vecArray[i] = Vector4.Zero;
+            }
+
+            return vecArray;
+        }
     }
 }

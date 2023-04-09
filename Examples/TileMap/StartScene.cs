@@ -11,83 +11,83 @@ namespace Example.TileMap
         private ImageSprite explosionSprite;
         private ImageSprite awe;
 
-        private float[] _baseMap = {
-                -3.0f,  2.0f,  0.0f,  6.0f,
-                -2.0f,  2.0f,  0.0f,  6.0f,
-                -1.0f,  2.0f,  0.0f,  6.0f,
-                 0.0f,  2.0f,  0.0f,  6.0f,
-                 1.0f,  2.0f,  0.0f,  6.0f,
-                 2.0f,  2.0f,  0.0f,  6.0f,
-                 3.0f,  2.0f,  0.0f,  6.0f,
-                -3.0f,  1.0f,  0.0f,  6.0f,
-                -2.0f,  1.0f,  0.0f,  0.0f,
-                -1.0f,  1.0f,  0.0f,  0.0f,
-                 0.0f,  1.0f,  0.0f,  0.0f,
-                 1.0f,  1.0f,  0.0f,  0.0f,
-                 2.0f,  1.0f,  0.0f,  0.0f,
-                 3.0f,  1.0f,  0.0f,  6.0f,
-                -3.0f,  0.0f,  0.0f,  6.0f,
-                -2.0f,  0.0f,  0.0f,  0.0f,
-                -1.0f,  0.0f,  0.0f,  0.0f,
-                 0.0f,  0.0f,  0.0f,  0.0f,
-                 1.0f,  0.0f,  0.0f,  0.0f,
-                 2.0f,  0.0f,  0.0f,  0.0f,
-                 3.0f,  0.0f,  0.0f,  6.0f,
-                -3.0f, -1.0f,  0.0f,  6.0f,
-                -2.0f, -1.0f,  0.0f,  0.0f,
-                -1.0f, -1.0f,  0.0f,  0.0f,
-                 0.0f, -1.0f,  0.0f,  0.0f,
-                 1.0f, -1.0f,  0.0f,  0.0f,
-                 2.0f, -1.0f,  0.0f,  0.0f,
-                 3.0f, -1.0f,  0.0f,  6.0f,
-                -3.0f, -2.0f,  0.0f,  6.0f,
-                -2.0f, -2.0f,  0.0f,  0.0f,
-                -1.0f, -2.0f,  0.0f,  0.0f,
-                 0.0f, -2.0f,  0.0f,  0.0f,
-                 1.0f, -2.0f,  0.0f,  0.0f,
-                 2.0f, -2.0f,  0.0f,  0.0f,
-                 3.0f, -2.0f,  0.0f,  6.0f,
-                -3.0f, -3.0f,  0.0f,  6.0f,
-                -2.0f, -3.0f,  0.0f,  6.0f,
-                -1.0f, -3.0f,  0.0f,  6.0f,
-                 0.0f, -3.0f,  0.0f,  6.0f,
-                 1.0f, -3.0f,  0.0f,  6.0f,
-                 2.0f, -3.0f,  0.0f,  6.0f,
-                 3.0f, -3.0f,  0.0f,  6.0f
+        private Vector4[] _baseMap = {
+                new Vector4(-3.0f,  2.0f,  0.0f,  6.0f),
+                new Vector4(-2.0f,  2.0f,  0.0f,  6.0f),
+                new Vector4(-1.0f,  2.0f,  0.0f,  6.0f),
+                new Vector4( 0.0f,  2.0f,  0.0f,  6.0f),
+                new Vector4( 1.0f,  2.0f,  0.0f,  6.0f),
+                new Vector4( 2.0f,  2.0f,  0.0f,  6.0f),
+                new Vector4( 3.0f,  2.0f,  0.0f,  6.0f),
+                new Vector4(-3.0f,  1.0f,  0.0f,  6.0f),
+                new Vector4(-2.0f,  1.0f,  0.0f,  0.0f),
+                new Vector4(-1.0f,  1.0f,  0.0f,  0.0f),
+                new Vector4( 0.0f,  1.0f,  0.0f,  0.0f),
+                new Vector4( 1.0f,  1.0f,  0.0f,  0.0f),
+                new Vector4( 2.0f,  1.0f,  0.0f,  0.0f),
+                new Vector4( 3.0f,  1.0f,  0.0f,  6.0f),
+                new Vector4(-3.0f,  0.0f,  0.0f,  6.0f),
+                new Vector4(-2.0f,  0.0f,  0.0f,  0.0f),
+                new Vector4(-1.0f,  0.0f,  0.0f,  0.0f),
+                new Vector4( 0.0f,  0.0f,  0.0f,  0.0f),
+                new Vector4( 1.0f,  0.0f,  0.0f,  0.0f),
+                new Vector4( 2.0f,  0.0f,  0.0f,  0.0f),
+                new Vector4( 3.0f,  0.0f,  0.0f,  6.0f),
+                new Vector4(-3.0f, -1.0f,  0.0f,  6.0f),
+                new Vector4(-2.0f, -1.0f,  0.0f,  0.0f),
+                new Vector4(-1.0f, -1.0f,  0.0f,  0.0f),
+                new Vector4( 0.0f, -1.0f,  0.0f,  0.0f),
+                new Vector4( 1.0f, -1.0f,  0.0f,  0.0f),
+                new Vector4( 2.0f, -1.0f,  0.0f,  0.0f),
+                new Vector4( 3.0f, -1.0f,  0.0f,  6.0f),
+                new Vector4(-3.0f, -2.0f,  0.0f,  6.0f),
+                new Vector4(-2.0f, -2.0f,  0.0f,  0.0f),
+                new Vector4(-1.0f, -2.0f,  0.0f,  0.0f),
+                new Vector4( 0.0f, -2.0f,  0.0f,  0.0f),
+                new Vector4( 1.0f, -2.0f,  0.0f,  0.0f),
+                new Vector4( 2.0f, -2.0f,  0.0f,  0.0f),
+                new Vector4( 3.0f, -2.0f,  0.0f,  6.0f),
+                new Vector4(-3.0f, -3.0f,  0.0f,  6.0f),
+                new Vector4(-2.0f, -3.0f,  0.0f,  6.0f),
+                new Vector4(-1.0f, -3.0f,  0.0f,  6.0f),
+                new Vector4( 0.0f, -3.0f,  0.0f,  6.0f),
+                new Vector4( 1.0f, -3.0f,  0.0f,  6.0f),
+                new Vector4( 2.0f, -3.0f,  0.0f,  6.0f),
+                new Vector4( 3.0f, -3.0f,  0.0f,  6.0f)
                  //3.0f, -3.0f,  0.0f, 102.0f
             };
         
-        private float[] _obstacleMap = {
-                -4.0f,  3.0f,  0.0f, 102.0f,
-                -3.0f,  3.0f,  0.0f, 102.0f,
-                -2.0f,  3.0f,  0.0f, 102.0f,
-                -1.0f,  3.0f,  0.0f, 102.0f,
-                 0.0f,  3.0f,  0.0f, 102.0f,
-                 1.0f,  3.0f,  0.0f, 102.0f,
-                 2.0f,  3.0f,  0.0f, 102.0f,
-                 3.0f,  3.0f,  0.0f, 102.0f,
-                 4.0f,  3.0f,  0.0f, 102.0f,
-                -4.0f,  2.0f,  0.0f, 102.0f,
-                -4.0f,  1.0f,  0.0f, 102.0f,
-                -4.0f,  0.0f,  0.0f, 102.0f,
-                -4.0f, -1.0f,  0.0f, 102.0f,
-                -4.0f, -2.0f,  0.0f, 102.0f,
-                -4.0f, -3.0f,  0.0f, 102.0f,
-                 4.0f,  2.0f,  0.0f, 102.0f,
-                 4.0f,  1.0f,  0.0f, 102.0f,
-                 4.0f,  0.0f,  0.0f, 102.0f, 
-                 4.0f, -1.0f,  0.0f, 102.0f,
-                 4.0f, -2.0f,  0.0f, 102.0f,
-                 4.0f, -3.0f,  0.0f, 102.0f,
-                -4.0f, -4.0f,  0.0f, 102.0f,
-                -3.0f, -4.0f,  0.0f, 102.0f,
-                -2.0f, -4.0f,  0.0f, 102.0f,
-                -1.0f, -4.0f,  0.0f, 102.0f,
-                 0.0f, -4.0f,  0.0f, 102.0f,
-                 1.0f, -4.0f,  0.0f, 102.0f,
-                 2.0f, -4.0f,  0.0f, 102.0f,
-                 3.0f, -4.0f,  0.0f, 102.0f,
-                 4.0f, -4.0f,  0.0f, 102.0f
+        private Vector4[] _obstacleMap = {
+                new Vector4(-4.0f,  3.0f,  0.0f, 102.0f),
+                new Vector4(-3.0f,  3.0f,  0.0f, 102.0f),
+                new Vector4(-2.0f,  3.0f,  0.0f, 102.0f),
+                new Vector4(-1.0f,  3.0f,  0.0f, 102.0f),
+                new Vector4( 0.0f,  3.0f,  0.0f, 102.0f),
+                new Vector4( 1.0f,  3.0f,  0.0f, 102.0f),
+                new Vector4( 2.0f,  3.0f,  0.0f, 102.0f),
+                new Vector4( 3.0f,  3.0f,  0.0f, 102.0f),
+                new Vector4( 4.0f,  3.0f,  0.0f, 102.0f),
+                new Vector4(-4.0f,  2.0f,  0.0f, 102.0f),
+                new Vector4(-4.0f,  1.0f,  0.0f, 102.0f),
+                new Vector4(-4.0f,  0.0f,  0.0f, 102.0f),
+                new Vector4(-4.0f, -1.0f,  0.0f, 102.0f),
+                new Vector4(-4.0f, -2.0f,  0.0f, 102.0f),
+                new Vector4(-4.0f, -3.0f,  0.0f, 102.0f),
+                new Vector4( 4.0f,  2.0f,  0.0f, 102.0f),
+                new Vector4( 4.0f,  1.0f,  0.0f, 102.0f),
+                new Vector4( 4.0f,  0.0f,  0.0f, 102.0f), 
+                new Vector4( 4.0f, -1.0f,  0.0f, 102.0f),
+                new Vector4( 4.0f, -2.0f,  0.0f, 102.0f),
+                new Vector4( 4.0f, -3.0f,  0.0f, 102.0f),
+                new Vector4(-4.0f, -4.0f,  0.0f, 102.0f),
+                new Vector4(-3.0f, -4.0f,  0.0f, 102.0f),
+                new Vector4(-2.0f, -4.0f,  0.0f, 102.0f),
+                new Vector4(-1.0f, -4.0f,  0.0f, 102.0f),
+                new Vector4( 0.0f, -4.0f,  0.0f, 102.0f),
+                new Vector4( 1.0f, -4.0f,  0.0f, 102.0f),
+                new Vector4( 2.0f, -4.0f,  0.0f, 102.0f),
+                new Vector4( 3.0f, -4.0f,  0.0f, 102.0f),
+                new Vector4( 4.0f, -4.0f,  0.0f, 102.0f)
             };
 
         public StartScene()
@@ -122,8 +122,6 @@ namespace Example.TileMap
             ImageSprite sprite = new ImageSprite("../resource/GirlTile001.png", 32, 32, 1);
             sprite.AddComponent<PlayerScript>();
 
-            // MapRenderer basemapRenderer = RendererManager.GetInstance().AddRenderer<MapRenderer>();
-            // ObstacleRenderer obstacleRenderer = RendererManager.GetInstance().AddRenderer<ObstacleRenderer>();
             TilemapSprite map = new TilemapSprite("../resource/BrightForest.png", 32, 32, 1, _baseMap, false);
             TilemapSprite obstacle = new TilemapSprite("../resource/BrightForest.png", 32, 32, 1, _obstacleMap, false);
             obstacle.AddComponent<TilemapCollider>();
@@ -134,6 +132,9 @@ namespace Example.TileMap
             AddElement("girl", sprite);
             AddElement("explosion", explosionSprite);
             AddElement("awe", awe, "enemy");
+
+            //target setting
+            CameraTarget = sprite;
 
             TimeUtil.Delay(5000, DisplayAweface);
         }

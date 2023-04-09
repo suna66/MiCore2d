@@ -36,14 +36,14 @@ namespace MiCore2d
         /// GetTilemapData. getting tilemap data.
         /// </summary>
         /// <returns>tilemap array list</returns>
-        public float[] GetTilemapData()
+        public Vector4[] GetTilemapData()
         {
             if (element is not TilemapSprite)
             {
                 return null;
             }
             TilemapSprite sprite = element as TilemapSprite;
-            return sprite?.GetTileMap();
+            return sprite?.TileMap;
         }
 
         /// <summary>
@@ -52,17 +52,17 @@ namespace MiCore2d
         /// <returns>Vector3 from tilemap</returns>
         private Vector3[] GetTilemapVector()
         {
-            float[] map = GetTilemapData();
+            Vector4[] map = GetTilemapData();
             if (map == null)
             {
                 return null;
             }
             int num = map.Length;
-            Vector3[] list = new Vector3[num / 4];
-            int index = 0;
-            for (int i = 0; i < num; i += 4) {
-                Vector3 tilePos = new Vector3(map[i], map[i + 1], map[i + 2]);
-                list[index++] = tilePos + element.Position;
+            Vector3[] list = new Vector3[num];
+            //int index = 0;
+            for (int i = 0; i < num; i++) {
+                //Vector3 tilePos = new Vector3(map[i], map[i + 1], map[i + 2]);
+                list[i] = map[i].Xyz;
             }
             return list;
         }
