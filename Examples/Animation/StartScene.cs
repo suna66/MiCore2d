@@ -16,6 +16,12 @@ namespace Example.Animation
             ImageSprite sprite = new ImageSprite("../resource/GirlTile001.png", 32, 32, 1);
             sprite.AddComponent<PlayerScript>();
 
+            PlainSprite rect = new PlainSprite(1);
+            rect.RelationElement = sprite;
+            rect.SetPosition(0.0f, 0.7f, 0.0f);
+            rect.SetScaleY(0.2f);
+            rect.SetColor(0.0f, 1.0f, 0.0f);
+
             ImageSprite awe = new ImageSprite("../resource/awesomeface.png", 3);
             awe.SetPosition(0.0f, -3.0f, 0.0f);
             awe.AddComponent<BoxCollider>();
@@ -30,6 +36,7 @@ namespace Example.Animation
             AddElement("back", backgorund);
             AddElement("awe", awe);
             AddElement("girl", sprite);
+            AddElement("rect", rect);
         }
 
          public override void Update(double elapsed)

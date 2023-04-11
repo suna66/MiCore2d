@@ -100,6 +100,12 @@ namespace MiCore2d
         public float Unit { get; set; } = 1.0f;
 
         /// <summary>
+        /// RelationElement
+        /// </summary>
+        /// <value></value>
+        public Element? RelationElement {get; set;} = null;
+
+        /// <summary>
         /// Constructor.
         /// </summary>
         public Element()
@@ -271,11 +277,39 @@ namespace MiCore2d
         /// <value>position</value>
         public Vector3 Position
         {
-            get => position;
+            get
+            {
+                if (RelationElement != null)
+                {
+                    return RelationElement.Position + position;
+                }
+                else
+                {
+                    return position;
+                }
+
+            }
             set
             {
-                position = value;
+                if (RelationElement != null)
+                {
+                    position = value - RelationElement.Position;
+                }
+                else
+                {
+                    position = value;
+                }
             }
+        }
+
+        /// <summary>
+        /// LocalPosition
+        /// </summary>
+        /// <value>local position</value>
+        public Vector3 LocalPosition
+        {
+            get => position;
+            set => position = value;
         }
 
         /// <summary>
@@ -286,7 +320,39 @@ namespace MiCore2d
         {
             get
             {
-                //return new Vector2(position.X, position.Y);
+                if (RelationElement != null)
+                {
+                    Vector3 wpos = RelationElement.Position + position;
+                    return wpos.Xy;
+                }
+                else
+                {
+                    return position.Xy;
+                }
+            }
+            set
+            {
+                if (RelationElement != null)
+                {
+                    Vector3 wpos = new Vector3(value.X, value.Y, Position.Z);
+                    position = wpos - RelationElement.Position;
+                }
+                else
+                {
+                    position.X = value.X;
+                    position.Y = value.Y;
+                }
+            }
+        }
+
+        /// <summary>
+        /// LocalPosition2d
+        /// </summary>
+        /// <value>local position</value>
+        public Vector2 LocalPosition2d
+        {
+            get
+            {
                 return position.Xy;
             }
             set
@@ -304,9 +370,16 @@ namespace MiCore2d
         /// <param name="z">position z</param>
         public void SetPosition(float x, float y, float z)
         {
-            position.X = x;
-            position.Y = y;
-            position.Z = z;
+            if (RelationElement != null)
+            {
+                position = (new Vector3(x, y, z)) - RelationElement.Position;
+            }
+            else
+            {
+                position.X = x;
+                position.Y = y;
+                position.Z = z;
+            }
         }
 
         /// <summary>

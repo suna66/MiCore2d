@@ -226,16 +226,6 @@ namespace MiCore2d
         /// <param name="elapsed">elapsed time</param>
         public virtual void OnRenderer(double elapsed)
         {
-            // IDictionaryEnumerator enumerator = _elemetDic.GetEnumerator();
-
-            // while (enumerator.MoveNext())
-            // {
-            //     Element element = enumerator.Value as Element;
-            //     if (!element.Disabled && !element.Destroyed)
-            //     {
-            //         element.DrawRenderer?.Draw(_camera, element);
-            //     }
-            // }
             _rendererOrderCheckTimer += (float)elapsed;
             if (_rendererOrderCheckTimer > _RendererOrderCheckPriod)
             {
