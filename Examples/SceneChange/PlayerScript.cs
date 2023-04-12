@@ -33,7 +33,7 @@ namespace Example.SceneChange
             
             bool isKeyDown = false;
             
-            var input = gameScene.KeyState;
+            var input = gameScene.KeyStateInfo;
 
             if (input.IsKeyDown(Keys.Up))
             {

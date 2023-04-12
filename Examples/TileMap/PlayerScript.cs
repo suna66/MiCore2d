@@ -23,7 +23,7 @@ namespace Example.TileMap
 
         public override void Update(double elapsed)
         {
-            var input = gameScene.KeyState;
+            var input = gameScene.KeyStateInfo;
 
             if (input.IsKeyDown(Keys.Up))
             {

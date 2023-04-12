@@ -121,19 +121,13 @@ namespace Example.Mouse
 
         public override void Update(double elapsed)
         {
-            if (KeyState.IsKeyDown(Keys.Escape))
+            if (KeyStateInfo.IsKeyDown(Keys.Escape))
             {
                 Environment.Exit(0);
             }
 
-            moveAweSprite(elapsed);
-            hitSprites();
-        }
-
-        public override void OnMouseButton(MouseButton button, bool pressed)
-        {
-            Log.Debug($"button {button}, press {pressed}");
-            if (pressed)
+            mouse = MousePositionInfo.Position;
+            if (MouseStateInfo.IsAnyPress)
             {
                 pressState = 1;
             }
@@ -141,11 +135,9 @@ namespace Example.Mouse
             {
                 pressState = 0;
             }
-        }
 
-        public override void OnMouseMove(float x, float y, float deltaX, float deltaY)
-        {
-            mouse = LocalToWorld(new Vector2(x, y));
+            moveAweSprite(elapsed);
+            hitSprites();
         }
     }
 }

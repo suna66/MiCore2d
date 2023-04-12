@@ -48,7 +48,7 @@ namespace Example.SceneChange
             if (IsFadeAnimation())
                 return;
 
-            if (KeyState.IsKeyDown(Keys.Escape))
+            if (KeyStateInfo.IsKeyDown(Keys.Escape))
             {
                 Environment.Exit(0);
             }

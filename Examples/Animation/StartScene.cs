@@ -41,7 +41,7 @@ namespace Example.Animation
 
          public override void Update(double elapsed)
          {
-            if (KeyState.IsKeyDown(Keys.Escape))
+            if (KeyStateInfo.IsKeyDown(Keys.Escape))
             {
                 Environment.Exit(0);
             }

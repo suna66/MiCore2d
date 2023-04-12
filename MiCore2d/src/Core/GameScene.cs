@@ -28,6 +28,10 @@ namespace MiCore2d
 
         private Canvas? _canvas = null;
 
+        private MousePosition _mousePosition;
+
+        private MouseButtonState _mouseButtonState;
+
         /// <summary>
         /// GW. GameWindow instance.
         /// </summary>
@@ -38,7 +42,7 @@ namespace MiCore2d
         /// KeyState. Getting KeyboardState.
         /// </summary>
         /// <value>KeyboardState</value>
-        public KeyboardState KeyState { get => _control.GW.KeyboardState; }
+        public KeyboardState KeyStateInfo { get => _control.GW.KeyboardState; }
 
         /// <summary>
         /// Audio. Getting audio management instance.
@@ -70,7 +74,23 @@ namespace MiCore2d
         /// <value>elpased time since executing game scene.</value>
         public double CurrentTime { get; set; }
 
+        /// <summary>
+        /// CameraTarget
+        /// </summary>
+        /// <value></value>
         public Element CameraTarget { get; set; } = null;
+
+        /// <summary>
+        /// MousePositionInfo
+        /// </summary>
+        /// <value></value>
+        public MousePosition MousePositionInfo { get => _mousePosition; }
+
+        /// <summary>
+        /// MouseStateInfo
+        /// </summary>
+        /// <value></value>
+        public MouseButtonState MouseStateInfo { get => _mouseButtonState; }
 
         /// <summary>
         /// Constructor.
@@ -80,6 +100,9 @@ namespace MiCore2d
             _elemetDic = new OrderedDictionary();
 
             _rendererOrderList = new List<Element>();
+
+            _mousePosition.Init();
+            _mouseButtonState.Init();
 
             CurrentTime = 0;
         }
@@ -131,7 +154,7 @@ namespace MiCore2d
         /// <param name="elapsed">elapsed time</param>
         public virtual void Update(double elapsed)
         {
-            if (KeyState.IsKeyDown(Keys.Escape))
+            if (KeyStateInfo.IsKeyDown(Keys.Escape))
             {
                 Environment.Exit(0);
             }
@@ -195,7 +218,7 @@ namespace MiCore2d
         /// <param name="pressed">pressed or not</param>
         public virtual void OnMouseButton(MouseButton button, bool pressed)
         {
-
+            _mouseButtonState.Press(button, pressed);
         }
 
         /// <summary>
@@ -207,7 +230,10 @@ namespace MiCore2d
         /// <param name="deltaY">delta y</param>
         public virtual void OnMouseMove(float x, float y, float deltaX, float deltaY)
         {
-
+            _mousePosition.Position = LocalToWorld(new Vector2(x, y));
+            _mousePosition.LocalPosition = new Vector2(x, y);
+            _mousePosition.DeltaX = deltaX;
+            _mousePosition.DeltaY = deltaY;
         }
 
         /// <summary>
@@ -217,7 +243,8 @@ namespace MiCore2d
         /// <param name="offsetY">offset y</param>
         public virtual void OnMouseWheel(float offsetX, float offsetY)
         {
-
+            _mousePosition.OffsetX = offsetX;
+            _mousePosition.OffsetY = offsetY;
         }
 
         /// <summary>
