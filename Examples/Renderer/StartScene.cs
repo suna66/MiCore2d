@@ -32,11 +32,11 @@ namespace Example.Renderer
 
          public override void Update(double elapsed)
          {
-            if (KeyState.IsKeyDown(Keys.Escape))
+            if (KeyStateInfo.IsKeyDown(Keys.Escape))
             {
                 Environment.Exit(0);
             }
-            if (KeyState.IsKeyDown(Keys.Space))
+            if (KeyStateInfo.IsKeyDown(Keys.Space))
             {
                 if (interval > 0.5f)
                 {

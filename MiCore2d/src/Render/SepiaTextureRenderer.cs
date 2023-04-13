@@ -13,9 +13,7 @@ namespace MiCore2d
         /// </summary>
         public SepiaTextureRenderer()
         {
-            //LoadShader("resources/basic.vert", "resources/sepia.frag");
-            LoadShader(Resources.ReadText("MiCore2d.resources.basic.vert"), Resources.ReadText("MiCore2d.resources.sepia.frag"));
-            Init();
+            Init(Resources.ReadText("MiCore2d.resources.basic.vert"), Resources.ReadText("MiCore2d.resources.sepia.frag"));
         }
 
         /// <summary>

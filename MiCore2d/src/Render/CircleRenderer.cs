@@ -21,9 +21,7 @@ namespace MiCore2d
         /// </summary>
         public CircleRenderer()
         {
-            //LoadShader("resources/basic.vert", "resources/sepia.frag");
-            LoadShader(Resources.ReadText("MiCore2d.resources.basic.vert"), Resources.ReadText("MiCore2d.resources.circle.frag"));
-            Init();
+            Init(Resources.ReadText("MiCore2d.resources.basic.vert"), Resources.ReadText("MiCore2d.resources.circle.frag"));
         }
 
         /// <summary>

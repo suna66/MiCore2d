@@ -13,9 +13,7 @@ namespace MiCore2d
         /// </summary>
         public TextureArrayRenderer()
         {
-            //LoadShader("resources/arraytex.vert", "resources/arraytex.frag");
-            LoadShader(Resources.ReadText("MiCore2d.resources.arraytex.vert"), Resources.ReadText("MiCore2d.resources.arraytex.frag"));
-            Init();
+            Init(Resources.ReadText("MiCore2d.resources.arraytex.vert"), Resources.ReadText("MiCore2d.resources.arraytex.frag"));
         }
 
         /// <summary>

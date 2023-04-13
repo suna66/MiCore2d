@@ -1,3 +1,4 @@
+#nullable disable warnings
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 
@@ -13,23 +14,9 @@ namespace MiCore2d
         /// </summary>
         public PolygonRenderer()
         {
-            //LoadShader("resources/basic.vert", "resources/basic.frag");
-            LoadShader(Resources.ReadText("MiCore2d.resources.rect.vert"), Resources.ReadText("MiCore2d.resources.rect.frag"));
-            Init();
+            Init(Resources.ReadText("MiCore2d.resources.rect.vert"), Resources.ReadText("MiCore2d.resources.rect.frag"));
         }
 
-        /// <summary>
-        /// Draw.
-        /// </summary>
-        /// <param name="camera">camera</param>
-        /// <param name="element">element</param>
-        public override void Draw(Camera camera, Element element)
-        {
-            if (!element.Disabled && element.Visibled)
-            {
-                DrawElement(camera, element);
-            }
-        }
 
         /// <summary>
         /// DrawElement.
@@ -43,7 +30,7 @@ namespace MiCore2d
             if (element is not PlainSprite)
                 return;
 
-            PlainSprite sprite = (PlainSprite)element;
+            PlainSprite? sprite = element as PlainSprite;
 
             GL.BindVertexArray(vertexArrayObject);
             shader.Use();

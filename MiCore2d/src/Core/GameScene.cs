@@ -14,13 +14,9 @@ namespace MiCore2d
     /// </summary>
     public abstract class GameScene
     {
-        private const float _RendererOrderCheckPriod = 1.0f;
-
         private OrderedDictionary _elemetDic;
         
         private List<Element> _rendererOrderList;
-
-        private float _rendererOrderCheckTimer = 0.0f;
 
         private Camera? _camera = null;
 
@@ -252,20 +248,25 @@ namespace MiCore2d
         /// </summary>
         /// <param name="elapsed">elapsed time</param>
         public virtual void OnRenderer(double elapsed)
-        {
-            _rendererOrderCheckTimer += (float)elapsed;
-            if (_rendererOrderCheckTimer > _RendererOrderCheckPriod)
-            {
-                _rendererOrderList.Sort((x, y) => x.RendererOrder - y.RendererOrder);
-                _rendererOrderCheckTimer = 0.0f;
-            }
+        {   
+            bool reOrder = false;
+            int previousOrderIndex = (_rendererOrderList.Count == 0) ? 0 : _rendererOrderList[0].RendererOrder;
 
             foreach (Element element in _rendererOrderList)
             {
                 if (!element.Disabled && !element.Destroyed)
                 {
-                    element.DrawRenderer?.Draw(_camera, element);
+                    element.DrawRenderer?.Rendering(_camera, element);
+                    if (previousOrderIndex > element.RendererOrder)
+                    {
+                        reOrder = true;
+                    }
+                    previousOrderIndex = element.RendererOrder;
                 }
+            }
+            if (reOrder)
+            {
+                _rendererOrderList.Sort((x, y) => x.RendererOrder - y.RendererOrder);
             }
             _canvas.Update();
         }

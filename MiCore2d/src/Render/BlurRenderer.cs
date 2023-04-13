@@ -25,8 +25,7 @@ namespace MiCore2d
         /// </summary>
         public BlurRenderer()
         {
-            LoadShader(Resources.ReadText("MiCore2d.resources.basic.vert"), Resources.ReadText("MiCore2d.resources.blur.frag"));
-            Init();
+            Init(Resources.ReadText("MiCore2d.resources.basic.vert"), Resources.ReadText("MiCore2d.resources.blur.frag"));
         }
 
         /// <summary>

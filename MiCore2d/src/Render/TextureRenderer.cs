@@ -13,9 +13,7 @@ namespace MiCore2d
         /// </summary>
         public TextureRenderer()
         {
-            //LoadShader("resources/basic.vert", "resources/basic.frag");
-            LoadShader(Resources.ReadText("MiCore2d.resources.basic.vert"), Resources.ReadText("MiCore2d.resources.basic.frag"));
-            Init();
+            Init(Resources.ReadText("MiCore2d.resources.basic.vert"), Resources.ReadText("MiCore2d.resources.basic.frag"));
         }
 
         /// <summary>

@@ -17,9 +17,7 @@ namespace MiCore2d
         /// </summary>
         public SwipeRenderer()
         {
-            //LoadShader("resources/basic.vert", "resources/basic.frag");
-            LoadShader(Resources.ReadText("MiCore2d.resources.basic.vert"), Resources.ReadText("MiCore2d.resources.swipe.frag"));
-            Init();
+            Init(Resources.ReadText("MiCore2d.resources.basic.vert"), Resources.ReadText("MiCore2d.resources.swipe.frag"));
         }
 
         /// <summary>
@@ -37,7 +35,6 @@ namespace MiCore2d
             shader.SetFloat("texAlpha", (1.0f - element.Alpha));
             shader.SetFloat("scale", Scale);
             shader.SetFloat("direct", Direct);
-            //shader.SetVector3("resolution", new Vector3(element.Texture.Width, element.Texture.Height, 0.0f));
 
             Draw();
         }

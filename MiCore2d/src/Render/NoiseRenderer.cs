@@ -14,9 +14,7 @@ namespace MiCore2d
         /// </summary>
         public NoiseRenderer()
         {
-            //LoadShader("resources/basic.vert", "resources/sepia.frag");
-            LoadShader(Resources.ReadText("MiCore2d.resources.basic.vert"), Resources.ReadText("MiCore2d.resources.noise.frag"));
-            Init();
+            Init(Resources.ReadText("MiCore2d.resources.basic.vert"), Resources.ReadText("MiCore2d.resources.noise.frag"));
         }
 
         /// <summary>

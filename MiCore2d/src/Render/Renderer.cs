@@ -37,20 +37,12 @@ namespace MiCore2d
         }
 
         /// <summary>
-        /// LoadShader.
-        /// </summary>
-        /// <param name="vartString">vartics glsl code</param>
-        /// <param name="fragString">fragment glsl code</param>
-        protected virtual void LoadShader(string vartString, string fragString)
-        {
-            shader = new Shader(vartString, fragString);
-        }
-
-        /// <summary>
         /// Init.
         /// </summary>
-        protected virtual void Init()
+        protected virtual void Init(string vartString, string fragString)
         {
+            shader = new Shader(vartString, fragString);
+
             vertexArrayObject = GL.GenVertexArray();
             GL.BindVertexArray(vertexArrayObject);
 
@@ -83,19 +75,24 @@ namespace MiCore2d
         protected abstract void DrawElement(Camera camera, Element element);
 
         /// <summary>
-        /// Draw.
+        /// Rendering
         /// </summary>
         /// <param name="camera">camera</param>
         /// <param name="element">element</param>
-        public virtual void Draw(Camera camera, Element element)
+        public virtual void Rendering(Camera camera, Element element)
         {
             if (!element.Disabled && element.Visibled)
             {
-                Begin(element.Texture);
-
-                DrawElement(camera, element);
-
-                End();
+                if (element.Texture == null)
+                {
+                    DrawElement(camera, element);
+                }
+                else
+                {
+                    Begin(element.Texture);
+                    DrawElement(camera, element);
+                    End();
+                }
             }
         }
 

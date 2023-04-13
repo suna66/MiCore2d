@@ -24,8 +24,7 @@ namespace MiCore2d
             _tileMap = tileMap;
             _isDynamic = isDynamic;
 
-            LoadShader(Resources.ReadText("MiCore2d.resources.instanced.vert"), Resources.ReadText("MiCore2d.resources.instanced.frag"));
-            Init();
+            Init(Resources.ReadText("MiCore2d.resources.instanced.vert"), Resources.ReadText("MiCore2d.resources.instanced.frag"));
             InitTilemap();
         }
 
@@ -34,8 +33,7 @@ namespace MiCore2d
             _tileMap = Enumerable.Repeat<float>(0.0f, tileNum*4).ToArray();
             _isDynamic = isDynamic;
             
-            LoadShader(Resources.ReadText("MiCore2d.resources.instanced.vert"), Resources.ReadText("MiCore2d.resources.instanced.frag"));
-            Init();
+            Init(Resources.ReadText("MiCore2d.resources.instanced.vert"), Resources.ReadText("MiCore2d.resources.instanced.frag"));
             InitTilemap();
         }
 

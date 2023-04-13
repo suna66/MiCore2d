@@ -1,5 +1,4 @@
 
-using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 
 namespace MiCore2d
@@ -38,9 +37,7 @@ namespace MiCore2d
         /// </summary>
         public WaveTextureRenderer()
         {
-            //LoadShader("resources/basic.vert", "resources/sepia.frag");
-            LoadShader(Resources.ReadText("MiCore2d.resources.basic.vert"), Resources.ReadText("MiCore2d.resources.wave.frag"));
-            Init();
+            Init(Resources.ReadText("MiCore2d.resources.basic.vert"), Resources.ReadText("MiCore2d.resources.wave.frag"));
         }
 
         /// <summary>
