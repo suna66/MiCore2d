@@ -106,6 +106,24 @@ namespace MiCore2d
         public Element? RelationElement {get; set;} = null;
 
         /// <summary>
+        /// DegteesX
+        /// </summary>
+        /// <value></value>
+        public float DegteesX {get; set; } = 0.0f;
+
+        /// <summary>
+        /// DegteesY
+        /// </summary>
+        /// <value></value>
+        public float DegteesY {get; set; } = 0.0f;
+
+        /// <summary>
+        /// DegteesZ
+        /// </summary>
+        /// <value></value>
+        public float DegteesZ {get; set; } = 0.0f;
+
+        /// <summary>
         /// Constructor.
         /// </summary>
         public Element()
@@ -522,33 +540,22 @@ namespace MiCore2d
         /// <value>rotated matrix</value>
         public Matrix4 Rotation
         {
-            get => rotation;
-            set
+            get
             {
-                rotation = value;
-            }
-        }
-
-        /// <summary>
-        /// SetRotation
-        /// </summary>
-        /// <param name="x">rotation x</param>
-        /// <param name="y">rotation y</param>
-        /// <param name="z">rotation z</param>
-        public void SetRotation(float x, float y, float z)
-        {
-            rotation = Matrix4.Identity;
-            if (x != 0.0f)
-            {
-                rotation *= Matrix4.CreateRotationX((float)MathHelper.DegreesToRadians(x));
-            }
-            if (y != 0.0f)
-            {
-                rotation *= Matrix4.CreateRotationY((float)MathHelper.DegreesToRadians(y));
-            }
-            if (z != 0.0f)
-            {
-                rotation *= Matrix4.CreateRotationZ((float)MathHelper.DegreesToRadians(z));
+                rotation = Matrix4.Identity;
+                if (DegteesX != 0.0f)
+                {
+                    rotation *=  Matrix4.CreateRotationX((float)MathHelper.DegreesToRadians(DegteesX));
+                }
+                if (DegteesY != 0.0f)
+                {
+                    rotation *=  Matrix4.CreateRotationY((float)MathHelper.DegreesToRadians(DegteesY));
+                }
+                if (DegteesZ != 0.0f)
+                {
+                    rotation *=  Matrix4.CreateRotationX((float)MathHelper.DegreesToRadians(DegteesZ));
+                }
+                return rotation;
             }
         }
 
