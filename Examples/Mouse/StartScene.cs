@@ -8,19 +8,14 @@ namespace Example.Mouse
     {
         private Vector2 mouse = Vector2.Zero;
 
-        private PlainSprite rect;
-        private ImageSprite awe;
-        private ImageSprite moveAwe;
+        private PlainSprite? rect;
+        private ImageSprite? awe;
+        private ImageSprite? moveAwe;
 
-        private bool hitRect = false;
-        private bool hitAwe = false;
+        private BasicButton? rectBtn;
+        private BasicButton? aweBtn;
 
         private int direction = 1;
-
-        //  0: not pressed.
-        //  1: pressing.
-        //  2: pressed.
-        private int pressState = 0;
 
         public StartScene()
         {
@@ -34,6 +29,13 @@ namespace Example.Mouse
             awe = new ImageSprite("../resource/awesomeface.png", 1);
             awe.AddComponent<CircleCollider>();
             awe.Position = new Vector3(3.0f, 1.0f, 0.0f);
+            aweBtn = awe.AddComponent<BasicButton>();
+            aweBtn.MouseEnter = () => {
+                awe.Alpha = 0.5f;
+            };
+            aweBtn.MouseLeave = () => {
+                awe.Alpha = 1.0f;
+            };
 
             moveAwe = new ImageSprite("../resource/awesomeface.png", 1);
             moveAwe.Position = new Vector3(0.0f, 1.0f, 0.0f);
@@ -42,6 +44,14 @@ namespace Example.Mouse
             rect.Position = new Vector3(-3.0f, 1.0f, 0.0f);
             rect.SetColor(0.1f, 0.5f, 0.0f);
             rect.AddComponent<BoxCollider>();
+            rectBtn = rect.AddComponent<BasicButton>();
+            rectBtn.ButtonDown = () => {
+                rect.SetColor(1.0f, 0.0f, 0.0f);
+                Audio.Play("magic");
+            };
+            rectBtn.ButtonUp = () => {
+                rect.SetColor(0.1f, 0.5f, 0.0f);
+            };
             AddElement("rect", rect);
             AddElement("awe", awe);
             AddElement("moveAwe", moveAwe);
@@ -52,12 +62,12 @@ namespace Example.Mouse
             Vector2 dir = Vector2.UnitX;
             if (direction == 1)
             {
-                moveAwe.AddPositionX((float)elapsed * 1.5f);
+                moveAwe?.AddPositionX((float)elapsed * 1.5f);
                 dir = Vector2.UnitX;
             }
             else
             {
-                moveAwe.AddPositionX((float)elapsed * 1.5f * -1);
+                moveAwe?.AddPositionX((float)elapsed * 1.5f * -1);
                 dir = -1 * Vector2.UnitX;
             }
 
@@ -75,50 +85,6 @@ namespace Example.Mouse
             }
         }
 
-        private void hitSprites()
-        {
-            bool isHitRect = false;
-            bool isHitAwe = false;
-
-            Element e = Physics.Pointcast(mouse);
-            if (e != null)
-            {
-                if (e.Name == "rect")
-                {
-                    PlainSprite sprite = (PlainSprite)e;
-                    if (pressState == 1)
-                    {
-                        sprite.SetColor(1.0f, 0.0f, 0.0f);
-                        Audio.Play("magic");
-                        pressState = 2;
-                    }
-                    if (pressState == 0)
-                    {
-                        rect.SetColor(0.1f, 0.5f, 0.0f);
-                    }
-                    
-                    isHitRect = true;
-                }
-                else if (e.Name == "awe")
-                {
-                    Log.Debug("awe hit");
-                    awe.Alpha = 0.5f;
-                    isHitAwe = true;
-                }
-            }
-
-            if (isHitRect == false && hitRect)
-            {
-                rect.SetColor(0.1f, 0.5f, 0.0f);
-            }
-            if (isHitAwe == false && hitAwe)
-            {
-                awe.Alpha = 1.0f;
-            }
-            hitRect = isHitRect;
-            hitAwe = isHitAwe;
-        }
-
         public override void Update(double elapsed)
         {
             if (KeyStateInfo.IsKeyDown(Keys.Escape))
@@ -126,18 +92,7 @@ namespace Example.Mouse
                 Environment.Exit(0);
             }
 
-            mouse = MousePositionInfo.Position;
-            if (MouseStateInfo.IsAnyPress)
-            {
-                pressState = 1;
-            }
-            else
-            {
-                pressState = 0;
-            }
-
             moveAweSprite(elapsed);
-            hitSprites();
         }
     }
 }

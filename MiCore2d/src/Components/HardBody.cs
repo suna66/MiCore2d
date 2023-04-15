@@ -43,12 +43,6 @@ namespace MiCore2d
         /// <value></value>
         public float Amplitude {get; set;}
 
-        /// <summary>
-        /// Layer. layer name of collision.
-        /// </summary>
-        /// <value></value>
-        public string Layer {get; set;} = "default";
-
 
         private int actionType = ACTION_TYPE_NONE;
 
