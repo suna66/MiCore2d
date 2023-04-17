@@ -112,22 +112,22 @@ namespace MiCore2d
         public Element? RelationElement {get; set;} = null;
 
         /// <summary>
-        /// DegteesX
+        /// RadianX
         /// </summary>
         /// <value></value>
-        public float DegteesX {get; set; } = 0.0f;
+        public float RadianX {get; set; } = 0.0f;
 
         /// <summary>
-        /// DegteesY
+        /// RadianY
         /// </summary>
         /// <value></value>
-        public float DegteesY {get; set; } = 0.0f;
+        public float RadianY {get; set; } = 0.0f;
 
         /// <summary>
-        /// DegteesZ
+        /// RadianZ
         /// </summary>
         /// <value></value>
-        public float DegteesZ {get; set; } = 0.0f;
+        public float RadianZ {get; set; } = 0.0f;
 
         /// <summary>
         /// Constructor.
@@ -450,7 +450,7 @@ namespace MiCore2d
         {
             get
             {
-                return Unit * AspectRatio * scale.X;
+                return Unit * AspectRatio * scale.X * MathF.Abs(MathF.Cos(RadianY));
             }
         }
 
@@ -462,7 +462,31 @@ namespace MiCore2d
         {
             get
             {
-                return Unit * scale.Y;
+                return Unit * scale.Y * MathF.Abs(MathF.Cos(RadianX));
+            }
+        }
+
+        /// <summary>
+        /// OriginWidth
+        /// </summary>
+        /// <value>original size of unit</value>
+        public float OriginWidth
+        {
+            get
+            {
+                return Unit * AspectRatio;
+            }
+        }
+
+        /// <summary>
+        /// OriginHeight
+        /// </summary>
+        /// <value>original size of unit</value>
+        public float OriginHeight
+        {
+            get
+            {
+                return Unit;
             }
         }
 
@@ -590,19 +614,64 @@ namespace MiCore2d
             get
             {
                 rotation = Matrix4.Identity;
-                if (DegteesX != 0.0f)
+                if (RadianX != 0.0f)
                 {
-                    rotation *=  Matrix4.CreateRotationX((float)MathHelper.DegreesToRadians(DegteesX));
+                    rotation *=  Matrix4.CreateRotationX(RadianX);
                 }
-                if (DegteesY != 0.0f)
+                if (RadianY != 0.0f)
                 {
-                    rotation *=  Matrix4.CreateRotationY((float)MathHelper.DegreesToRadians(DegteesY));
+                    rotation *=  Matrix4.CreateRotationY(RadianY);
                 }
-                if (DegteesZ != 0.0f)
+                if (RadianZ != 0.0f)
                 {
-                    rotation *=  Matrix4.CreateRotationX((float)MathHelper.DegreesToRadians(DegteesZ));
+                    rotation *=  Matrix4.CreateRotationZ(RadianZ);
                 }
                 return rotation;
+            }
+        }
+
+        /// <summary>
+        /// OriginVertex
+        /// </summary>
+        /// <value>non-rotated and original position shape vertexs</value>
+        public Vector2[] OriginVertex
+        {
+            get
+            {
+                float x = Width * 0.5f;
+                float y = Height * 0.5f;
+                Vector2[] vertex = new Vector2[4];
+                vertex[0] = new Vector2(-x,  y);
+                vertex[1] = new Vector2( x,  y);
+                vertex[2] = new Vector2( x, -y);
+                vertex[3] = new Vector2(-x, -y);
+                return vertex;
+            }
+        }
+
+        /// <summary>
+        /// Vertex
+        /// </summary>
+        /// <value>vertex position</value>
+        public Vector2[] Vertex
+        {
+            get
+            {
+                int i = 0;
+                Vector2[] vertex = new Vector2[4];
+                Vector2[] origin = OriginVertex;
+                foreach(Vector2 v in origin)
+                {
+                    //Z
+                    float x = v.X * MathF.Cos(RadianZ) + v.Y * MathF.Sin(RadianZ);
+                    float y = -v.X * MathF.Sin(RadianZ) + v.Y * MathF.Cos(RadianZ);
+                    //x
+                    y = y * MathF.Cos(RadianX);
+                    //y
+                    x = x * MathF.Cos(RadianY);
+                    vertex[i++] = new Vector2(x + position.X, y + position.Y); 
+                }
+                return vertex;
             }
         }
 

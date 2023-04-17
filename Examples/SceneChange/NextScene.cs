@@ -47,7 +47,9 @@ namespace Example.SceneChange
                 fadeScript.SwitchScene(new StartScene());
             }
             Element element = GetElement("awe");
-            element.SetScale(2 * MathF.Cos((float)CurrentTime));
+            //element.SetScale(2 * MathF.Cos((float)CurrentTime));
+            //element.RadianY = (float)(CurrentTime);
+            element.RadianX = (float)(CurrentTime);
          }
 
          public bool IsFadeAnimation()
