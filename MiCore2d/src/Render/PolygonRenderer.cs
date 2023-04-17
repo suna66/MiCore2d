@@ -12,7 +12,7 @@ namespace MiCore2d
         /// <summary>
         /// Constructor.
         /// </summary>
-        public PolygonRenderer()
+        public PolygonRenderer(float unitSize, float aspectRatio) : base(unitSize, aspectRatio)
         {
             Init(Resources.ReadText("MiCore2d.resources.rect.vert"), Resources.ReadText("MiCore2d.resources.rect.frag"));
         }

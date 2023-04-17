@@ -11,7 +11,7 @@ namespace MiCore2d
         /// <summary>
         /// Constructor.
         /// </summary>
-        public TextureArrayRenderer()
+        public TextureArrayRenderer(float unitSize, float aspectRatio) : base(unitSize, aspectRatio)
         {
             Init(Resources.ReadText("MiCore2d.resources.arraytex.vert"), Resources.ReadText("MiCore2d.resources.arraytex.frag"));
         }

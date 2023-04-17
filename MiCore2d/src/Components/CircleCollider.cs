@@ -20,7 +20,8 @@ namespace MiCore2d
         /// </summary>
         public override void OnLoad()
         {
-            RadiusUnit = element.Scale.Y / 2;
+            //RadiusUnit = element.Scale.Y / 2;
+            RadiusUnit = element.Height / 2;
         }
 
         /// <summary>
@@ -35,7 +36,8 @@ namespace MiCore2d
             bool is_collision = false;
             if (IsDynamic)
             {
-                RadiusUnit = element.Scale.Y / 2;
+                //RadiusUnit = element.Scale.Y / 2;
+                RadiusUnit = element.Height / 2;
             }
 
             if (target is BoxCollider)
@@ -58,7 +60,8 @@ namespace MiCore2d
         {
             if (IsDynamic)
             {
-                RadiusUnit = element.Scale.Y / 2;
+                //RadiusUnit = element.Scale.Y / 2;
+                RadiusUnit = element.Height / 2;
             }
             return CollisionUtil.LineCircle(line, GetPosition(), RadiusUnit);
         }
@@ -72,7 +75,8 @@ namespace MiCore2d
         {
             if (IsDynamic)
             {
-                RadiusUnit = element.Scale.Y / 2;
+                //RadiusUnit = element.Scale.Y / 2;
+                RadiusUnit = element.Height / 2;
             }
             return CollisionUtil.PointCircle(point, GetPosition(), RadiusUnit);
         }

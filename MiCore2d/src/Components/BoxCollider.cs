@@ -20,8 +20,11 @@ namespace MiCore2d
         /// </summary>
         public override void OnLoad()
         {
-            WidthUnit = element.Scale.X;
-            HeightUnit = element.Scale.Y;
+            // WidthUnit = element.Scale.X;
+            // HeightUnit = element.Scale.Y;
+            WidthUnit = element.Width;
+            HeightUnit = element.Height;
+
         }
 
         /// <summary>
@@ -36,8 +39,10 @@ namespace MiCore2d
             bool is_collision = false;
             if (IsDynamic)
             {
-                WidthUnit = element.Scale.X;
-                HeightUnit = element.Scale.Y;
+                // WidthUnit = element.Scale.X;
+                // HeightUnit = element.Scale.Y;
+                WidthUnit = element.Width;
+                HeightUnit = element.Height;
             }
 
             if (target is BoxCollider)
@@ -60,8 +65,10 @@ namespace MiCore2d
         {
             if (IsDynamic)
             {
-                WidthUnit = element.Scale.X;
-                HeightUnit = element.Scale.Y;
+                // WidthUnit = element.Scale.X;
+                // HeightUnit = element.Scale.Y;
+                WidthUnit = element.Width;
+                HeightUnit = element.Height;
             }
             return CollisionUtil.LineBox(line, GetPosition(), WidthUnit, HeightUnit);
         }
@@ -75,8 +82,10 @@ namespace MiCore2d
         {
             if (IsDynamic)
             {
-                WidthUnit = element.Scale.X;
-                HeightUnit = element.Scale.Y;
+                // WidthUnit = element.Scale.X;
+                // HeightUnit = element.Scale.Y;
+                WidthUnit = element.Width;
+                HeightUnit = element.Height;
             }
             return CollisionUtil.PointBox(point, GetPosition(), WidthUnit, HeightUnit);
         }

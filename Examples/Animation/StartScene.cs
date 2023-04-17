@@ -28,7 +28,7 @@ namespace Example.Animation
             awe.AddComponent<HardBody>();
 
             ImageSprite backgorund = new ImageSprite("../resource/park.jpg", 10);
-            renderer = new BlurRenderer();
+            renderer = new BlurRenderer(10, backgorund.AspectRatio);
             renderer.Blur = blur;
             renderer.Bloom = 1.0f;
             backgorund.SetRenderer(renderer);

@@ -13,13 +13,7 @@ namespace MiCore2d
         protected int vertexArrayObject;
         protected Shader shader = null!;
         //default vertices.
-        protected float[] vertices = new float[]
-            {
-                 0.5f,  0.5f, 0.0f, 1.0f, 0.0f,
-                 0.5f, -0.5f, 0.0f, 1.0f, 1.0f,
-                -0.5f, -0.5f, 0.0f, 0.0f, 1.0f,
-                -0.5f,  0.5f, 0.0f, 0.0f, 0.0f
-            };
+        protected float[] vertices;
         //default indices
         protected uint[] indices = new uint[]
             {
@@ -32,8 +26,17 @@ namespace MiCore2d
         /// <summary>
         /// Constructor.
         /// </summary>
-        public Renderer()
+        public Renderer(float unitSize, float aspectRatio)
         {
+            float unitY = unitSize / 2;
+            float unitX = (unitSize * aspectRatio) / 2;
+             vertices = new float[]
+             {
+                 unitX,  unitY, 0.0f, 1.0f, 0.0f,
+                 unitX, -unitY, 0.0f, 1.0f, 1.0f,
+                -unitX, -unitY, 0.0f, 0.0f, 1.0f,
+                -unitX,  unitY, 0.0f, 0.0f, 0.0f
+             };
         }
 
         /// <summary>

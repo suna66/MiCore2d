@@ -19,10 +19,11 @@ namespace MiCore2d
         {
             texture = new Texture2d(file);
             float aspectRatio = texture.Width / (float)texture.Height;
-            scale.X = unitSize * aspectRatio;
-            scale.Y = unitSize;
+            // scale.X = unitSize * aspectRatio;
+            // scale.Y = unitSize;
+            AspectRatio = aspectRatio;
             Unit = unitSize;
-            DrawRenderer = new TextureRenderer();
+            DrawRenderer = new TextureRenderer(unitSize, aspectRatio);
         }
 
         /// <summary>
@@ -37,10 +38,11 @@ namespace MiCore2d
         {
             texture = new Texture2dArray(files, width, height);
             float aspectRatio = texture.Width / (float)texture.Height;
-            scale.X = unitSize * aspectRatio;
-            scale.Y = unitSize;
+            // scale.X = unitSize * aspectRatio;
+            // scale.Y = unitSize;
+            AspectRatio = aspectRatio;
             Unit = unitSize;
-            DrawRenderer = new TextureArrayRenderer();
+            DrawRenderer = new TextureArrayRenderer(unitSize, aspectRatio);
         }
 
         /// <summary>
@@ -55,10 +57,11 @@ namespace MiCore2d
         {
             texture = new Texture2dTile(file, tileWidth, tileHeight);
             float aspectRatio = texture.Width / (float)texture.Height;
-            scale.X = unitSize * aspectRatio;
-            scale.Y = unitSize;
+            // scale.X = unitSize * aspectRatio;
+            // scale.Y = unitSize;
+            AspectRatio = aspectRatio;
             Unit = unitSize;
-            DrawRenderer = new TextureArrayRenderer();
+            DrawRenderer = new TextureArrayRenderer(unitSize, aspectRatio);
         }
 
         /// <summary>

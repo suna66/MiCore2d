@@ -97,7 +97,13 @@ namespace MiCore2d
         /// Unit
         /// </summary>
         /// <value></value>
-        public float Unit { get; set; } = 1.0f;
+        public float Unit { get; protected set; } = 1.0f;
+
+        /// <summary>
+        /// AspectRatio
+        /// </summary>
+        /// <value></value>
+        public float AspectRatio {get; protected set; } = 1.0f;
 
         /// <summary>
         /// RelationElement
@@ -437,6 +443,42 @@ namespace MiCore2d
         }
 
         /// <summary>
+        /// Width
+        /// </summary>
+        /// <value>width unit size</value>
+        public float Width
+        {
+            get
+            {
+                return Unit * AspectRatio * scale.X;
+            }
+        }
+
+        /// <summary>
+        /// Height
+        /// </summary>
+        /// <value>height unit size</value>
+        public float Height
+        {
+            get
+            {
+                return Unit * scale.Y;
+            }
+        }
+
+        /// <summary>
+        /// Element Size
+        /// </summary>
+        /// <value>Vector3</value>
+        public Vector3 Size
+        {
+            get
+            {
+                return new Vector3(Width, Height, 1.0f);
+            }
+        }
+
+        /// <summary>
         /// Scale.
         /// </summary>
         /// <value>scale value</value>
@@ -455,12 +497,15 @@ namespace MiCore2d
             {
                 value = MathF.Abs(value);
             }
-            float aspectRatio = 1.0f;
-            if (texture != null)
-                aspectRatio = texture.Width / (float)texture.Height;
+            // float aspectRatio = 1.0f;
+            // if (texture != null)
+            //     aspectRatio = texture.Width / (float)texture.Height;
     
-            scale.X = Unit * aspectRatio * value;
-            scale.Y = Unit * value;
+            // scale.X = Unit * aspectRatio * value;
+            // scale.Y = Unit * value;
+            // scale.Z = 1.0f;
+            scale.X = value;
+            scale.Y = value;
             scale.Z = 1.0f;
         }
 
@@ -470,7 +515,8 @@ namespace MiCore2d
         /// <param name="value">scale value</param>
         public void SetScaleX(float value)
         {
-            scale.X = Unit * value;
+            //scale.X = Unit * value;
+            scale.X = value;
         }
 
         /// <summary>
@@ -479,7 +525,8 @@ namespace MiCore2d
         /// <param name="value">scale value</param>
         public void SetScaleY(float value)
         {
-            scale.Y = Unit * value;
+            //scale.Y = Unit * value;
+            scale.Y = value;
         }
 
         /// <summary>

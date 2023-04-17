@@ -23,7 +23,7 @@ namespace Example.Renderer
         public override void Load()
         {
             backgorund = new ImageSprite("../resource/park.jpg", 10);
-            swipeRenderer = new SwipeRenderer();
+            swipeRenderer = new SwipeRenderer(10, backgorund.AspectRatio);
             swipeRenderer.Scale = 0.0f;
             swipeRenderer.Direct = 1.0f;
             backgorund.SetRenderer(swipeRenderer);
@@ -44,14 +44,14 @@ namespace Example.Renderer
                     if (renderType == -1)
                     {
                         renderType = 0;
-                        blurRenderer = new BlurRenderer();
+                        blurRenderer = new BlurRenderer(10, backgorund.AspectRatio);
                         backgorund.SetRenderer(blurRenderer);
                         blur = 0.0f;
                         blurRenderer.Blur = blur;
                     } else if (renderType == 0)
                     {
                         renderType = 1;
-                        waveRenderer = new WaveTextureRenderer();
+                        waveRenderer = new WaveTextureRenderer(10, backgorund.AspectRatio);
                         backgorund.SetRenderer(waveRenderer);
                         waveRenderer.Length = 10.0f;
                         waveRenderer.Width = 0.01f;
@@ -60,25 +60,25 @@ namespace Example.Renderer
                     else if (renderType == 1)
                     {
                         renderType = 2;
-                        sepiaRenderer = new SepiaTextureRenderer();
+                        sepiaRenderer = new SepiaTextureRenderer(10, backgorund.AspectRatio);
                         backgorund.SetRenderer(sepiaRenderer);
                     }
                     else if (renderType == 2)
                     {
                         renderType = 3;
-                        noiseRendere = new NoiseRenderer();
+                        noiseRendere = new NoiseRenderer(10, backgorund.AspectRatio);
                         backgorund.SetRenderer(noiseRendere);
                     }
                     else if (renderType == 3)
                     {
                         renderType = 4;
-                        circleRenderer = new CircleRenderer();
+                        circleRenderer = new CircleRenderer(10, backgorund.AspectRatio);
                         backgorund.SetRenderer(circleRenderer);
                     }
                     else
                     {
                         renderType = -1;
-                        swipeRenderer = new SwipeRenderer();
+                        swipeRenderer = new SwipeRenderer(10, backgorund.AspectRatio);
                         swipeRenderer.Scale = 0.0f;
                         swipeRenderer.Direct = 1.0f;
                         backgorund.SetRenderer(swipeRenderer);
@@ -115,8 +115,8 @@ namespace Example.Renderer
             }
             if (renderType == 4)
             {
-                circleRenderer.Radius = MathF.Abs(MathF.Sin((float)CurrentTime) * 10.0f);
-                circleRenderer.Centor = new Vector2(MathF.Sin((float)CurrentTime) * 1.5f, MathF.Cos((float)CurrentTime) * 1.5f);
+                circleRenderer.Radius = MathF.Abs(MathF.Sin((float)CurrentTime) * 1.0f);
+                circleRenderer.Centor = new Vector2(MathF.Sin((float)CurrentTime) * 0.5f, MathF.Cos((float)CurrentTime) * 0.5f);
             }
             if (renderType == -1)
             {

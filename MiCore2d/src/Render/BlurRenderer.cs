@@ -23,7 +23,7 @@ namespace MiCore2d
         /// <summary>
         /// Constructor.
         /// </summary>
-        public BlurRenderer()
+        public BlurRenderer(float unitSie, float aspectRatio) : base(unitSie, aspectRatio)
         {
             Init(Resources.ReadText("MiCore2d.resources.basic.vert"), Resources.ReadText("MiCore2d.resources.blur.frag"));
         }

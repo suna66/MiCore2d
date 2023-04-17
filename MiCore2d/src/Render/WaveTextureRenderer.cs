@@ -35,7 +35,7 @@ namespace MiCore2d
         /// <summary>
         /// Constructor.
         /// </summary>
-        public WaveTextureRenderer()
+        public WaveTextureRenderer(float unitSize, float aspectRatio) : base(unitSize, aspectRatio)
         {
             Init(Resources.ReadText("MiCore2d.resources.basic.vert"), Resources.ReadText("MiCore2d.resources.wave.frag"));
         }

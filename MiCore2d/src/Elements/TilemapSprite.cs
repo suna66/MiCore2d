@@ -30,34 +30,14 @@ namespace MiCore2d
         {
             texture = new Texture2dTile(file, tileWidth, tileHeight);
             float aspectRatio = texture.Width / (float)texture.Height;
-            scale.X = unitSize * aspectRatio;
-            scale.Y = unitSize;
+            // scale.X = unitSize * aspectRatio;
+            // scale.Y = unitSize;
+            AspectRatio = aspectRatio;
             Unit = unitSize;
             TileMap = tileMap;
             float[] tileMapF = VectorF.Vector4ToFloat(tileMap);
-            DrawRenderer = new TilemapRenderer(tileMapF, isDynamic);
+            DrawRenderer = new TilemapRenderer(tileMapF, isDynamic, unitSize, aspectRatio);
         }
-
-        // /// <summary>
-        // /// Constructor
-        // /// </summary>
-        // /// <param name="file">image file path</param>
-        // /// <param name="tileWidth">size of tile width</param>
-        // /// <param name="tileHeight">size of tile height</param>
-        // /// <param name="unitSize">unit size</param>
-        // /// <param name="tileMap">tilemap data</param>
-        // /// <param name="isDynamic">dynamic renderer of tile</param>
-        // /// <returns></returns>
-        // public TilemapSprite(string file, int tileWidth, int tileHeight, float unitSize,  float[] tileMap, bool isDynamic) : base()
-        // {
-        //     texture = new Texture2dTile(file, tileWidth, tileHeight);
-        //     float aspectRatio = texture.Width / (float)texture.Height;
-        //     scale.X = unitSize * aspectRatio;
-        //     scale.Y = unitSize;
-        //     Unit = unitSize;
-        //     TileMap = VectorF.FloatToVector4(tileMap);
-        //     DrawRenderer = new TilemapRenderer(tileMap, isDynamic);
-        // }
 
         /// <summary>
         /// Constructor
@@ -73,11 +53,12 @@ namespace MiCore2d
         {
             texture = new Texture2dTile(file, tileWidth, tileHeight);
             float aspectRatio = texture.Width / (float)texture.Height;
-            scale.X = unitSize * aspectRatio;
-            scale.Y = unitSize;
+            AspectRatio = aspectRatio;
+            // scale.X = unitSize * aspectRatio;
+            // scale.Y = unitSize;
             Unit = unitSize;
             TileMap = VectorF.Vector4Zero(tileNum);
-            DrawRenderer = new TilemapRenderer(tileNum, isDynamic);   
+            DrawRenderer = new TilemapRenderer(tileNum, isDynamic, unitSize, aspectRatio);   
         }
 
         // /// <summary>

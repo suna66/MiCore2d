@@ -19,7 +19,7 @@ namespace MiCore2d
         /// <summary>
         /// Constructor.
         /// </summary>
-        public TilemapRenderer(float[] tileMap, bool isDynamic)
+        public TilemapRenderer(float[] tileMap, bool isDynamic) : base(1.0f, 1.0f)
         {
             _tileMap = tileMap;
             _isDynamic = isDynamic;
@@ -28,7 +28,42 @@ namespace MiCore2d
             InitTilemap();
         }
 
-        public TilemapRenderer(int tileNum, bool isDynamic)
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        public TilemapRenderer(float[] tileMap, bool isDynamic, float unitSize, float aspectRatio) : base(unitSize, aspectRatio)
+        {
+            _tileMap = tileMap;
+            _isDynamic = isDynamic;
+
+            Init(Resources.ReadText("MiCore2d.resources.instanced.vert"), Resources.ReadText("MiCore2d.resources.instanced.frag"));
+            InitTilemap();
+        }
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="tileNum"></param>
+        /// <param name="isDynamic"></param>
+        /// <returns></returns>
+        public TilemapRenderer(int tileNum, bool isDynamic) : base(1.0f, 1.0f)
+        {
+            _tileMap = Enumerable.Repeat<float>(0.0f, tileNum*4).ToArray();
+            _isDynamic = isDynamic;
+            
+            Init(Resources.ReadText("MiCore2d.resources.instanced.vert"), Resources.ReadText("MiCore2d.resources.instanced.frag"));
+            InitTilemap();
+        }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="tileNum"></param>
+        /// <param name="isDynamic"></param>
+        /// <param name="unitSize"></param>
+        /// <param name="aspectRatio"></param>
+        /// <returns></returns>
+        public TilemapRenderer(int tileNum, bool isDynamic, float unitSize, float aspectRatio) : base(unitSize, aspectRatio)
         {
             _tileMap = Enumerable.Repeat<float>(0.0f, tileNum*4).ToArray();
             _isDynamic = isDynamic;

@@ -19,10 +19,10 @@ namespace MiCore2d
         {
             texture = null;
 
-            scale.X = unitSize;
-            scale.Y = unitSize;
+            // scale.X = unitSize;
+            // scale.Y = unitSize;
             Unit = unitSize;
-            DrawRenderer = new PolygonRenderer();
+            DrawRenderer = new PolygonRenderer(unitSize, 1.0f);
         }
 
         /// <summary>

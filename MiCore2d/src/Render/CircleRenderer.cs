@@ -19,7 +19,7 @@ namespace MiCore2d
         /// <summary>
         /// Constructor.
         /// </summary>
-        public CircleRenderer()
+        public CircleRenderer(float unitSize, float aspectRatio) : base(unitSize, aspectRatio)
         {
             Init(Resources.ReadText("MiCore2d.resources.basic.vert"), Resources.ReadText("MiCore2d.resources.circle.frag"));
         }

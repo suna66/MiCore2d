@@ -27,8 +27,10 @@ namespace MiCore2d
         /// </summary>
         public override void OnLoad()
         {
-            WidthUnit = element.Scale.X;
-            HeightUnit = element.Scale.Y;
+            // WidthUnit = element.Scale.X;
+            // HeightUnit = element.Scale.Y;
+            WidthUnit = element.Width;
+            HeightUnit = element.Height;
             PositionList = GetTilemapVector();
         }
 
@@ -118,8 +120,10 @@ namespace MiCore2d
         {
             if (IsDynamic)
             {
-                WidthUnit = element.Scale.X;
-                HeightUnit = element.Scale.Y;
+                // WidthUnit = element.Scale.X;
+                // HeightUnit = element.Scale.Y;
+                WidthUnit = element.Width;
+                HeightUnit = element.Height;
                 PositionList = GetTilemapVector();
             }
             collidedElementPosition = Vector3.Zero;
@@ -136,8 +140,10 @@ namespace MiCore2d
         {
             if (IsDynamic)
             {
-                WidthUnit = element.Scale.X;
-                HeightUnit = element.Scale.Y;
+                // WidthUnit = element.Scale.X;
+                // HeightUnit = element.Scale.Y;
+                WidthUnit = element.Width;
+                HeightUnit = element.Height;
                 PositionList = GetTilemapVector();
             }
             foreach(Vector3 pos in PositionList)
@@ -159,8 +165,10 @@ namespace MiCore2d
         {
             if (IsDynamic)
             {
-                WidthUnit = element.Scale.X;
-                HeightUnit = element.Scale.Y;
+                // WidthUnit = element.Scale.X;
+                // HeightUnit = element.Scale.Y;
+                WidthUnit = element.Width;
+                HeightUnit = element.Height;
                 PositionList = GetTilemapVector();
             }
             foreach(Vector3 pos in PositionList)

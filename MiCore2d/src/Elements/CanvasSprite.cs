@@ -20,10 +20,11 @@ namespace MiCore2d
         {
             texture = new Texture2dCanvas(width, height);
             float aspectRatio = texture.Width / (float)texture.Height;
-            scale.X = unitSize * aspectRatio;
-            scale.Y = unitSize;
+            // scale.X = unitSize * aspectRatio;
+            // scale.Y = unitSize;
+            AspectRatio = aspectRatio;
             Unit = unitSize;
-            DrawRenderer = new CanvasRenderer();
+            DrawRenderer = new CanvasRenderer(unitSize, aspectRatio);
         }
 
         /// <summary>
