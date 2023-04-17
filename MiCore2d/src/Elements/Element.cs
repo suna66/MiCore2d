@@ -290,9 +290,11 @@ namespace MiCore2d
         public void CopyPositions(Element e)
         {
             position = e.Position;
-            rotation = e.Rotation;
+            RadianX = e.RadianX;
+            RadianY = e.RadianY;
+            RadianZ = e.RadianZ;
             Alpha = e.Alpha;
-            SetScale(e.Scale.Y/e.Unit);
+            scale = Scale;
         }
 
         /// <summary>

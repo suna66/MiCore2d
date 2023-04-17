@@ -85,7 +85,7 @@ namespace MiCore2d
             MouseButtonState state = element.CurrentGameScene.MouseStateInfo;
 
             _pressState = state.IsAnyPress;
-            bool hit = CollisionUtil.PointBox(mouse.Position, element.Position, element.Scale.X, element.Scale.Y);
+            bool hit = CollisionUtil.PointBox(mouse.Position, element.Position, element.Width, element.Height);
 
             if (hit)
             {
