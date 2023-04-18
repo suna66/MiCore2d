@@ -636,7 +636,7 @@ namespace MiCore2d
         /// OriginVertex
         /// </summary>
         /// <value>non-rotated and original position shape vertexs</value>
-        public Vector2[] OriginVertex
+        public Vector2[] OriginVertix
         {
             get
             {
@@ -655,13 +655,13 @@ namespace MiCore2d
         /// Vertex
         /// </summary>
         /// <value>vertex position</value>
-        public Vector2[] Vertex
+        public Vector2[] Vertix
         {
             get
             {
                 int i = 0;
-                Vector2[] vertex = new Vector2[4];
-                Vector2[] origin = OriginVertex;
+                Vector2[] vertix = new Vector2[4];
+                Vector2[] origin = OriginVertix;
                 foreach(Vector2 v in origin)
                 {
                     //Z
@@ -671,9 +671,9 @@ namespace MiCore2d
                     y = y * MathF.Cos(RadianX);
                     //y
                     x = x * MathF.Cos(RadianY);
-                    vertex[i++] = new Vector2(x + position.X, y + position.Y); 
+                    vertix[i++] = new Vector2(x + position.X, y + position.Y);
                 }
-                return vertex;
+                return vertix;
             }
         }
 

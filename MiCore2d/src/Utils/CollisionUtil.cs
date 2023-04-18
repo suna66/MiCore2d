@@ -241,5 +241,169 @@ namespace MiCore2d
             }
             return false;
         }
+
+        /// <summary>
+        /// PointPoly
+        /// </summary>
+        /// <param name="vertix">vertix of polygon</param>
+        /// <param name="p">point</param>
+        /// <returns>result of collision</returns>
+        public static bool PointPoly(Vector2[] vertix, Vector2 p)
+        {
+            bool isCollision = false;
+
+            int next = 0;
+            for (int i = 0; i < vertix.Length; i++)
+            {
+                next = i + 1;
+                if (next == vertix.Length)
+                {
+                    next = 0;
+                }
+                
+                Vector2 vc = vertix[i];
+                Vector2 vn = vertix[next];
+
+                if (((vc.Y >= p.Y && vn.Y < p.Y) || (vc.Y < p.Y && vn.Y >= p.Y))
+                    && (p.X < (vn.X - vc.X) * (p.Y - vc.Y) / (vn.Y-vc.Y) + vc.X))
+                {
+                    isCollision = !isCollision;
+                }
+            }
+            return isCollision;
+        }
+
+        /// <summary>
+        /// CirclePoly
+        /// </summary>
+        /// <param name="vertix">vertix of polygon</param>
+        /// <param name="c">circle centor</param>
+        /// <param name="radius">radius</param>
+        /// <returns>result of collision</returns>
+        public static bool CirclePoly(Vector2[] vertix, Vector3 c, float radius)
+        {
+            int next = 0;
+            for (int i = 0; i < vertix.Length; i++)
+            {
+                next = i + 1;
+                if (next == vertix.Length)
+                {
+                    next = 0;
+                }
+                
+                Vector2 vc = vertix[i];
+                Vector2 vn = vertix[next];
+
+                Line line = new Line(vc.X, vc.Y, vn.X, vn.Y);
+                if (LineCircle(line, c, radius))
+                {
+                    return true;
+                }
+            }
+            //check inside.
+            if (PointPoly(vertix, new Vector2(c.X, c.Y)))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// BoxPoly
+        /// </summary>
+        /// <param name="vertix">vertix of polygon</param>
+        /// <param name="b">rectangle centor</param>
+        /// <param name="width">rectangle width</param>
+        /// <param name="height">rectangle height</param>
+        /// <returns>result of collision</returns>
+        public static bool BoxPoly(Vector2[] vertix, Vector3 b, float width, float height)
+        {
+            int next = 0;
+            for (int i = 0; i < vertix.Length; i++)
+            {
+                next = i + 1;
+                if (next == vertix.Length)
+                {
+                    next = 0;
+                }
+                
+                Vector2 vc = vertix[i];
+                Vector2 vn = vertix[next];
+
+                Line line = new Line(vc.X, vc.Y, vn.X, vn.Y);
+                if (LineBox(line, b, width, height))
+                {
+                    return true;
+                }
+                if (PointPoly(vertix, new Vector2(b.X, b.Y)))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// LinePoly
+        /// </summary>
+        /// <param name="vertix">ertix of polygon</param>
+        /// <param name="line">line</param>
+        /// <returns>result of collision</returns>
+        public static bool LinePoly(Vector2[] vertix, Line line)
+        {
+            int next = 0;
+            for (int i = 0; i < vertix.Length; i++)
+            {
+                next = i + 1;
+                if (next == vertix.Length)
+                {
+                    next = 0;
+                }
+                
+                Vector2 vc = vertix[i];
+                Vector2 vn = vertix[next];
+
+                Line linePoly = new Line(vc.X, vc.Y, vn.X, vn.Y);
+                if (LineLine(linePoly, line))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// PolyPoly
+        /// </summary>
+        /// <param name="vertix1">ertix of polygon</param>
+        /// <param name="vertix2">ertix of polygon</param>
+        /// <returns>result of collision</returns>
+        public static bool PolyPoly(Vector2[] vertix1, Vector2[] vertix2)
+        {
+            int next = 0;
+            for (int i = 0; i < vertix1.Length; i++)
+            {
+                next = i + 1;
+                if (next == vertix1.Length)
+                {
+                    next = 0;
+                }
+                
+                Vector2 vc = vertix1[i];
+                Vector2 vn = vertix1[next];
+
+                Line line = new Line(vc.X, vc.Y, vn.X, vn.Y);
+                if (LinePoly(vertix2, line))
+                {
+                    return true;
+                }
+                if (PointPoly(vertix1, vertix2[0]))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }
