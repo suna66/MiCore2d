@@ -293,7 +293,6 @@ namespace MiCore2d
             RadianX = e.RadianX;
             RadianY = e.RadianY;
             RadianZ = e.RadianZ;
-            Alpha = e.Alpha;
             scale = Scale;
         }
 

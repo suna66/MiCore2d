@@ -24,7 +24,7 @@ namespace Example.Animation
 
             ImageSprite awe = new ImageSprite("../resource/awesomeface.png", 3);
             awe.SetPosition(0.0f, -3.0f, 0.0f);
-            awe.AddComponent<BoxCollider>();
+            awe.AddComponent<CircleCollider>();
             awe.AddComponent<HardBody>();
 
             ImageSprite backgorund = new ImageSprite("../resource/park.jpg", 10);

@@ -14,9 +14,9 @@ namespace Example.Renderer
         BlurRenderer blurRenderer = null!;
         WaveTextureRenderer waveRenderer = null!;
         SepiaTextureRenderer sepiaRenderer = null!;
-        NoiseRenderer noiseRendere = null!;
+        NoiseEffectRenderer noiseRendere = null!;
         SwipeRenderer swipeRenderer = null!;
-        CircleRenderer circleRenderer = null!;
+        CircleEffectRenderer circleRenderer = null!;
 
         private float interval = 0.0f;
         
@@ -66,13 +66,13 @@ namespace Example.Renderer
                     else if (renderType == 2)
                     {
                         renderType = 3;
-                        noiseRendere = new NoiseRenderer(10, backgorund.AspectRatio);
+                        noiseRendere = new NoiseEffectRenderer(10, backgorund.AspectRatio);
                         backgorund.SetRenderer(noiseRendere);
                     }
                     else if (renderType == 3)
                     {
                         renderType = 4;
-                        circleRenderer = new CircleRenderer(10, backgorund.AspectRatio);
+                        circleRenderer = new CircleEffectRenderer(10, backgorund.AspectRatio);
                         backgorund.SetRenderer(circleRenderer);
                     }
                     else
