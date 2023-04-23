@@ -522,13 +522,6 @@ namespace MiCore2d
             {
                 value = MathF.Abs(value);
             }
-            // float aspectRatio = 1.0f;
-            // if (texture != null)
-            //     aspectRatio = texture.Width / (float)texture.Height;
-    
-            // scale.X = Unit * aspectRatio * value;
-            // scale.Y = Unit * value;
-            // scale.Z = 1.0f;
             scale.X = value;
             scale.Y = value;
             scale.Z = 1.0f;
@@ -540,7 +533,6 @@ namespace MiCore2d
         /// <param name="value">scale value</param>
         public void SetScaleX(float value)
         {
-            //scale.X = Unit * value;
             scale.X = value;
         }
 
@@ -550,7 +542,6 @@ namespace MiCore2d
         /// <param name="value">scale value</param>
         public void SetScaleY(float value)
         {
-            //scale.Y = Unit * value;
             scale.Y = value;
         }
 
@@ -639,8 +630,8 @@ namespace MiCore2d
         {
             get
             {
-                float x = Width * 0.5f;
-                float y = Height * 0.5f;
+                float x = OriginWidth * scale.X * 0.5f;
+                float y = OriginHeight * scale.Y * 0.5f;
                 Vector2[] vertex = new Vector2[4];
                 vertex[0] = new Vector2(-x,  y);
                 vertex[1] = new Vector2( x,  y);
@@ -664,8 +655,8 @@ namespace MiCore2d
                 foreach(Vector2 v in origin)
                 {
                     //Z
-                    float x = v.X * MathF.Cos(RadianZ) + v.Y * MathF.Sin(RadianZ);
-                    float y = -v.X * MathF.Sin(RadianZ) + v.Y * MathF.Cos(RadianZ);
+                    float x = v.X * MathF.Cos(-RadianZ) + v.Y * MathF.Sin(-RadianZ);
+                    float y = -v.X * MathF.Sin(-RadianZ) + v.Y * MathF.Cos(-RadianZ);
                     //x
                     y = y * MathF.Cos(RadianX);
                     //y
