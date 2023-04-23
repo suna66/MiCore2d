@@ -7,6 +7,7 @@ namespace Example.Collision
     public class StartScene : GameScene
     {
         ImageSprite awe;
+        ImageSprite awe0;
         PlainSprite plain;
         public StartScene()
         {
@@ -15,12 +16,19 @@ namespace Example.Collision
 
         public override void Load()
         {
+            awe0 = new ImageSprite("../resource/awesomeface.png", 1);
+            awe0.AddComponent<BoxCollider>();
+            awe0.AddComponent<PlayerScript>();
+            awe0.Position = new Vector3(-6.0f, 0.0f, 0.0f);
             awe = new ImageSprite("../resource/awesomeface.png", 4);
+            awe.AddComponent<CircleCollider>();
+            awe.Position = new Vector3(1.0f, 0.5f, 0.0f);
             plain = new PlainSprite(4);
             plain.Alpha = 0.5f;
             plain.SetColor(1.0f, 0.0f, 0.0f);
             plain.RelationElement = awe;
             AddElement("awe", awe);
+            AddElement("awe0", awe0);
             AddElement("plain", plain);
         }
 
@@ -32,18 +40,18 @@ namespace Example.Collision
                 Environment.Exit(0);
             }
 
-            awe.RadianZ = (float)CurrentTime;
-            plain.CopyPositions(awe);
-            Vector2[] vertix = awe.Vertix;
-            MousePosition mouse = MousePositionInfo;
-            if (CollisionUtil.PointPoly(vertix, mouse.Position))
-            {
-                plain.SetColor(0.0f, 0.0f, 1.0f);
-            }
-            else
-            {
-                plain.SetColor(1.0f, 0.0f, 0.0f);
-            }
+            // awe.RadianZ = (float)CurrentTime;
+            // plain.CopyPositions(awe);
+            // Vector2[] vertix = awe.Vertix;
+            // MousePosition mouse = MousePositionInfo;
+            // if (CollisionUtil.PointPoly(vertix, mouse.Position))
+            // {
+            //     plain.SetColor(0.0f, 0.0f, 1.0f);
+            // }
+            // else
+            // {
+            //     plain.SetColor(1.0f, 0.0f, 0.0f);
+            // }
         }
     }
 }
