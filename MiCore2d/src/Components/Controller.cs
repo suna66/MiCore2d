@@ -196,7 +196,7 @@ namespace MiCore2d
         }
 
         /// <summary>
-        /// Calculation position of circle collider object hitted circle collider.
+        /// CalcCircleCircle. Calculation position of circle collider object hitted circle collider object.
         /// </summary>
         /// <param name="thisPos">this element position</param>
         /// <param name="targetPos">target collided postition</param>
@@ -237,6 +237,13 @@ namespace MiCore2d
             src.SetPosition(thisPos); 
         }
 
+        /// <summary>
+        /// CalcBoxCircle. Calculation position of box collider object hitted circle collider object.
+        /// </summary>
+        /// <param name="thisPos"></param>
+        /// <param name="targetPos"></param>
+        /// <param name="src"></param>
+        /// <param name="target"></param>
         protected void CalcBoxCircle(Vector3 thisPos, Vector3 targetPos, Collider src, Collider target)
         {
             float x0 = 0.0f;
@@ -262,7 +269,6 @@ namespace MiCore2d
             float radian = MathF.Atan2(y0, x0);
             float x1 = radius0 * MathF.Cos(radian) + targetPos.X;
             float y1 = radius0 * MathF.Sin(radian) + targetPos.Y;
-
 
             float distanceY = MathF.Max(thisPos.Y, targetPos.Y) - MathF.Min(thisPos.Y, targetPos.Y);
             float distanceX = MathF.Max(thisPos.X, targetPos.X) - MathF.Min(thisPos.X, targetPos.X);
@@ -322,6 +328,125 @@ namespace MiCore2d
         }
 
         /// <summary>
+        /// CalcCircleBox.
+        /// </summary>
+        /// <param name="thisPos"></param>
+        /// <param name="targetPos"></param>
+        /// <param name="src"></param>
+        /// <param name="target"></param>
+        protected void CalcCircleBox(Vector3 thisPos, Vector3 targetPos, Collider src, Collider target)
+        {
+            float distanceY = MathF.Max(thisPos.Y, targetPos.Y) - MathF.Min(thisPos.Y, targetPos.Y);
+            float distanceX = MathF.Max(thisPos.X, targetPos.X) - MathF.Min(thisPos.X, targetPos.X);
+
+            float cond_distanceX = src.WidthUnit/2 + target.WidthUnit/2;
+            float cond_distanceY = src.HeightUnit/2 + target.HeightUnit/2;
+            float sinkX = 0.0f;
+            float sinkY = 0.0f;
+
+            if (cond_distanceX > distanceX)
+            {
+                sinkX = cond_distanceX - distanceX;
+            }
+
+            if (cond_distanceY > distanceY)
+            {
+                sinkY = cond_distanceY - distanceY;
+            }
+
+            //if (distanceX < distanceY)
+            if (sinkX > sinkY)
+            {
+                float halfWidth = target.WidthUnit * 0.5f;
+                if (thisPos.X >= targetPos.X - halfWidth && thisPos.X <= targetPos.X + halfWidth)
+                {
+                    if (thisPos.Y < targetPos.Y)
+                    {
+                        //hit under
+                        thisPos.Y = targetPos.Y - target.HeightUnit/2 - src.HeightUnit/2;
+                    }
+                    else
+                    {
+                        //hit upper
+                        thisPos.Y = targetPos.Y + target.HeightUnit/2 + src.HeightUnit/2;
+                    }
+                }
+                else
+                {
+                    float radius = src.RadiusUnit;
+                    float targetY = 0.0f;
+                    float diff = 0.0f;
+                    if (thisPos.Y > targetPos.Y)
+                    {
+                        targetY = targetPos.Y + target.HeightUnit * 0.5f;
+                        diff = MathF.Abs(thisPos.Y - targetY);
+                    }
+                    else
+                    {
+                        targetY = targetPos.Y - target.HeightUnit * 0.5f;
+                        diff = MathF.Abs(targetY - thisPos.Y);
+                    }
+                    float radian = MathF.Acos(diff/radius);
+                    float x0 = MathF.Cos(MathF.PI/2 - radian) * radian;
+
+                    if (thisPos.X > targetPos.X)
+                    {
+                        thisPos.X = targetPos.X + target.WidthUnit * 0.5f + x0;
+                    }
+                    else
+                    {
+                        thisPos.X = targetPos.X - target.WidthUnit * 0.5f - x0;
+                    }
+                }
+            }
+            else
+            {
+                float halfHeight = target.HeightUnit * 0.5f;
+                if (thisPos.Y >= targetPos.Y - halfHeight && thisPos.Y <= targetPos.Y + halfHeight)
+                {
+                    if (thisPos.X < targetPos.X)
+                    {
+                        //hit left
+                        thisPos.X = targetPos.X - target.WidthUnit/2 - src.WidthUnit/2;
+                    }
+                    else
+                    {
+                        //hit right
+                        thisPos.X = targetPos.X + target.WidthUnit/2 + src.WidthUnit/2;
+                    }
+                }
+                else
+                {
+                    float radius = src.RadiusUnit;
+                    float targetX = 0.0f;
+                    float diff = 0.0f;
+                    if (thisPos.X > targetPos.X)
+                    {
+                        targetX = targetPos.X + target.WidthUnit * 0.5f;
+                        diff = MathF.Abs(thisPos.X - targetX);
+                    }
+                    else
+                    {
+                        targetX = targetPos.X - target.WidthUnit * 0.5f;
+                        diff = MathF.Abs(targetX - thisPos.X);   
+                    }
+                    float radian = MathF.Acos(diff/radius);
+                    float y0 = MathF.Cos(MathF.PI/2 - radian) * radian;
+
+                    if (thisPos.Y > targetPos.Y)
+                    {
+                        thisPos.Y = targetPos.Y + target.HeightUnit * 0.5f + y0;
+                    }
+                    else
+                    {
+                        thisPos.Y = targetPos.Y - target.HeightUnit * 0.5f - y0;
+                    }
+                }
+            }
+            src.SetPosition(thisPos);
+        }
+
+        /// <summary>
         /// OnSolidCollision. collided solid object.
         /// </summary>
         /// <param name="src">thie element collider</param>
@@ -338,6 +463,10 @@ namespace MiCore2d
             else if (src is BoxCollider && target is CircleCollider )
             {
                 CalcBoxCircle(thisPos, collidedTargetPosition, src, target);
+            }
+            else if (src is CircleCollider)
+            {
+                CalcCircleBox(thisPos, collidedTargetPosition, src, target);
             }
             else
             {

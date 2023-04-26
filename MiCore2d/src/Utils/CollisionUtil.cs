@@ -48,31 +48,42 @@ namespace MiCore2d
         /// <returns>result of collision</returns>
         public static bool BoxCircle(Vector3 b, float width, float height, Vector3 c, float radius)
         {
-            float cond_distanceX = width/2 + radius;
-            float cond_distanceY = height/2 + radius;
-
-            float maxY = MathF.Max(b.Y, c.Y);
-            float minY = MathF.Min(b.Y, c.Y);
-            float distanceY = maxY - minY;
-            float maxX = MathF.Max(b.X, c.X);
-            float minX = MathF.Min(b.X, c.X);
-            float distanceX = maxX - minX;
+            float testX = c.X;
+            float testY = c.Y;
 
             if (b.Z != c.Z)
             {
                 return false;
             }
-            if (distanceX > cond_distanceX)
-                return false;
-            if (distanceY > cond_distanceY)
-                return false;
-            if (distanceX <= width/2)
-                return true;
-            if (distanceY <= height/2)
-                return true;
 
-            float dist_sq = (distanceX - width)*(distanceX - width) + (distanceY - height)*(distanceY - height);
-            return (dist_sq <= (radius * radius));
+            float halfW = width/2;
+            float halfH = height/2;
+
+            if (c.X < b.X - halfW)
+            {
+                testX = b.X - halfW;
+            }
+            else if (c.X > b.X + halfW)
+            {
+                testX = b.X + halfW;
+            }
+            if (c.Y < b.Y - halfH)
+            {
+                testY = b.Y - halfH;
+            }
+            else if (c.Y > b.Y + halfH)
+            {
+                testY = b.Y + halfH;
+            }
+
+            float distX = c.X - testX;
+            float distY = c.Y - testY;
+            float distance = MathF.Sqrt((distX * distX) + (distY * distY));
+            if (distance <= radius)
+            {
+                return true;
+            }
+            return false;
         }
 
         /// <summary>

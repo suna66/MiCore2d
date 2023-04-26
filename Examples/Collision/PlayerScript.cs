@@ -7,7 +7,6 @@ namespace Example.Collision
 {
     public class PlayerScript : Controller
     {
-
         public override void Start()
         {
             IsEnableCollsionDetect = true;
@@ -34,5 +33,15 @@ namespace Example.Collision
                 element.AddPositionX(5 * (float)elapsed);
             }
         }
+
+        // public override void OnEnterCollision(Element target)
+        // {
+        //     target.Alpha = 0.4f;
+        // }
+
+        // public override void OnLeaveCollision(Element target)
+        // {
+        //     target.Alpha = 1.0f;
+        // }
     }
 }
