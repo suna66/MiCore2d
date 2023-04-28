@@ -19,6 +19,16 @@ namespace MiCore2d
         protected Vector3 position = Vector3.Zero;
 
         /// <summary>
+        /// priviusePosition
+        /// </summary>
+        protected Vector3 previousPosition = Vector3.Zero;
+
+        /// <summary>
+        /// mobility
+        /// </summary>
+        protected Vector3 mobility = Vector3.Zero;
+
+        /// <summary>
         /// rotation.
         /// </summary>
         protected Matrix4 rotation = Matrix4.Identity;
@@ -128,6 +138,12 @@ namespace MiCore2d
         /// </summary>
         /// <value></value>
         public float RadianZ {get; set; } = 0.0f;
+
+        /// <summary>
+        /// Weight
+        /// </summary>
+        /// <value>int</value>
+        public int Weight { get; set; } = 0;
 
         /// <summary>
         /// Constructor.
@@ -260,6 +276,8 @@ namespace MiCore2d
             if (Disabled)
                 return;
             
+            previousPosition = position;
+            
             bool hasDestoryed = false;
             if (_componentList != null)
             {
@@ -281,6 +299,7 @@ namespace MiCore2d
                     _componentList.RemoveAll(p => p.Destroyed == true);
                 }
             }
+            mobility = position - previousPosition;
         }
 
         /// <summary>
@@ -441,6 +460,15 @@ namespace MiCore2d
         public void AddPosition(Vector3 pos)
         {
             position += pos;
+        }
+
+        /// <summary>
+        /// Mobility
+        /// </summary>
+        /// <value>vector3</value>
+        public Vector3 Mobility
+        {
+            get => mobility;
         }
 
         /// <summary>

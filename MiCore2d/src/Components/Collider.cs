@@ -94,6 +94,14 @@ namespace MiCore2d
         }
 
         /// <summary>
+        /// GetElement
+        /// </summary>
+        /// <returns>Element</returns>
+        public virtual Element GetElement() {
+            return element;
+        }
+
+        /// <summary>
         /// Collision. check collided to target.
         /// </summary>
         /// <param name="target">target element</param>
