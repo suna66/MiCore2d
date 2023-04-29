@@ -141,7 +141,7 @@ namespace MiCore2d
         /// CalcObjectPosition. Calecration of position of collistion.
         /// </summary>
         /// <param name="flowPos">flowing element position</param>
-        /// <param name="fixedPos">fixed collided postition</param>
+        /// <param name="fixedPos">fixed element postition</param>
         /// <param name="flowCollider">collision component flowing element</param>
         /// <param name="fixedCollider">collision component fixed element</param>
         protected void CalcBoxBox(Vector3 flowPos, Vector3 fixedPos, Collider flowCollider, Collider fixedCollider)
@@ -151,18 +151,8 @@ namespace MiCore2d
 
             float cond_distanceX = flowCollider.WidthUnit * 0.5f + fixedCollider.WidthUnit * 0.5f;
             float cond_distanceY = flowCollider.HeightUnit * 0.5f + fixedCollider.HeightUnit * 0.5f;
-            float sinkX = 0.0f;
-            float sinkY = 0.0f;
-
-            if (cond_distanceX > distanceX)
-            {
-                sinkX = cond_distanceX - distanceX;
-            }
-
-            if (cond_distanceY > distanceY)
-            {
-                sinkY = cond_distanceY - distanceY;
-            }
+            float sinkX = (cond_distanceX > distanceX) ? cond_distanceX - distanceX : 0.0f;
+            float sinkY = (cond_distanceY > distanceY) ? cond_distanceY - distanceY : 0.0f;
 
             //if (distanceX < distanceY)
             if (sinkX > sinkY)
@@ -198,7 +188,7 @@ namespace MiCore2d
         /// CalcCircleCircle. Calculation position of circle collider object hitted circle collider object.
         /// </summary>
         /// <param name="flowPos">flowing element position</param>
-        /// <param name="fixedPos">fixed collided postition</param>
+        /// <param name="fixedPos">fixed element postition</param>
         /// <param name="flowCollider">collision component flowing element</param>
         /// <param name="fixedCollider">collision component fixed element</param>
         protected void CalcCircleCircle(Vector3 flowPos, Vector3 fixedPos, Collider flowCollider, Collider fixedCollider)
@@ -239,103 +229,167 @@ namespace MiCore2d
         /// <summary>
         /// CalcBoxCircle. Calculation position of box collider object hitted circle collider object.
         /// </summary>
-        /// <param name="boxPos">flowing element position</param>
-        /// <param name="circlePos">fixed collided postition</param>
+        /// <param name="boxPos">flowing element position(box element)</param>
+        /// <param name="circlePos">fixed element postition(circle element)</param>
         /// <param name="boxCollider">collision component flowing element</param>
         /// <param name="circleCollider">collision component fixed element</param>
-        /// <param name="whitch">false: move box object, true: move circle object</param>
-        protected void CalcBoxCircle(Vector3 boxPos, Vector3 circlePos, Collider boxCollider, Collider circleCollider, bool which)
+        protected void CalcBoxCircle(Vector3 flowPos, Vector3 fixedPos, Collider flowCollider, Collider fixedCollider)
         {
             float x0 = 0.0f;
             float y0 = 0.0f;
 
-            Vector3 currentPos = boxPos;
-
-            if (circlePos.X > boxPos.X)
+            if (fixedPos.X > flowPos.X)
             {
-                x0 = -(circlePos.X - boxPos.X);
+                x0 = -(fixedPos.X - flowPos.X);
             }
             else
             {
-                x0 = MathF.Abs(boxPos.X - circlePos.X);
+                x0 = MathF.Abs(flowPos.X - fixedPos.X);
             }
-            if (circlePos.Y > boxPos.Y)
+            if (fixedPos.Y > flowPos.Y)
             {
-                y0 = -(circlePos.Y - boxPos.Y);
+                y0 = -(fixedPos.Y - flowPos.Y);
             }
             else
             {
-                y0 = MathF.Abs(boxPos.Y - circlePos.Y);
+                y0 = MathF.Abs(flowPos.Y - fixedPos.Y);
             }
 
-            float radius0 = circleCollider.RadiusUnit;
+            float radius0 = fixedCollider.RadiusUnit;
             float radian = MathF.Atan2(y0, x0);
-            float x1 = radius0 * MathF.Cos(radian) + circlePos.X;
-            float y1 = radius0 * MathF.Sin(radian) + circlePos.Y;
+            float x1 = radius0 * MathF.Cos(radian) + fixedPos.X;
+            float y1 = radius0 * MathF.Sin(radian) + fixedPos.Y;
 
-            float distanceY = MathF.Max(boxPos.Y, circlePos.Y) - MathF.Min(boxPos.Y, circlePos.Y);
-            float distanceX = MathF.Max(boxPos.X, circlePos.X) - MathF.Min(boxPos.X, circlePos.X);
+            float distanceY = MathF.Max(flowPos.Y, fixedPos.Y) - MathF.Min(flowPos.Y, fixedPos.Y);
+            float distanceX = MathF.Max(flowPos.X, fixedPos.X) - MathF.Min(flowPos.X, fixedPos.X);
 
-            float cond_distanceX = boxCollider.WidthUnit * 0.5f + radius0;
-            float cond_distanceY = boxCollider.HeightUnit * 0.5f + radius0;
-            float sinkX = 0.0f;
-            float sinkY = 0.0f;
-
-            if (cond_distanceX > distanceX)
-            {
-                sinkX = cond_distanceX - distanceX;
-            }
-
-            if (cond_distanceY > distanceY)
-            {
-                sinkY = cond_distanceY - distanceY;
-            }
+            float cond_distanceX = flowCollider.WidthUnit * 0.5f + radius0;
+            float cond_distanceY = flowCollider.HeightUnit * 0.5f + radius0;
+            float sinkX = (cond_distanceX > distanceX) ? cond_distanceX - distanceX : 0.0f;
+            float sinkY = (cond_distanceY > distanceY) ? cond_distanceY - distanceY : 0.0f;
 
             if (sinkX > sinkY)
             {
-                float halfHeight = boxCollider.HeightUnit * 0.5f;
+                float halfHeight = flowCollider.HeightUnit * 0.5f;
                 //hit upper or futter
-                if (y1 >= (boxPos.Y - halfHeight) && y1 <= (boxPos.Y + halfHeight))
+                if (y1 >= (flowPos.Y - halfHeight) && y1 <= (flowPos.Y + halfHeight))
                 {
                     float y2 = 0.0f;
-                    if (boxPos.Y <= y1)
+                    if (flowPos.Y <= y1)
                     {
-                        y2 = y1 - boxCollider.HeightUnit * 0.5f;
+                        y2 = y1 - flowCollider.HeightUnit * 0.5f;
                     }
                     else
                     {
-                        y2 = y1 + boxCollider.HeightUnit * 0.5f;
+                        y2 = y1 + flowCollider.HeightUnit * 0.5f;
                     }
-                    boxPos.Y = y2;
+                    flowPos.Y = y2;
                 }
             }
             else
             {
-                float halfWidth = boxCollider.WidthUnit * 0.5f;
+                float halfWidth = flowCollider.WidthUnit * 0.5f;
                 //hit side
-                if (x1 >= (boxPos.X - halfWidth) && x1 <= (boxPos.X + halfWidth))
+                if (x1 >= (flowPos.X - halfWidth) && x1 <= (flowPos.X + halfWidth))
                 {
                     float x2 = 0.0f;
-                    if (boxPos.X <= x1)
+                    if (flowPos.X <= x1)
                     {
-                        x2 = x1 - boxCollider.WidthUnit * 0.5f;
+                        x2 = x1 - flowCollider.WidthUnit * 0.5f;
                     }
                     else
                     {
-                        x2 = x1 + boxCollider.WidthUnit * 0.5f;
+                        x2 = x1 + flowCollider.WidthUnit * 0.5f;
                     }
-                    boxPos.X = x2;
+                    flowPos.X = x2;
                 }
             }
-            if (which)
+            flowCollider.SetPosition(flowPos); 
+        }
+
+        /// <summary>
+        /// CalcBoxCircle. Calculation position of box collider object hitted circle collider object.
+        /// </summary>
+        /// <param name="boxPos">flowing element position(circole element)</param>
+        /// <param name="circlePos">fixed element postition(box element)</param>
+        /// <param name="boxCollider">collision component flowing element</param>
+        /// <param name="circleCollider">collision component fixed element</param>
+        /// <param name="whitch">false: move box object, true: move circle object</param>
+        protected void CalcCircleBox(Vector3 flowPos, Vector3 fixedPos, Collider flowCollider, Collider fixedCollider)
+        {
+            float x0 = 0.0f;
+            float y0 = 0.0f;
+
+            Vector3 currentPos = fixedPos;
+
+            if (flowPos.X > fixedPos.X)
             {
-                Vector3 mob = boxPos - currentPos;
-                circleCollider.SetPosition(circlePos - mob);
+                x0 = -(flowPos.X - fixedPos.X);
             }
             else
             {
-                boxCollider.SetPosition(boxPos); 
+                x0 = MathF.Abs(fixedPos.X - flowPos.X);
             }
+            if (flowPos.Y > fixedPos.Y)
+            {
+                y0 = -(flowPos.Y - fixedPos.Y);
+            }
+            else
+            {
+                y0 = MathF.Abs(fixedPos.Y - flowPos.Y);
+            }
+
+            float radius0 = flowCollider.RadiusUnit;
+            float radian = MathF.Atan2(y0, x0);
+            float x1 = radius0 * MathF.Cos(radian) + flowPos.X;
+            float y1 = radius0 * MathF.Sin(radian) + flowPos.Y;
+
+            float distanceY = MathF.Max(fixedPos.Y, flowPos.Y) - MathF.Min(fixedPos.Y, flowPos.Y);
+            float distanceX = MathF.Max(fixedPos.X, flowPos.X) - MathF.Min(fixedPos.X, flowPos.X);
+
+            float cond_distanceX = fixedCollider.WidthUnit * 0.5f + radius0;
+            float cond_distanceY = fixedCollider.HeightUnit * 0.5f + radius0;
+            float sinkX = (cond_distanceX > distanceX) ? cond_distanceX - distanceX : 0.0f;
+            float sinkY = (cond_distanceY > distanceY) ? cond_distanceY - distanceY : 0.0f;
+
+            if (sinkX > sinkY)
+            {
+                float halfHeight = fixedCollider.HeightUnit * 0.5f;
+                //hit upper or futter
+                if (y1 >= (fixedPos.Y - halfHeight) && y1 <= (fixedPos.Y + halfHeight))
+                {
+                    float y2 = 0.0f;
+                    if (fixedPos.Y <= y1)
+                    {
+                        y2 = y1 - fixedCollider.HeightUnit * 0.5f;
+                    }
+                    else
+                    {
+                        y2 = y1 + fixedCollider.HeightUnit * 0.5f;
+                    }
+                    fixedPos.Y = y2;
+                }
+            }
+            else
+            {
+                float halfWidth = fixedCollider.WidthUnit * 0.5f;
+                //hit side
+                if (x1 >= (fixedPos.X - halfWidth) && x1 <= (fixedPos.X + halfWidth))
+                {
+                    float x2 = 0.0f;
+                    if (fixedPos.X <= x1)
+                    {
+                        x2 = x1 - fixedCollider.WidthUnit * 0.5f;
+                    }
+                    else
+                    {
+                        x2 = x1 + fixedCollider.WidthUnit * 0.5f;
+                    }
+                    fixedPos.X = x2;
+                }
+            }
+            Vector3 mob = fixedPos - currentPos;
+            flowCollider.SetPosition(flowPos - mob);
         }
 
         /// <summary>
@@ -374,11 +428,11 @@ namespace MiCore2d
             }
             else if (flowCollider is BoxCollider && fixedCollider is CircleCollider )
             {
-                CalcBoxCircle(flowPos, fixedPos, flowCollider, fixedCollider, false);
+                CalcBoxCircle(flowPos, fixedPos, flowCollider, fixedCollider);
             }
             else if (flowCollider is CircleCollider)
             {
-                CalcBoxCircle(fixedPos, flowPos, fixedCollider, flowCollider, true);
+                CalcCircleBox(flowPos, fixedPos, flowCollider, fixedCollider);
             }
             else
             {
