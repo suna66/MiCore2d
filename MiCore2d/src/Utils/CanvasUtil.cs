@@ -48,6 +48,18 @@ namespace MiCore2d
             return font;
         }
 
+        /// <summary>
+        /// FontFromFile
+        /// </summary>
+        /// <param name="fontFile">file path</param>
+        /// <returns>SKTypeface</returns>
+        public static SKTypeface FontFromFile(string fontFile)
+        {
+            SKTypeface font;
+            font = SKTypeface.FromFile(fontFile);
+            return font;
+        }
+
 
         /// <summary>
         /// DrawString
