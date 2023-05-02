@@ -55,13 +55,23 @@ namespace MiCore2d
         }
 
         /// <summary>
-        /// getCollider. getting collider component specified element.
+        /// getCollider. get collider component specified element.
         /// </summary>
         /// <param name="e">target element</param>
         /// <returns>collider component</returns>
         private Collider getCollider(Element e)
         {
             return e.GetComponent<Collider>();
+        }
+
+        /// <summary>
+        /// getGravity. get gravity component.
+        /// </summary>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        private Gravity? getGravity(Element e)
+        {
+            return e.GetComponent<Gravity>();
         }
 
         /// <summary>
@@ -120,6 +130,7 @@ namespace MiCore2d
                             {
                                 OnSolidCollision(collider, target_collider, collidedTargetPosition);
                             }
+                            getGravity(element)?.ResetEffectTime();
                         }
                         else
                         {

@@ -5,6 +5,9 @@ using System.Collections.Specialized;
 
 namespace MiCore2d
 {
+    /// <summary>
+    /// GravityState
+    /// </summary>
     struct GravityState
     {
         public Vector3 previousPosition;
@@ -66,6 +69,14 @@ namespace MiCore2d
             _state.force = force;
         }
 
+
+        /// <summary>
+        /// ResetEffectTime.
+        /// </summary>
+        public void ResetEffectTime()
+        {
+            _state.effectTime = 0.0f;
+        }
  
         /// <summary>
         /// UpdateComponent. called by game engine.
