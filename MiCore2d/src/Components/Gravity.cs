@@ -1,7 +1,5 @@
 #nullable disable warnings
 using OpenTK.Mathematics;
-using System.Collections;
-using System.Collections.Specialized;
 
 namespace MiCore2d
 {
@@ -13,12 +11,14 @@ namespace MiCore2d
         public Vector3 previousPosition;
         public float effectTime;
         public Vector3 force;
+        public float gravityMobility;
 
-        public GravityState(Vector3 _pos, float _effectTime, Vector3 _force)
+        public GravityState(Vector3 _pos, float _effectTime, Vector3 _force, float _mobility)
         {
             previousPosition = _pos;
             effectTime = _effectTime;
             force = _force;
+            gravityMobility = _mobility;
         }
     }
 
@@ -42,7 +42,7 @@ namespace MiCore2d
         /// </summary>
         public Gravity()
         {
-            _state = new GravityState(Vector3.Zero, 0.0f, Vector3.Zero);
+            _state = new GravityState(Vector3.Zero, 0.0f, Vector3.Zero, 0.0f);
         }
 
         /// <summary>
@@ -68,15 +68,6 @@ namespace MiCore2d
         {
             _state.force = force;
         }
-
-
-        /// <summary>
-        /// ResetEffectTime.
-        /// </summary>
-        public void ResetEffectTime()
-        {
-            _state.effectTime = 0.0f;
-        }
  
         /// <summary>
         /// UpdateComponent. called by game engine.
@@ -85,7 +76,11 @@ namespace MiCore2d
         public override void UpdateComponent(double elapsed)
         {
             Vector3 currentPosition = element.Position;
-            if (element.Position.Y >= _state.previousPosition.Y)
+            Vector3 diffPosition = currentPosition - _state.previousPosition;
+            float actualMobility = MathF.Abs(diffPosition.Y);
+
+            //Log.Debug($"{actualMobility}, {_state.gravityMobility}");
+            if (MathF.Round(actualMobility, 5, MidpointRounding.AwayFromZero) < MathF.Round(_state.gravityMobility, 5, MidpointRounding.AwayFromZero))
             {
                 _state.effectTime = 0.0f;
             }
@@ -138,6 +133,7 @@ namespace MiCore2d
             float mobility = _state.effectTime * _gravity * GravityEmulationAdjust;
             element.AddPositionY(-mobility);
 
+            _state.gravityMobility = mobility;
             _state.previousPosition = currentPosition;
         }
 
