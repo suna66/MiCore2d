@@ -28,9 +28,15 @@ namespace Example.Collision
             plain.Alpha = 0.5f;
             plain.SetColor(1.0f, 0.0f, 0.0f);
             plain.RelationElement = awe;
+
+            BlankSprite blank = new BlankSprite(2);
+            blank.Position = new Vector3(-2.0f, -5.0f, 0.0f);
+            blank.AddComponent<BoxCollider>();
+
             AddElement("awe", awe);
             AddElement("awe0", awe0);
             AddElement("plain", plain);
+            AddElement("blank", blank);
         }
 
  
