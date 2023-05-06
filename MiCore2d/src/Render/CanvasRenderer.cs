@@ -28,8 +28,8 @@ namespace MiCore2d
             {
                 return;
             }
-            CanvasSprite sprite = (CanvasSprite)element;
-            sprite.Flush();
+            //CanvasSprite sprite = (CanvasSprite)element;
+            //sprite.Flush();
 
             Matrix4 model = (element.Rotation * Matrix4.CreateScale(element.Scale)) * Matrix4.CreateTranslation(element.Position);
 

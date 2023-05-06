@@ -57,10 +57,11 @@ namespace MiCore2d
             IntPtr pixels = bmp.GetPixels();
             if (pixels == IntPtr.Zero)
                 return;
-            GL.BindTexture(TextureTarget.Texture2D, Handle);
+            Bind();
             GL.TexSubImage2D(TextureTarget.Texture2D, 0,
               0, 0, bmp.Width, bmp.Height,
               PixelFormat.Rgba, PixelType.UnsignedByte, pixels);
+            UnBind();
         }
 
         /// <summary>

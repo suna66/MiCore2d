@@ -16,12 +16,13 @@ namespace Example.HelloWorld
         {
             ImageSprite awe = new ImageSprite("../resource/awesomeface.png", 3);
             
-            CanvasSprite can = new CanvasSprite(320, 240, 2);
-            can.Position = new Vector3(-2.0f, 0.0f, 0.0f);
+            CanvasSprite can = new CanvasSprite(1500, 240, 2);
+            can.Position = new Vector3(0.0f, -4.0f, 0.0f);
             SKCanvas skCanvas = can.GetCanvas();
             //skCanvas.Clear(new SKColor(0, 0, 255, 255));
-            CanvasUtil.Clear(skCanvas, CanvasUtil.Color(255, 0, 0, 125));
-            CanvasUtil.DrawString(skCanvas, 0, 0, "Hello", CanvasUtil.Color(0, 0, 0, 255), 50);
+            CanvasUtil.Clear(skCanvas, CanvasUtil.Color(0, 0, 0, 64));
+            CanvasUtil.DrawString(skCanvas, 0, 0, "Hello", CanvasUtil.Color(255, 255, 255, 255), 50);
+            can.Flush();
 
             PlainSprite rect = new PlainSprite(1);
             rect.Alpha = 0.4f;

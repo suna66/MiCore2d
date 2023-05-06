@@ -1,6 +1,7 @@
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using OpenTK.Mathematics;
 using MiCore2d;
+using System;
 
 namespace Example.Collision
 {
@@ -16,6 +17,7 @@ namespace Example.Collision
 
         public override void Load()
         {
+            Log.Debug(System.Reflection.Assembly.GetEntryAssembly().Location);
             awe0 = new ImageSprite("../resource/awesomeface.png", 2);
             awe0.AddComponent<BoxCollider>();
             awe0.AddComponent<Gravity>();
