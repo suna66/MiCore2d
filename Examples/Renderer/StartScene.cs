@@ -115,8 +115,8 @@ namespace Example.Renderer
             }
             if (renderType == 4)
             {
-                circleRenderer.Radius = MathF.Abs(MathF.Sin((float)CurrentTime) * 1.0f);
-                circleRenderer.Centor = new Vector2(MathF.Sin((float)CurrentTime) * 0.5f, MathF.Cos((float)CurrentTime) * 0.5f);
+                circleRenderer.Radius = MathF.Abs(MathF.Sin((float)CurrentTime) * 2.0f);
+                circleRenderer.Centor = new Vector2(MathF.Sin((float)CurrentTime) * 2.0f, MathF.Cos((float)CurrentTime) * 2.0f);
             }
             if (renderType == -1)
             {

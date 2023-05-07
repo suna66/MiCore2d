@@ -8,6 +8,7 @@ uniform sampler2D texture0;
 uniform vec2 r;
 uniform float radius;
 uniform vec2 centor;
+uniform float order;
 
 void main()
 {
@@ -17,13 +18,16 @@ void main()
   vec2 p = (texCoord * r) - point;
 
   float len = length(p);
-  if (len > radius)
-  {
-    outputColor = vec4(0.0, 0.0, 0.0, 0.0);
+  float alpha = len/radius;
+  if (alpha < 0.0) {
+    alpha = 0.0;
   }
-  else
-  {
-    float alpha = len/radius;
+  if (alpha > 1.0) {
+    alpha = 1.0;
+  }
+  if (order >= 0.0) {
     outputColor = mix(texture(texture0, texCoord), vec4(0.0, 0.0, 0.0, 0.0), alpha);
+  } else {
+    outputColor = mix(texture(texture0, texCoord), vec4(0.0, 0.0, 0.0, 0.0), 1.0 - alpha);
   }
 }
