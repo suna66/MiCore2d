@@ -15,7 +15,7 @@
   <ItemGroup>
     <PackageReference Include="NLayer" Version="1.14.0" />
     <PackageReference Include="NVorbis" Version="0.10.5" />
-    <PackageReference Include="OpenTK" Version="4.7.5" />
+    <PackageReference Include="OpenTK" Version="4.7.7" />
     <PackageReference Include="SkiaSharp" Version="2.88.3" />
     <PackageReference Include="StbImageSharp" Version="2.27.13" />
     <EmbeddedResource Include="resources/*" />
