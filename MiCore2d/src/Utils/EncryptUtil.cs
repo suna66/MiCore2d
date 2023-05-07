@@ -88,6 +88,36 @@ namespace MiCore2d
         }
 
         /// <summary>
+        /// EncryptFile.
+        /// </summary>
+        /// <param name="filename">new file name</param>
+        /// <param name="stream"></param>
+        /// <param name="iv">initialization vector</param>
+        /// <param name="key">encrypt key</param>
+        public static void EncryptFile(string filename, Stream stream, string iv, string key)
+        {
+            using (Aes aes = Aes.Create())
+            {
+                aes.BlockSize = 128;
+                aes.KeySize = 256;
+                aes.Mode = CipherMode.CBC;
+                aes.Padding = PaddingMode.PKCS7;
+
+                aes.IV = Encoding.UTF8.GetBytes(iv);
+                aes.Key = Encoding.UTF8.GetBytes(key);
+
+                ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
+                using (FileStream fileStream = new FileStream(filename, FileMode.CreateNew))
+                {
+                    using (CryptoStream ctStream = new CryptoStream(fileStream, encryptor, CryptoStreamMode.Write))
+                    {
+                        stream.CopyTo(ctStream);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// DecryptFile.
         /// </summary>
         /// <param name="path">file path</param>
@@ -112,11 +142,10 @@ namespace MiCore2d
 				{
                     using (CryptoStream ctStream = new CryptoStream(fstream, decryptor, CryptoStreamMode.Read))
 					{
-						MemoryStream stream = new MemoryStream();
+                        MemoryStream stream = new MemoryStream();
 						ctStream.CopyTo(stream);
 						return stream;
 					}
-
                 }
             }
         }
