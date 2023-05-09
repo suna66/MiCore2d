@@ -14,9 +14,14 @@ namespace MiCore2d
         protected Texture? texture = null;
 
         /// <summary>
-        /// position.
+        /// globalPosition.
         /// </summary>
-        protected Vector3 position = Vector3.Zero;
+        protected Vector3 globalPosition = Vector3.Zero;
+
+        /// <summary>
+        /// localPosition.
+        /// </summary>
+        protected Vector3 localPosition = Vector3.Zero;
 
         /// <summary>
         /// priviusePosition
@@ -115,11 +120,11 @@ namespace MiCore2d
         /// <value></value>
         public float AspectRatio {get; protected set; } = 1.0f;
 
-        /// <summary>
-        /// RelationElement
-        /// </summary>
-        /// <value></value>
-        public Element? RelationElement {get; set;} = null;
+        // /// <summary>
+        // /// RelationElement
+        // /// </summary>
+        // /// <value></value>
+        // public Element? RelationElement {get; set;} = null;
 
         /// <summary>
         /// RadianX
@@ -268,6 +273,15 @@ namespace MiCore2d
         }
 
         /// <summary>
+        /// GetComponentList
+        /// </summary>
+        /// <returns></returns>
+        public List<Component> GetComponentList()
+        {
+            return _componentList;
+        }
+
+        /// <summary>
         /// UpdateComponents. called this function from Scene.
         /// </summary>
         /// <param name="elapsed">elapsed time</param>
@@ -276,7 +290,7 @@ namespace MiCore2d
             if (Disabled)
                 return;
             
-            previousPosition = position;
+            previousPosition = Position;
             
             bool hasDestoryed = false;
             if (_componentList != null)
@@ -299,7 +313,7 @@ namespace MiCore2d
                     _componentList.RemoveAll(p => p.Destroyed == true);
                 }
             }
-            mobility = position - previousPosition;
+            mobility = Position - previousPosition;
         }
 
         /// <summary>
@@ -308,7 +322,9 @@ namespace MiCore2d
         /// <param name="e">target element</param>
         public void CopyPositions(Element e)
         {
-            position = e.Position;
+            //Position = e.Position;
+            GlobalPosition = e.GlobalPosition;
+            LocalPosition = e.LocalPosition;
             RadianX = e.RadianX;
             RadianY = e.RadianY;
             RadianZ = e.RadianZ;
@@ -321,29 +337,18 @@ namespace MiCore2d
         /// <value>position</value>
         public Vector3 Position
         {
-            get
-            {
-                if (RelationElement != null)
-                {
-                    return RelationElement.Position + position;
-                }
-                else
-                {
-                    return position;
-                }
+            get => globalPosition + localPosition;
+            set => globalPosition = value - localPosition;
+        }
 
-            }
-            set
-            {
-                if (RelationElement != null)
-                {
-                    position = value - RelationElement.Position;
-                }
-                else
-                {
-                    position = value;
-                }
-            }
+        /// <summary>
+        /// GlobalPosition.
+        /// </summary>
+        /// <value></value>
+        public Vector3 GlobalPosition
+        {
+            get => globalPosition;
+            set => globalPosition = value;
         }
 
         /// <summary>
@@ -352,59 +357,43 @@ namespace MiCore2d
         /// <value>local position</value>
         public Vector3 LocalPosition
         {
-            get => position;
-            set => position = value;
+            get => localPosition;
+            set => localPosition = value;
         }
 
-        /// <summary>
-        /// Position. 2D position.
-        /// </summary>
-        /// <value>position</value>
-        public Vector2 Position2d
-        {
-            get
-            {
-                if (RelationElement != null)
-                {
-                    Vector3 wpos = RelationElement.Position + position;
-                    return wpos.Xy;
-                }
-                else
-                {
-                    return position.Xy;
-                }
-            }
-            set
-            {
-                if (RelationElement != null)
-                {
-                    Vector3 wpos = new Vector3(value.X, value.Y, Position.Z);
-                    position = wpos - RelationElement.Position;
-                }
-                else
-                {
-                    position.X = value.X;
-                    position.Y = value.Y;
-                }
-            }
-        }
+        // /// <summary>
+        // /// Position. 2D position.
+        // /// </summary>
+        // /// <value>position</value>
+        // public Vector2 Position2d
+        // {
+        //     get
+        //     {
+        //         return Position.Xy;
+        //     }
+        //     set
+        //     {
+        //         globalPosition.X = value.X;
+        //         globalPosition.Y = value.Y;
+        //     }
+        // }
 
-        /// <summary>
-        /// LocalPosition2d
-        /// </summary>
-        /// <value>local position</value>
-        public Vector2 LocalPosition2d
-        {
-            get
-            {
-                return position.Xy;
-            }
-            set
-            {
-                position.X = value.X;
-                position.Y = value.Y;
-            }
-        }
+        // /// <summary>
+        // /// LocalPosition2d
+        // /// </summary>
+        // /// <value>local position</value>
+        // public Vector2 LocalPosition2d
+        // {
+        //     get
+        //     {
+        //         return localPosition.Xy;
+        //     }
+        //     set
+        //     {
+        //         localPosition.X = value.X;
+        //         localPosition.Y = value.Y;
+        //     }
+        // }
 
         /// <summary>
         /// SetPosition.
@@ -414,16 +403,19 @@ namespace MiCore2d
         /// <param name="z">position z</param>
         public void SetPosition(float x, float y, float z)
         {
-            if (RelationElement != null)
-            {
-                position = (new Vector3(x, y, z)) - RelationElement.Position;
-            }
-            else
-            {
-                position.X = x;
-                position.Y = y;
-                position.Z = z;
-            }
+            // if (RelationElement != null)
+            // {
+            //     position = (new Vector3(x, y, z)) - RelationElement.Position;
+            // }
+            // else
+            // {
+            //     position.X = x;
+            //     position.Y = y;
+            //     position.Z = z;
+            // }
+            globalPosition.X = x;
+            globalPosition.Y = y;
+            globalPosition.Z = z;
         }
 
         /// <summary>
@@ -432,7 +424,7 @@ namespace MiCore2d
         /// <param name="x">add position x</param>
         public void AddPositionX(float x)
         {
-            position.X += x;
+            globalPosition.X += x;
         }
     
         /// <summary>
@@ -441,7 +433,7 @@ namespace MiCore2d
         /// <param name="y">add position y</param>
         public void AddPositionY(float y)
         {
-            position.Y += y;
+            globalPosition.Y += y;
         }
 
         /// <summary>
@@ -450,7 +442,7 @@ namespace MiCore2d
         /// <param name="z">add position z</param>
         public void AddPositionZ(float z)
         {
-            position.Z += z;
+            globalPosition.Z += z;
         }
 
         /// <summary>
@@ -459,17 +451,17 @@ namespace MiCore2d
         /// <param name="pos">position</param>
         public void AddPosition(Vector3 pos)
         {
-            position += pos;
+            globalPosition += pos;
         }
 
-        /// <summary>
-        /// Mobility
-        /// </summary>
-        /// <value>vector3</value>
-        public Vector3 Mobility
-        {
-            get => mobility;
-        }
+        // /// <summary>
+        // /// Mobility
+        // /// </summary>
+        // /// <value>vector3</value>
+        // public Vector3 Mobility
+        // {
+        //     get => mobility;
+        // }
 
         /// <summary>
         /// Width
@@ -689,7 +681,7 @@ namespace MiCore2d
                     y = y * MathF.Cos(RadianX);
                     //y
                     x = x * MathF.Cos(RadianY);
-                    vertix[i++] = new Vector2(x + position.X, y + position.Y);
+                    vertix[i++] = new Vector2(x + Position.X, y + Position.Y);
                 }
                 return vertix;
             }

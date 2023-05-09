@@ -12,6 +12,7 @@ namespace Example.SceneChange
 
         public override void Start()
         {
+            element.AddComponent<RigidBody>();
             animation = element.AddComponent<AnimationTile>();
             animation.AddPattern("down", new int[] {0, 1, 2} );
             animation.AddPattern("left", new int[] {3, 4, 5} );
@@ -23,7 +24,7 @@ namespace Example.SceneChange
             element.AddComponent<BoxCollider>();
 
             fadeScript = gameScene.GetElement("fade").GetComponent<FadeScript>();
-            IsEnableCollsionDetect = true;
+            //IsEnableCollsionDetect = true;
         }
 
         public override void Update(double elapsed)
@@ -72,9 +73,9 @@ namespace Example.SceneChange
             }
         }
 
-        public override void OnEnterCollision(Element target)
+        public override void OnEnterCollision(CollisionInfo collision)
         {
-            if (target.Name == "awe")
+            if (collision.target.Name == "awe")
             {
                 animation.StopAnimation = true;
                 fadeScript.SwitchScene(new NextScene());

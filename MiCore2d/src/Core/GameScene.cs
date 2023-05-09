@@ -139,7 +139,7 @@ namespace MiCore2d
             CurrentTime += elapsed;
             if (CameraTarget != null)
             {
-                _camera.SetPosition(CameraTarget.Position2d);
+                _camera.SetPosition(CameraTarget.Position.Xy);
             }
             Update(elapsed);
         }

@@ -64,6 +64,30 @@ namespace MiCore2d
         }
 
         /// <summary>
+        /// OnEnterCollision.
+        /// </summary>
+        /// <param name="collisionInfo"></param>
+        public virtual void OnEnterCollision(CollisionInfo collisionInfo)
+        {
+        }
+
+        /// <summary>
+        /// OnStayCollision.
+        /// </summary>
+        /// <param name="collisionInfo"></param>
+        public virtual void OnStayCollision(CollisionInfo collisionInfo)
+        {
+        }
+
+        /// <summary>
+        /// OnLeaveCollision.
+        /// </summary>
+        /// <param name="target"></param>
+        public virtual void OnLeaveCollision(Element target)
+        {
+        }
+
+        /// <summary>
         /// Dispose.
         /// </summary>
         public virtual void Dispose()

@@ -49,7 +49,7 @@ namespace MiCore2d
         /// GravityElulationAdjust
         /// </summary>
         /// <value>float</value>
-        public float GravityEmulationAdjust {get; set;} = 0.03f;
+        public float GravityEmulationAdjust {get; set;} = 0.001f;
 
         /// <summary>
         /// SetGravity

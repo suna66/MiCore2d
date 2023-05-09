@@ -22,9 +22,10 @@ namespace Example.Animation
 
             body = gameScene.GetElement("awe").GetComponent<HardBody>();
             BoxCollider collider = element.AddComponent<BoxCollider>();
+            element.AddComponent<RigidBody>();
             collider.ArrangePosition = new Vector3(0.0f, -0.25f, 0.0f);
             collider.HeightUnit = 0.5f;
-            IsEnableCollsionDetect = true;
+            //IsEnableCollsionDetect = true;
         }
 
         public override void Update(double elapsed)

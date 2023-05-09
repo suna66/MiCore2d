@@ -16,8 +16,10 @@ namespace Example.TileMap
             _animation = element.GetComponent<AnimationTile>();
             _animation.Interval = 0.05f;
             element.Disabled = true;
-            IsEnableCollsionDetect = true;
-            TargetLayer.Add("enemy");
+            RigidBody body = element.AddComponent<RigidBody>();
+            body.TargetLayer.Add("enemy");
+            //IsEnableCollsionDetect = true;
+            //TargetLayer.Add("enemy");
         }
 
         public override void Update(double elapsed)
@@ -42,17 +44,17 @@ namespace Example.TileMap
             _animation.RestartAnimation(true);
         }
 
-        public override void OnEnterCollision(Element target)
+        public override void OnEnterCollision(CollisionInfo collision)
         {
             if (element.Disabled)
             {
                 return;
             }
-            if (target.Name == "awe")
+            if (collision.target.Name == "awe")
             {
-                target.Disabled = true;
+                collision.target.Disabled = true;
                 Element explosion = gameScene.GetElement("explosion");
-                explosion.Position = target.Position;
+                explosion.Position = collision.target.Position;
                 explosion.Disabled = false;
                 AnimationTile animation = explosion.GetComponent<AnimationTile>();
                 animation.Interval = 0.1f;

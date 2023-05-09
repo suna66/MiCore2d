@@ -18,7 +18,8 @@ namespace Example.TileMap
             animation.AddPattern("up", new int[] {9, 10, 11} );
             animation.SwitchPattern("down");
             element.AddComponent<BoxCollider>();
-            IsEnableCollsionDetect = true;
+            element.AddComponent<RigidBody>();
+            //IsEnableCollsionDetect = true;
         }
 
         public override void Update(double elapsed)
@@ -70,7 +71,7 @@ namespace Example.TileMap
             }
         }
 
-        public override void OnEnterCollision(Element target)
+        public override void OnEnterCollision(CollisionInfo collision)
         {
         }
     }
