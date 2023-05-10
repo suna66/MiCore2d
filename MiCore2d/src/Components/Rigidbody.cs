@@ -10,6 +10,16 @@ namespace MiCore2d
     public class RigidBody : Component
     {
         /// <summary>
+        /// _gravity.
+        /// </summary>
+        private float _gravity = 1.0f;
+
+        /// <summary>
+        /// effect state.
+        /// </summary>
+        private GravityState _state;
+
+        /// <summary>
         /// TargetLayer.
         /// </summary>
         /// <value></value>
@@ -20,6 +30,33 @@ namespace MiCore2d
         /// </summary>
         public RigidBody()
         {
+            _state = new GravityState(0.0f, 0.0f, Vector3.Zero, 0.0f);
+        }
+
+        /// <summary>
+        /// GravityElulationAdjust
+        /// </summary>
+        /// <value>float</value>
+        public float GravityEmulationAdjust {get; set;} = 0.016f;
+
+
+        /// <summary>
+        /// Gravity
+        /// </summary>
+        /// <value></value>
+        public float Gravity
+        {
+            get => _gravity;
+            set => _gravity = value;
+        }
+
+        /// <summary>
+        /// AddForce. add force to element once.
+        /// </summary>
+        /// <param name="force"></param>
+        public void AddForce(Vector3 force)
+        {
+            _state.force = force;
         }
 
         /// <summary>
@@ -28,7 +65,8 @@ namespace MiCore2d
         /// <param name="elapsed">elpased time of frame.</param>
         public override void UpdateComponent(double elapsed)
         {
-            CollisionDetector();
+            gravityMotion(elapsed);
+            collisionDetector();
         }
 
         /// <summary>
@@ -42,9 +80,82 @@ namespace MiCore2d
         }
 
         /// <summary>
+        /// gravity
+        /// </summary>
+        /// <param name="elpsed"></param>
+        protected void gravityMotion(double elapsed)
+        {
+            if (_gravity == 0.0f)
+            {
+                return;
+            }
+            if (_state.force.X != 0.0f || _state.force.Y != 0.0f)
+            {
+                element.AddPosition(_state.force * GravityEmulationAdjust);
+                _state.inertiaTime += (float)elapsed;
+                if (_state.force.X != 0.0f)
+                {
+                    float direct = _state.force.X;
+                    _state.force.X -= _state.inertiaTime * GravityEmulationAdjust * _gravity;
+                    if (direct > 0.0f)
+                    {
+                        if (_state.force.X <= 0.0f)
+                        {
+                            _state.force.X = 0.0f;
+                            _state.inertiaTime = 0.0f;
+                        }
+                    }
+                    else
+                    {
+                        if (_state.force.X >= 0.0f)
+                        {
+                            _state.force.X = 0.0f;
+                            _state.inertiaTime = 0.0f;
+                        }
+                    }
+           
+                }
+                if (_state.force.Y != 0.0f)
+                {
+                    float direct = _state.force.Y;
+                    _state.force.Y -= _state.inertiaTime * GravityEmulationAdjust * _gravity;
+                    if (direct > 0.0f)
+                    {
+                        if (_state.force.Y <= 0.0f)
+                        {
+                            _state.force.Y = 0.0f;
+                            _state.inertiaTime = 0.0f;
+                        }
+                    }
+                    else
+                    {
+                        if (_state.force.Y >= 0.0f)
+                        {
+                            _state.force.Y = 0.0f;
+                            _state.inertiaTime = 0.0f;
+                        }
+                    }
+                }
+                _state.fallingTime = 0.0f;
+            }
+            float mobility = _state.fallingTime * _gravity * GravityEmulationAdjust;
+            element.AddPositionY(-mobility);
+            _state.fallingTime += (float)elapsed;
+
+            _state.gravityMobility = mobility;
+        }
+
+        private void clearGravityMotion()
+        {
+            _state.fallingTime = 0.0f;
+            _state.inertiaTime = 0.0f;
+            _state.force = Vector3.Zero;
+        }
+
+        /// <summary>
         /// CollisionDetector.
         /// </summary>
-        public void CollisionDetector()
+        protected void collisionDetector()
         {
             Collider collider = getCollider(element);
             if (collider == null)
@@ -96,6 +207,7 @@ namespace MiCore2d
                             if (target_collider.IsSolid)
                             {
                                 OnSolidCollision(collider, target_collider, collidedTargetPosition);
+                                clearGravityMotion();
                             }
                         }
                         else

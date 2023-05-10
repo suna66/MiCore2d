@@ -7,12 +7,12 @@ namespace Example.Collision
 {
     public class PlayerScript : Controller
     {
-        private Gravity? gravity;
+        private RigidBody? rbody;
         private float _timeout = 0.0f;
         public override void Start()
         {
             //IsEnableCollsionDetect = true;
-            gravity = element.GetComponent<Gravity>();
+            rbody = element.GetComponent<RigidBody>();
         }
 
         public override void Update(double elapsed)
@@ -39,7 +39,7 @@ namespace Example.Collision
             {
                 if (_timeout < 0.0f)
                 {
-                    gravity.AddForce(new Vector3(0.0f, 1.0f, 0.0f));
+                    rbody.AddForce(new Vector3(0.0f, 1.0f, 0.0f));
                 }
                 _timeout = 0.1f;
             }
