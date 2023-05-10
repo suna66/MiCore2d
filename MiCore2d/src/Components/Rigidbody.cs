@@ -5,7 +5,7 @@ using System.Collections;
 namespace MiCore2d
 {
     /// <summary>
-    /// Controller. Base class of controller of element.
+    /// RigidBody.
     /// </summary>
     public class RigidBody : Component
     {

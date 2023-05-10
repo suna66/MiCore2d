@@ -361,40 +361,6 @@ namespace MiCore2d
             set => localPosition = value;
         }
 
-        // /// <summary>
-        // /// Position. 2D position.
-        // /// </summary>
-        // /// <value>position</value>
-        // public Vector2 Position2d
-        // {
-        //     get
-        //     {
-        //         return Position.Xy;
-        //     }
-        //     set
-        //     {
-        //         globalPosition.X = value.X;
-        //         globalPosition.Y = value.Y;
-        //     }
-        // }
-
-        // /// <summary>
-        // /// LocalPosition2d
-        // /// </summary>
-        // /// <value>local position</value>
-        // public Vector2 LocalPosition2d
-        // {
-        //     get
-        //     {
-        //         return localPosition.Xy;
-        //     }
-        //     set
-        //     {
-        //         localPosition.X = value.X;
-        //         localPosition.Y = value.Y;
-        //     }
-        // }
-
         /// <summary>
         /// SetPosition.
         /// </summary>
@@ -403,16 +369,6 @@ namespace MiCore2d
         /// <param name="z">position z</param>
         public void SetPosition(float x, float y, float z)
         {
-            // if (RelationElement != null)
-            // {
-            //     position = (new Vector3(x, y, z)) - RelationElement.Position;
-            // }
-            // else
-            // {
-            //     position.X = x;
-            //     position.Y = y;
-            //     position.Z = z;
-            // }
             globalPosition.X = x;
             globalPosition.Y = y;
             globalPosition.Z = z;
@@ -453,15 +409,6 @@ namespace MiCore2d
         {
             globalPosition += pos;
         }
-
-        // /// <summary>
-        // /// Mobility
-        // /// </summary>
-        // /// <value>vector3</value>
-        // public Vector3 Mobility
-        // {
-        //     get => mobility;
-        // }
 
         /// <summary>
         /// Width

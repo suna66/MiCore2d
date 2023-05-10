@@ -17,10 +17,11 @@ namespace Example.Animation
             sprite.AddComponent<PlayerScript>();
 
             PlainSprite rect = new PlainSprite(1);
-            //rect.RelationElement = sprite;
-            rect.SetPosition(0.0f, 0.7f, 0.0f);
+            rect.LocalPosition = new Vector3(0.0f, 0.7f, 0.0f);
             rect.SetScaleY(0.2f);
             rect.SetColor(0.0f, 1.0f, 0.0f);
+            Tracking tracking = rect.AddComponent<Tracking>();
+            tracking.TargetElement = sprite;
 
             ImageSprite awe = new ImageSprite("../resource/awesomeface.png", 3);
             awe.SetPosition(0.0f, -3.0f, 0.0f);

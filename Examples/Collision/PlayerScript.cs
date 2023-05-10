@@ -12,7 +12,7 @@ namespace Example.Collision
         public override void Start()
         {
             //IsEnableCollsionDetect = true;
-            //gravity = element.GetComponent<Gravity>();
+            gravity = element.GetComponent<Gravity>();
         }
 
         public override void Update(double elapsed)
@@ -37,11 +37,11 @@ namespace Example.Collision
             }
             if (input.IsKeyDown(Keys.Space))
             {
-                // if (_timeout < 0.0f)
-                // {
-                //     gravity.AddForce(new Vector3(0.0f, 6.0f, 0.0f));
-                // }
-                // _timeout = 0.1f;
+                if (_timeout < 0.0f)
+                {
+                    gravity.AddForce(new Vector3(0.0f, 1.0f, 0.0f));
+                }
+                _timeout = 0.1f;
             }
             _timeout -= (float)elapsed;
         }
