@@ -29,7 +29,7 @@ namespace MiCore2d
         /// IsTrigger. calling trigger function when collided element.
         /// </summary>
         /// <value>true: calling trigger function, false: not</value>
-        public bool IsTrigger {get; set;} = false;
+        public bool IsTrigger {get; set;} = true;
 
         /// <summary>
         /// WidthUnit. element size from origin.

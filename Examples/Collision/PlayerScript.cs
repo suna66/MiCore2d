@@ -46,14 +46,20 @@ namespace Example.Collision
             _timeout -= (float)elapsed;
         }
 
-        // public override void OnEnterCollision(Element target)
+        // public override void OnEnterCollision(CollisionInfo collisionInfo)
         // {
-        //     target.Alpha = 0.4f;
+        //     Log.Debug("OnEnterCollision");
+        // }
+
+        // public override void OnStayCollision(CollisionInfo collisionInfo)
+        // {
+        //     Log.Debug("OnStayCollision");
         // }
 
         // public override void OnLeaveCollision(Element target)
         // {
-        //     target.Alpha = 1.0f;
+        //     Log.Debug("OnLeaveCollision");
         // }
+
     }
 }
