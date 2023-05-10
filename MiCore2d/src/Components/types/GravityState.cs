@@ -7,13 +7,15 @@ namespace MiCore2d
     /// </summary>
     public struct GravityState
     {
-        public float effectTime;
+        public float fallingTime;
+        public float inertiaTime;
         public Vector3 force;
         public float gravityMobility;
 
-        public GravityState(float _effectTime, Vector3 _force, float _mobility)
+        public GravityState(float _fallingTime, float _inertiaTime, Vector3 _force, float _mobility)
         {
-            effectTime = _effectTime;
+            fallingTime = _fallingTime;
+            inertiaTime = _inertiaTime;
             force = _force;
             gravityMobility = _mobility;
         }

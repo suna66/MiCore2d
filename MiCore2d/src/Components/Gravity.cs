@@ -23,14 +23,14 @@ namespace MiCore2d
         /// </summary>
         public Gravity()
         {
-            _state = new GravityState(0.0f, Vector3.Zero, 0.0f);
+            _state = new GravityState(0.0f, 0.0f, Vector3.Zero, 0.0f);
         }
 
         /// <summary>
         /// GravityElulationAdjust
         /// </summary>
         /// <value>float</value>
-        public float GravityEmulationAdjust {get; set;} = 0.01f;
+        public float GravityEmulationAdjust {get; set;} = 0.016f;
 
         /// <summary>
         /// SetGravity
@@ -59,15 +59,17 @@ namespace MiCore2d
             if (_state.force.X != 0.0f || _state.force.Y != 0.0f)
             {
                 element.AddPosition(_state.force * GravityEmulationAdjust);
+                _state.inertiaTime += (float)elapsed;
                 if (_state.force.X != 0.0f)
                 {
                     float direct = _state.force.X;
-                    _state.force.X -= (float)elapsed * 2.0f * _gravity;
+                    _state.force.X -= _state.inertiaTime * GravityEmulationAdjust * _gravity;
                     if (direct > 0.0f)
                     {
                         if (_state.force.X <= 0.0f)
                         {
                             _state.force.X = 0.0f;
+                            _state.inertiaTime = 0.0f;
                         }
                     }
                     else
@@ -75,6 +77,7 @@ namespace MiCore2d
                         if (_state.force.X >= 0.0f)
                         {
                             _state.force.X = 0.0f;
+                            _state.inertiaTime = 0.0f;
                         }
                     }
            
@@ -82,12 +85,13 @@ namespace MiCore2d
                 if (_state.force.Y != 0.0f)
                 {
                     float direct = _state.force.Y;
-                    _state.force.Y -= (float)elapsed * 2.0f * _gravity;
+                    _state.force.Y -= _state.inertiaTime * GravityEmulationAdjust * _gravity;
                     if (direct > 0.0f)
                     {
                         if (_state.force.Y <= 0.0f)
                         {
                             _state.force.Y = 0.0f;
+                            _state.inertiaTime = 0.0f;
                         }
                     }
                     else
@@ -95,14 +99,15 @@ namespace MiCore2d
                         if (_state.force.Y >= 0.0f)
                         {
                             _state.force.Y = 0.0f;
+                            _state.inertiaTime = 0.0f;
                         }
                     }
                 }
-                _state.effectTime = 0.0f;
+                _state.fallingTime = 0.0f;
             }
-            float mobility = _state.effectTime * _gravity * GravityEmulationAdjust;
+            float mobility = _state.fallingTime * _gravity * GravityEmulationAdjust;
             element.AddPositionY(-mobility);
-            _state.effectTime += (float)elapsed;
+            _state.fallingTime += (float)elapsed;
 
             _state.gravityMobility = mobility;
         }
@@ -113,7 +118,9 @@ namespace MiCore2d
         /// <param name="collisionInfo"></param>
         public override void OnEnterCollision(CollisionInfo collisionInfo)
         {
-            _state.effectTime = 0.0f;
+            _state.fallingTime = 0.0f;
+            _state.inertiaTime = 0.0f;
+            _state.force = Vector3.Zero;
         }
 
         /// <summary>
@@ -122,7 +129,9 @@ namespace MiCore2d
         /// <param name="collisionInfo"></param>
         public override void OnStayCollision(CollisionInfo collisionInfo)
         {
-            _state.effectTime = 0.0f;
+            _state.fallingTime = 0.0f;
+            _state.inertiaTime = 0.0f;
+            _state.force = Vector3.Zero;
         }
 
         /// <summary>
